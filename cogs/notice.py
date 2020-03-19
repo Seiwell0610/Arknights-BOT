@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class Member(commands.Cog):
+class Notice(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -16,3 +16,6 @@ class Member(commands.Cog):
             directly = message.content.split()[2]
             embed = discord.Embed(title=f"{title}", description=f"{directly}", color=discord.Color.blue())
             await channel.send(embed=embed)
+
+def setup(bot):
+    bot.add_cog(Notice(bot))
