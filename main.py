@@ -4,8 +4,6 @@ import asyncio
 import traceback
 from discord.ext import commands
 
-client = discord.Client
-
 with open('setting.json', mode='r', encoding='utf-8') as fh:
     json_txt = fh.read()
     json_txt = str(json_txt).replace("'", '"').replace('True', 'true').replace('False', 'false')
@@ -28,7 +26,7 @@ class MyBot(commands.Bot):
         self.remove_command('help')
 
     async def on_ready(self):
-        for extension in ["info", "main_cog", "sub_cog", "notice", "eval"]:
+        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
