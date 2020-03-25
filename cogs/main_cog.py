@@ -2,8 +2,6 @@ import discord
 import pandas as pd
 from discord.ext import commands
 
-client = discord.Client()
-
 class Member(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -29,8 +27,14 @@ class Member(commands.Cog):
                 embed = discord.Embed(title=f"{name}のデータ:", color=0x0096ff)
                 for key in name_df.keys()[1:12]:
                     embed.add_field(name=f"{key}", value=f"{name_df[key].iloc[0]}", inline=True)
-                embed.add_field(name=f"リンク", value=f"{wiki_link}", inline=True)
+                embed.add_field(name=f"リンク", value=f"[詳細はこちら](<{wiki_link}>)", inline=True)
                 await message.channel.send(embed=embed)
+        if message.content.startswith(f"{p}server_join "):
+            channel = self.bot.get_channel(689987791127576753)
+            men = message.content.split()[1]
+            embed = discord.Embed(title="サーバー新規参加",
+                                  description=f"<@{men}>さん\nよろしくお願いします！！！\nこのサーバーのことを拡散・宣伝してもらえると嬉しいです:sunglasses:")
+            await channel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Member(bot))
