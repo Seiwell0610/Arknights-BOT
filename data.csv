@@ -11,11 +11,13 @@
 シャイニング,医療,6,854,180,60,0,遅い,18,1,遅い,遠距離/治療/支援,http://bit.do/Arknights_Syainingu
 ナイチンゲール,医療,6,796,132,80,5,遅い,16,1,遅い,遠距離/治療/支援,http://bit.do/Arknights_Naitinge-ru
 アンジェリーナ,補助,6,629,228,53,15,遅い,14,1,遅い,遠距離/減速/火力/支援,http://bit.do/Arknights_Anzyeri-na
+マゼラン,補助,6,495,211,60,15,遅い,10,1,やや遅い,遠距離/支援/減速/火力,None
 テキサス,先鋒,5,727,203,139,0,遅い,11,2,中,近距離/COST回復/牽制,http://bit.do/Arknights_Tekisasu
 ズィマー,先鋒,5,812,183,147,0,遅い,11,2,中,近距離/COST回復/支援,http://bit.do/Arknights_Zuxima
 グラニ,先鋒,5,877,235,166,0,遅い,12,1,速い,近距離/COST回復/防御,http://bit.do/Arknights_Gurani
 インドラ,前衛,5,1071,208,151,0,遅い,11,1,非常に速い,近距離/火力/生存,http://bit.do/Arknights_Indora
 フランカ,前衛,5,1386,382,105,0,遅い,16,1,やや遅い,近距離/火力/生存,http://bit.do/Arknights_Huranka
+エンカク,前衛,5,1423,378,86,0,遅い,18,1,やや遅い,None,None
 サベージ,前衛,5,1108,284,135,0,遅い,18,2,中,近距離/範囲攻撃/爆発力,http://bit.do/Arknights_Sabe-zi
 スペクター,前衛,5,1199,293,150,0,遅い,19,2,中,近距離/範囲/生存,http://bit.do/Arknights_Supekuta
 スワイヤー,前衛,5,703,261,193,0,遅い,14,2,中,近距離/火力/支援,http://bit.do/Arknights_Suwaiya
@@ -29,6 +31,7 @@
 メテオリーテ,狙撃,5,770,394,59,0,遅い,24,1,遅い,遠距離/範囲/弱化,http://bit.do/Arknights_Meteori-te
 プロヴァンス,狙撃,5,716,332,81,0,遅い,15,1,やや遅い,遠距離/火力,http://bit.do/Arknights_Purovansu
 ファイヤーウォッチ,狙撃,5,714,486,63,0,遅い,19,1,遅い,遠距離/火力/爆発力,http://bit.do/Arknights_Faiya-whotti
+イグゼキュター,狙撃,5,1035,327,100,0,遅い,28,1,遅い,None,None
 アーミヤ,術師,5,699,276,48,10,遅い,18,1,やや遅い,遠距離/火力,http://bit.do/Arknights_A-miya
 ナイトメア,術師,5,542,223,44,15,遅い,18,1,やや遅い,遠距離/火力/治療/減速,http://bit.do/Arknights_Naitomea
 スカイフレア,術師,5,686,332,48,10,遅い,30,1,遅い,遠距離/範囲攻撃/牽制,http://bit.do/Arknights_Sukaihurea
@@ -57,6 +60,7 @@
 グム,重装,4,1059,179,234,10,遅い,16,2,中,近距離/防御/治療,http://bit.do/Arknights_Gumu
 ジェシカ,狙撃,4,604,163,54,0,遅い,10,1,速い,遠距離/火力/生存,http://bit.do/Arknights_Zyesika
 メテオ,狙撃,4,612,159,58,None,遅い,10,1,速い,遠距離/火力/弱化,http://bit.do/Arknights_Meteo
+ヴァーミル,狙撃,4,550,166,57,0,遅い,10,1,速い,None,None
 シラユキ,狙撃,4,834,347,51,0,遅い,23,1,遅い,遠距離/範囲/減速,http://bit.do/Arknights_Sirayuki
 ヘイズ,術師,4,619,253,42,10,遅い,17,1,やや遅い,遠距離/火力/弱化,http://bit.do/Arknights_Heizu
 ギターノ,術師,4,622,303,47,10,遅い,29,1,遅い,遠距離/範囲,http://bit.do/Arknights_Gita-no
