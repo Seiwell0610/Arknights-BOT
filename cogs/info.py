@@ -28,6 +28,7 @@ class Help(commands.Cog):
         embed = discord.Embed(title="このBOTで使用できる機能:", color=0x942192)
         embed.add_field(name="[コマンド] ;info", value="招待リンクや応答速度などこのBOTの概要について表示します。", inline=False)
         embed.add_field(name="[コマンド] ;cs", value="指定されたキャラクターの主なステータスとwikiへのリンクを表示します。", inline=False)
+        embed.add_field(name="[コマンド] ;通知", value="一度送信すると通知されるようになります。\nまた、再度送信すると通知されなくなります。", inline=False)
         embed.add_field(name="[機能] グローバルチャット",
                         value="他のサーバーにこのBOTを入れ、「arknights-global」というチャンネル名で\n作成すると、グローバルチャットが使用できます", inline=False)
         return await ctx.send(embed=embed)
