@@ -23,5 +23,27 @@ class sub(commands.Cog):
             embed = discord.Embed(title="サーバーから退出", description=f"{member.mention}さんがサーバーから退出しました。",color=discord.Color.purple())
             await channel.send(embed=embed)
 
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        role = discord.utils.get(message.guild.roles, name='Notification')
+        if message.author.bot:
+            return
+        if message.content.startswith(f"{p}通知"):
+            if message.channel.id == 689263691669176426:
+                if role in message.author.roles:
+                    embed = discord.Embed(title="役職の剥奪", description=f"{message.author.mention}\n役職：`{role}`を剥奪しました。",
+                                          color=discord.Color.dark_blue())
+                    await message.channel.send(embed=embed)
+                    await message.author.remove_roles(role)
+                else:
+                    embed = discord.Embed(title="役職の追加", description=f"{message.author.mention}\n役職：`{role}`を付与しました。",
+                                          color=discord.Color.dark_blue())
+                    await message.channel.send(embed=embed)
+                    await message.author.add_roles(role)
+            else:
+                embed = discord.Embed(title="エラー", description="このチャンネルでは、このコマンドは実行できません。",
+                                      color=discord.Color.dark_red())
+                await message.channel.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(sub(bot))
