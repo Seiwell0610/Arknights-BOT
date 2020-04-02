@@ -35,7 +35,6 @@ class Member(commands.Cog):
     @commands.command(aliases=["addemoji", "aemoji"])
     @commands.has_permissions(manage_emojis=True)
     async def add_emoji(self, ctx, *, triger):
-        waiting = await ctx.send(f"{ctx.author.mention}\n絵文字を追加しています…")
         img = ctx.message.attachments[0]
         resize = False
         if len(await img.read()) >= 25600:
@@ -48,7 +47,7 @@ class Member(commands.Cog):
             msg = "絵文字を追加しました。"
             await ctx.guild.create_custom_emoji(name=triger, image=await img.read())
         else:
-            msg = "絵文字を追加しました。絵文字の容量がDiscordの制限を超えていたため、自動でリサイズしました。"
+            msg = "絵文字を追加しました。絵文字の容量がDiscordの制限を超えていたため、\n自動でリサイズしました。"
             await ctx.guild.create_custom_emoji(name=triger, image=bytesio.getvalue())
         embed = discord.Embed(title="完了！", description=f"{ctx.author.mention}\n{msg}", color=discord.Color.blue())
         await ctx.send(embed=embed)
