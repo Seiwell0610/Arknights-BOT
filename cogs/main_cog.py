@@ -44,10 +44,10 @@ class Member(commands.Cog):
             img_resize.save(bytesio, format="PNG")
             resize = True
         if resize == False:
-            msg = "絵文字を追加しました。"
+            msg = "カスタム絵文字を追加しました。"
             await ctx.guild.create_custom_emoji(name=triger, image=await img.read())
         else:
-            msg = "絵文字を追加しました。絵文字の容量がDiscordの制限を超えていたため、\n自動でリサイズしました。"
+            msg = "カスタム絵文字を追加しました。絵文字の容量がDiscordの制限を超えていたため、\n自動でリサイズしました。"
             await ctx.guild.create_custom_emoji(name=triger, image=bytesio.getvalue())
         embed = discord.Embed(title="完了！", description=f"{ctx.author.mention}\n{msg}", color=discord.Color.blue())
         await ctx.send(embed=embed)
