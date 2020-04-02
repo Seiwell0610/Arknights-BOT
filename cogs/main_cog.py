@@ -1,5 +1,7 @@
 import discord
 import pandas as pd
+from PIL import Image
+import io
 from discord.ext import commands
 
 class Member(commands.Cog):
@@ -13,7 +15,7 @@ class Member(commands.Cog):
         if message.author.bot:
             return
 
-        if message.content.startswith(f"{p}cs "):
+        if message.content.startswith(f"{p}s "):
             data = pd.read_csv("data.csv")
             name = message.content.split()[1]
             name_df = data.query('名前== @name')
@@ -29,12 +31,26 @@ class Member(commands.Cog):
                     embed.add_field(name=f"{key}", value=f"{name_df[key].iloc[0]}", inline=True)
                 embed.add_field(name=f"リンク", value=f"[詳細はこちら](<{wiki_link}>)", inline=True)
                 await message.channel.send(embed=embed)
-        if message.content.startswith(f"{p}server_join "):
-            channel = self.bot.get_channel(689987791127576753)
-            men = message.content.split()[1]
-            embed = discord.Embed(title="サーバー新規参加",
-                                  description=f"<@{men}>さん\nよろしくお願いします！！！\nこのサーバーのことを拡散・宣伝してもらえると嬉しいです:sunglasses:")
-            await channel.send(embed=embed)
+
+    @commands.command(aliases=["addemoji", "aemoji"])
+    @commands.has_permissions(manage_emojis=True)
+    async def add_emoji(self, ctx, *, triger):
+        waiting = await ctx.send(f"{ctx.author.mention}\n絵文字を追加しています…")
+        img = ctx.message.attachments[0]
+        resize = False
+        if len(await img.read()) >= 25600:
+            im = Image.open(io.BytesIO(await img.read()))
+            img_resize = im.resize((350, 350))
+            bytesio = io.BytesIO()
+            img_resize.save(bytesio, format="PNG")
+            resize = True
+        if resize == False:
+            msg = "絵文字を追加しました！"
+            await ctx.guild.create_custom_emoji(name=triger, image=await img.read())
+        else:
+            msg = "絵文字を追加しました！絵文字の容量がDiscordの制限を超えていたため、自動でリサイズしました！"
+            await ctx.guild.create_custom_emoji(name=triger, image=bytesio.getvalue())
+        await waiting.edit(content=f"{ctx.author.mention}\n{msg}")
 
 def setup(bot):
     bot.add_cog(Member(bot))
