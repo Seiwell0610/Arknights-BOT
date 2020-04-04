@@ -45,5 +45,16 @@ class sub(commands.Cog):
                                       color=discord.Color.dark_red())
                 await message.channel.send(embed=embed)
 
+        if message.content.startswith(";logout"):
+            if message.author.id == 343956207754805251:
+                await self.bot.logout()
+            else:
+                guild = message.guild
+                user = guild.get_member(343956207754805251)
+                embed = discord.Embed(title="権限エラー", description=f"このコマンドは、{user}のみが実行できます。",
+                                  color=discord.Color.red())
+                await message.channel.send(embed=embed)
+
+
 def setup(bot):
     bot.add_cog(sub(bot))
