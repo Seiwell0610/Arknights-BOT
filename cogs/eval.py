@@ -1,89 +1,66 @@
-from discord.ext import commands
-import discord
 import asyncio
+import io
 import traceback
 import textwrap
-from contextlib import redirect_stdout
-import io
-import subprocess
+import contextlib
+import json
+import glob
 
-class eval_commands(commands.Cog):
-    """Admin-only commands that make the bot dynamic."""
+from discord.ext import commands
+from discord import NotFound, Embed,  Forbidden
 
+admin_list = [343956207754805251]
+
+def cleanup_code(content):
+    if content.startswith('```') and content.endswith('```'):
+        return '\n'.join(content.split('\n')[1:-1])
+    return content.strip('` \n')
+
+def get_syntax_error(e):
+    if e.text is None:
+        return f'```py\n{e.__class__.__name__}: {e}\n```'
+    return f'```py\n{e.text}{"^":>{e.offset}}\n{e.__class__.__name__}: {e}```'
+
+def mention_to_user_id(mention):
+    user_id = mention.strip("<@").strip(">")
+    if user_id.find("!") != -1:
+        user_id = user_id.strip("!")
+    return int(user_id)
+
+class eval(commands.Cog): #ここのdebugはhelpの時に[{prefix}help コマンド名]としたときにこのファイルのコマンドが指定されたときにクラス名を取得するので変える場合はhelpの中も変えてください。
     def __init__(self, bot):
         self.bot = bot
         self._last_result = None
-        self.sessions = set()
 
-    async def run_process(self, command):
+    @commands.command(name='eval', pass_context=True, description="※運営専用コマンド")
+    @commands.bot_has_permissions(read_messages=True, send_messages=True, embed_links=True, add_reactions=True, manage_messages=True, read_message_history=True) #これ絶対消しちゃダメ
+    async def evals(self, ctx):
         try:
-            process = await asyncio.create_subprocess_shell(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            result = await process.communicate()
-        except NotImplementedError:
-            process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            result = await self.bot.loop.run_in_executor(None, process.communicate)
+            if ctx.author.id not in admin_list:
+                return await ctx.send("指定ユーザーのみが使用できます")
 
-        return [output.decode() for output in result]
-
-    def cleanup_code(self, content):
-        """Automatically removes code blocks from the code."""
-        # remove ```py\n```
-        if content.startswith('```') and content.endswith('```'):
-            return '\n'.join(content.split('\n')[1:-1])
-
-        # remove `foo`
-        return content.strip('` \n')
-
-    async def cog_check(self, ctx):
-        return await self.bot.is_owner(ctx.author)
-
-    def get_syntax_error(self, e):
-        if e.text is None:
-            return f'```py\n{e.__class__.__name__}: {e}\n```'
-        return f'```py\n{e.text}{"^":>{e.offset}}\n{e.__class__.__name__}: {e}```'
-
-
-    @commands.command(pass_context=True, hidden=True, name='eval')
-    async def _eval(self, ctx, *, body: str):
-        if ctx.author.id == 343956207754805251:
-            """Evaluates a code"""
-
-            env = {
-                'bot': self.bot,
-                'ctx': ctx,
-                'channel': ctx.channel,
-                'author': ctx.author,
-                'guild': ctx.guild,
-                'message': ctx.message,
-                '_': self._last_result
-            }
-
+            env = {'bot': self.bot, 'ctx': ctx, 'channel': ctx.channel, 'author': ctx.author, 'guild': ctx.guild, 'message': ctx.message, '_': self._last_result}
             env.update(globals())
-
-            body = self.cleanup_code(body)
+            body = cleanup_code(ctx.message.content[6:].lstrip())
             stdout = io.StringIO()
-
             to_compile = f'async def func():\n{textwrap.indent(body, "  ")}'
-
-            try:
+            try: # ERRORが起きるか起きないか。起きたらexceptに飛ばされる
                 exec(to_compile, env)
             except Exception as e:
                 return await ctx.send(f'```py\n{e.__class__.__name__}: {e}\n```')
-
             func = env['func']
-            try:
-                with redirect_stdout(stdout):
+            try: # ERRORが起きるか起きないか。起きたらexceptに飛ばされる
+                with contextlib.redirect_stdout(stdout):
                     ret = await func()
-            except Exception as e:
+            except Exception as _:
                 value = stdout.getvalue()
                 await ctx.send(f'```py\n{value}{traceback.format_exc()}\n```')
             else:
                 value = stdout.getvalue()
-                try:
+                try: # ERRORが起きるか起きないか。起きたらexceptに飛ばされる
                     await ctx.message.add_reaction('\u2705')
-                except:
+                except Exception:
                     pass
-
                 if ret is None:
                     if value:
                         await ctx.send(f'```py\n{value}\n```')
@@ -91,12 +68,10 @@ class eval_commands(commands.Cog):
                     self._last_result = ret
                     await ctx.send(f'```py\n{value}{ret}\n```')
 
-        else:
-            guild = ctx.guild
-            user = guild.get_member(343956207754805251)
-            embed = discord.Embed(title="権限エラー", description=f"このコマンドは、{user}のみが実行できます。",
-                                  color=discord.Color.red())
-            await ctx.channel.send(embed=embed)
+        except (NotFound, asyncio.TimeoutError, Forbidden): # 編集した際に文字が見つからなかった, wait_forの時間制限を超過した場合, メッセージに接続できなかった
+            return
+        except: # 上のERROR以外のERROR出た場合はtracebackで表示するようにしています。 上手くコマンドが反応しない場合はコンソールを見てね！
+            return print("エラー情報\n" + traceback.format_exc())
 
 def setup(bot):
-    bot.add_cog(eval_commands(bot))
+    bot.add_cog(eval(bot))

@@ -33,7 +33,6 @@ class Member(commands.Cog):
                 await message.channel.send(embed=embed)
 
     @commands.command(aliases=["addemoji", "aemoji"])
-    @commands.has_permissions(manage_emojis=True)
     async def add_emoji(self, ctx, *, triger):
         img = ctx.message.attachments[0]
         resize = False
