@@ -11,7 +11,7 @@ class dropbox(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @tasks.loop(seconds=15)
     async def upload(self, ctx):
         print("アップロード処理を開始")
         with open("data.csv", "rb") as f:
