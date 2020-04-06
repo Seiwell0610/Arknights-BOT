@@ -12,14 +12,6 @@ with open('setting.json', mode='r', encoding='utf-8') as fh:
     prefix = json.loads(json_txt)['prefix']
 loop = asyncio.new_event_loop()
 
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
-dbx = dropbox.Dropbox(dbxtoken)
-dbx.users_get_current_account()
-UPLOADPATH_LOCAL = "data.csv"
-UPLOADPATH_DBX = "/data.csv"
-
-
-
 async def run():
     bot = MyBot()
     try:
@@ -32,7 +24,6 @@ class MyBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=commands.when_mentioned_or(prefix), loop=loop)
         self.remove_command('help')
-        self.upload.start()
 
     async def on_ready(self):
         for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
@@ -54,14 +45,6 @@ class MyBot(commands.Bot):
 
     async def on_guild_remove(self, _):
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
-
-    @tasks.loop(seconds=15)
-    async def upload(self):
-        print("処理開始")
-        with open(UPLOADPATH_LOCAL, "rb") as f:
-            dbx.files_upload(f.read(), UPLOADPATH_DBX)
-        print("アップロード完了")
-
 
 if __name__ == '__main__':
     try:
