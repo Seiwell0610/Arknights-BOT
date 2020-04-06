@@ -55,11 +55,9 @@ class MyBot(commands.Bot):
     async def on_guild_remove(self, _):
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
 
-    def cog_unload(self):
-        self.upload.cancel()
-
     @tasks.loop(seconds=15)
     async def upload(self):
+        print("処理開始")
         with open(UPLOADPATH_LOCAL, "rb") as f:
             dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
         print("アップロード完了")
