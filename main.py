@@ -1,8 +1,9 @@
 import json
 import discord
+import dropbox
 import asyncio
 import traceback
-from discord.ext import commands
+from discord.ext import tasks, commands
 
 with open('setting.json', mode='r', encoding='utf-8') as fh:
     json_txt = fh.read()
@@ -10,6 +11,12 @@ with open('setting.json', mode='r', encoding='utf-8') as fh:
     token = json.loads(json_txt)['token']
     prefix = json.loads(json_txt)['prefix']
 loop = asyncio.new_event_loop()
+
+dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
+dbx = dropbox.Dropbox(dbxtoken)
+dbx.users_get_current_account()
+UPLOADPATH_LOCAL = "data.csv"
+UPLOADPATH_DBX = "/data.csv"
 
 
 async def run():
@@ -45,6 +52,15 @@ class MyBot(commands.Bot):
 
     async def on_guild_remove(self, _):
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
+
+    @tasks.loop(seconds=15)
+    async def upload(self):
+        with open(UPLOADPATH_LOCAL, "rb") as f:
+            dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
+        ch = self.bot.get_channel(696551344059973642)
+        await ch.send("``UPLOADED``")
+        f.close()
+    loop.start()
 
 if __name__ == '__main__':
     try:
