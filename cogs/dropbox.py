@@ -15,9 +15,9 @@ class dropbox(commands.Cog):
     async def upload(self, ctx):
         print("アップロード処理を開始")
         with open(UPLOADPATH_LOCAL, "rb") as f:
+            print("ファイルの読み込み完了")
             dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
-            ch = self.bot.get_channel(696551344059973642)
-            await ch.send("アップロード完了")
+            print("アップロード処理完了")
 
 def setup(bot):
     bot.add_cog(dropbox(bot))
