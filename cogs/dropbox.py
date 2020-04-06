@@ -10,11 +10,12 @@ UPLOADPATH_DBX = "/data.csv"
 class dropbox(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.upload.start()
 
-    @tasks.loop(seconds=30)
+    @tasks.loop(seconds=15)
     async def upload(self):
         with open(UPLOADPATH_LOCAL, "rb") as f:
-            dbx.files_upload(f.read(),UPLOADPATH_DBX,mode=dropbox.files.WriteMode.overwrite)
+            dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
         ch = self.bot.get_channel(696551344059973642)
         await ch.send("``UPLOADED``")
         f.close()
