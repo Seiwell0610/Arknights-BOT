@@ -13,6 +13,7 @@ class dropbox(commands.Cog):
 
     @commands.command()
     async def upload(self, ctx):
+        print("アップロード処理を開始")
         with open(UPLOADPATH_LOCAL, "rb") as f:
             dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
             ch = self.bot.get_channel(696551344059973642)
