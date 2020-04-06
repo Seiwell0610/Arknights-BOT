@@ -32,6 +32,7 @@ class MyBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=commands.when_mentioned_or(prefix), loop=loop)
         self.remove_command('help')
+        self.upload.start()
 
     async def on_ready(self):
         for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
@@ -39,7 +40,7 @@ class MyBot(commands.Bot):
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
                 self.reload_extension(f"cogs.{extension}")
-        self.upload.start()
+
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
 
     async def on_command_error(self, ctx, error1):
@@ -53,6 +54,9 @@ class MyBot(commands.Bot):
 
     async def on_guild_remove(self, _):
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
+
+    def cog_unload(self):
+        self.upload.cancel()
 
     @tasks.loop(seconds=15)
     async def upload(self):
