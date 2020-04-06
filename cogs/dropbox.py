@@ -10,14 +10,14 @@ UPLOADPATH_DBX = "/data.csv"
 class dropbox(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.upload.start()
 
     @tasks.loop(seconds=15)
-    async def upload(self, ctx):
-        print("アップロード処理を開始")
-        with open("data.csv", "rb") as f:
-            print("ファイルの読み込み完了")
-            dbx.files_upload(f.read(),UPLOADPATH_DBX)
-            print("アップロード処理完了")
+    async def upload(self):
+        print("処理開始")
+        with open(UPLOADPATH_LOCAL, "rb") as f:
+            dbx.files_upload(f.read(), UPLOADPATH_DBX)
+        print("アップロード完了")
 
 def setup(bot):
     bot.add_cog(dropbox(bot))
