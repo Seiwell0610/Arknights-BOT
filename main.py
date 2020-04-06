@@ -55,11 +55,13 @@ class MyBot(commands.Bot):
 
     @tasks.loop(seconds=15)
     async def upload(self):
+        print("処理中")
         with open(UPLOADPATH_LOCAL, "rb") as f:
             dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
         ch = self.bot.get_channel(696551344059973642)
         await ch.send("``UPLOADED``")
         f.close()
+    upload.start()
 
 if __name__ == '__main__':
     try:
