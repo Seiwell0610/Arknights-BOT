@@ -12,7 +12,7 @@ with open('setting.json', mode='r', encoding='utf-8') as fh:
     prefix = json.loads(json_txt)['prefix']
 loop = asyncio.new_event_loop()
 
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
+dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
 UPLOADPATH_LOCAL = "data.csv"
