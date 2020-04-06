@@ -1,7 +1,7 @@
 import dropbox
 from discord.ext import tasks, commands
 
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
+dbxtoken = "_Qobiq7UxdAAAAAAAAAAVXEgp3CYbh3sRgg63i-uJKWxMDyF2C7fPAqoKEdjk05A"
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
 UPLOADPATH_LOCAL = "data.csv"
