@@ -19,6 +19,7 @@ UPLOADPATH_LOCAL = "data.csv"
 UPLOADPATH_DBX = "/data.csv"
 
 
+
 async def run():
     bot = MyBot()
     try:
@@ -31,6 +32,7 @@ class MyBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=commands.when_mentioned_or(prefix), loop=loop)
         self.remove_command('help')
+        self.upload.start()
 
     async def on_ready(self):
         for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval", "dropbox"]:
@@ -55,13 +57,12 @@ class MyBot(commands.Bot):
 
     @tasks.loop(seconds=15)
     async def upload(self):
-        print("処理中")
         with open(UPLOADPATH_LOCAL, "rb") as f:
             dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
         ch = self.bot.get_channel(696551344059973642)
         await ch.send("``UPLOADED``")
         f.close()
-    upload.start()
+
 
 if __name__ == '__main__':
     try:
