@@ -35,7 +35,7 @@ class MyBot(commands.Bot):
         self.upload.start()
 
     async def on_ready(self):
-        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval", "dropbox"]:
+        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
@@ -59,7 +59,7 @@ class MyBot(commands.Bot):
     async def upload(self):
         print("処理開始")
         with open(UPLOADPATH_LOCAL, "rb") as f:
-            dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
+            dbx.files_upload(f.read(), UPLOADPATH_DBX)
         print("アップロード完了")
 
 
