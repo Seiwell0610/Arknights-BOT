@@ -60,7 +60,6 @@ class MyBot(commands.Bot):
         ch = self.bot.get_channel(696551344059973642)
         await ch.send("``UPLOADED``")
         f.close()
-    loop.start()
 
 if __name__ == '__main__':
     try:
