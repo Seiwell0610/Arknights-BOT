@@ -35,7 +35,7 @@ class MyBot(commands.Bot):
         self.upload.start()
 
     async def on_ready(self):
-        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
+        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval", "dropbox"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
