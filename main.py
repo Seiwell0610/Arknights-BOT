@@ -1,5 +1,6 @@
 import json
 import discord
+import dropbox
 import asyncio
 import traceback
 from discord.ext import tasks, commands
@@ -10,6 +11,12 @@ with open('setting.json', mode='r', encoding='utf-8') as fh:
     token = json.loads(json_txt)['token']
     prefix = json.loads(json_txt)['prefix']
 loop = asyncio.new_event_loop()
+
+dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
+dbx = dropbox.Dropbox(dbxtoken)
+dbx.users_get_current_account()
+UPLOADPATH_LOCAL = "data.csv"
+UPLOADPATH_DBX = "/data.csv"
 
 
 
@@ -25,9 +32,10 @@ class MyBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=commands.when_mentioned_or(prefix), loop=loop)
         self.remove_command('help')
+        self.upload.start()
 
     async def on_ready(self):
-        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval", "dropbox"]:
+        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
@@ -46,6 +54,12 @@ class MyBot(commands.Bot):
 
     async def on_guild_remove(self, _):
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
+
+    @tasks.loop(seconds=15)
+    async def upload(self):
+        with open(UPLOADPATH_LOCAL, "rb") as f:
+            dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
+        print("アップロード完了")
 
 
 if __name__ == '__main__':
