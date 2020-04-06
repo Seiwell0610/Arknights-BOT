@@ -14,7 +14,7 @@ class dropbox(commands.Cog):
     @commands.command()
     async def upload(self, ctx):
         print("アップロード処理を開始")
-        with open(UPLOADPATH_LOCAL, "rb") as f:
+        with open("data.csv", "rb") as f:
             print("ファイルの読み込み完了")
             dbx.files_upload(f.read(), UPLOADPATH_DBX, mode=dropbox.files.WriteMode.overwrite)
             print("アップロード処理完了")
