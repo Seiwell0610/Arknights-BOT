@@ -1,16 +1,8 @@
 import json
 import discord
-import dropbox
 import asyncio
 import traceback
 from discord.ext import tasks, commands
-
-with open('setting.json', mode='r', encoding='utf-8') as fh:
-    json_txt = fh.read()
-    json_txt = str(json_txt).replace("'", '"').replace('True', 'true').replace('False', 'false')
-    token = json.loads(json_txt)['token']
-    prefix = json.loads(json_txt)['prefix']
-loop = asyncio.new_event_loop()
 
 async def run():
     bot = MyBot()
@@ -26,7 +18,7 @@ class MyBot(commands.Bot):
         self.remove_command('help')
 
     async def on_ready(self):
-        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval", "dropbox"]:
+        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
