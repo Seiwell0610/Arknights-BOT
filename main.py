@@ -5,9 +5,18 @@ import asyncio
 import traceback
 from discord.ext import tasks, commands
 
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
+with open('setting.json', mode='r', encoding='utf-8') as fh:
+    json_txt = fh.read()
+    json_txt = str(json_txt).replace("'", '"').replace('True', 'true').replace('False', 'false')
+    token = json.loads(json_txt)['token']
+    prefix = json.loads(json_txt)['prefix']
+loop = asyncio.new_event_loop()
+
+dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
+UPLOADPATH_LOCAL = "data.csv"
+UPLOADPATH_DBX = "/data.csv"
 
 async def run():
     bot = MyBot()
@@ -21,6 +30,7 @@ class MyBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=commands.when_mentioned_or(prefix), loop=loop)
         self.remove_command('help')
+        self.upload.start()
 
     async def on_ready(self):
         for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
@@ -29,10 +39,11 @@ class MyBot(commands.Bot):
             except commands.ExtensionAlreadyLoaded:
                 self.reload_extension(f"cogs.{extension}")
 
-        with open("data.csv", "wb") as fh:
+        with open("data.csv", "wb") as f:
             metadata, res = dbx.files_download(path="/アプリ/discord_db/data.csv")
-            fh.write(res.content)
+            f.write(res.content)
             print("ダウンロード完了")
+
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
 
     async def on_command_error(self, ctx, error1):
