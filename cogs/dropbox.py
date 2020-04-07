@@ -12,12 +12,12 @@ class dropbox(commands.Cog):
         self.bot = bot
         self.upload.start()
 
-    @tasks.loop(seconds=15)
+    @tasks.loop(seconds=30)
     async def upload(self):
-        print("処理開始")
+        print("アップロード処理開始")
         with open(UPLOADPATH_LOCAL, "rb") as f:
             dbx.files_upload(f.read(), UPLOADPATH_DBX)
-        print("アップロード完了")
+        print("アップロード処理完了")
 
 def setup(bot):
     bot.add_cog(dropbox(bot))
