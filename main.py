@@ -1,8 +1,13 @@
 import json
 import discord
+import dropbox
 import asyncio
 import traceback
 from discord.ext import tasks, commands
+
+dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
+dbx = dropbox.Dropbox(dbxtoken)
+dbx.users_get_current_account()
 
 async def run():
     bot = MyBot()
@@ -24,6 +29,10 @@ class MyBot(commands.Bot):
             except commands.ExtensionAlreadyLoaded:
                 self.reload_extension(f"cogs.{extension}")
 
+        with open("data.csv", "wb") as fh:
+            metadata, res = dbx.files_download(path="/アプリ/discord_db/data.csv")
+            fh.write(res.content)
+            print("ダウンロード完了")
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
 
     async def on_command_error(self, ctx, error1):
