@@ -30,10 +30,9 @@ class MyBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=commands.when_mentioned_or(prefix), loop=loop)
         self.remove_command('help')
-        self.upload.start()
 
     async def on_ready(self):
-        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
+        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval", "dropbox"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
