@@ -39,10 +39,12 @@ class MyBot(commands.Bot):
         with open("channel_id.txt", "wb") as f:
             metadata, res = dbx.files_download(path="/channel_id.txt")
             f.write(res.content)
+            print("on_ready-channel_id.txtのダウンロード完了")
 
         with open("data.csv", "wb") as h:
             metadata, res = dbx.files_download(path="/data.csv")
             h.write(res.content)
+            print("on_ready-data,csvのダウンロード完了")
 
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
 
