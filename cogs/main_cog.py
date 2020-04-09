@@ -37,7 +37,7 @@ class Member(commands.Cog):
                 embed.add_field(name=f"リンク", value=f"[詳細はこちら](<{wiki_link}>)", inline=True)
                 await message.channel.send(embed=embed)
 
-        if message.content.startswith(f"{p}add_global")
+        if message.content.startswith(f"{p}add_global"):
             ch_id = message.channel.id
             with open("channel_id.txt", mode="a") as f:
                 f.write(ch_id + ", ")
