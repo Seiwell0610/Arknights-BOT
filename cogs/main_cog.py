@@ -41,7 +41,7 @@ class Member(commands.Cog):
             ch_id = (str(message.channel.id)) + ", "
             with open("channel_id.txt", mode="a") as f:
                 f.write(ch_id)
-            await message.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
+            await message.channel.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
             with open("channel_id.txt", "rb") as f:
                 dbx.files_upload(f.read(), "/channel_id.txt")
                 print("アップロード完了(channel_id)")
