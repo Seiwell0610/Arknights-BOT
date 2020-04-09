@@ -32,16 +32,15 @@ class MyBot(commands.Bot):
         self.remove_command('help')
 
     async def on_ready(self):
-        for extension in ["info", "sub_cog", "eval"]:
+        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval", "dropbox"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
                 self.reload_extension(f"cogs.{extension}")
 
-        with open("data.csv", "wb") as f:
-            metadata, res = dbx.files_download(path="/アプリ/discord_db/data.csv")
+        with open("channel_id.txt", "wb") as f:
+            metadata, res = dbx.files_download(path="/channel_id.txt")
             f.write(res.content)
-            print("ダウンロード完了")
 
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
 
