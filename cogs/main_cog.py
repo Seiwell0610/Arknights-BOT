@@ -38,9 +38,9 @@ class Member(commands.Cog):
                 await message.channel.send(embed=embed)
 
         if message.content.startswith(f"{p}add_global"):
-            ch_id = message.channel.id
+            ch_id = message.channel.id + ", "
             with open("channel_id.txt", mode="a") as f:
-                f.write(ch_id + ", ")
+                f.write(ch_id)
             await message.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
             with open("channel_id.txt", "rb") as f:
                 dbx.files_upload(f.read(), "/channel_id.txt")
