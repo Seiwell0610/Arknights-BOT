@@ -51,5 +51,12 @@ class Member(commands.Cog):
         embed = discord.Embed(title="完了！", description=f"{ctx.author.mention}\n{msg}", color=discord.Color.blue())
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def add_global(self, ctx):
+        ch_id = ctx.channel.id
+        with open("channel_id.txt", mode="a") as f:
+            f.write(ch_id + ", ")
+        await ctx.send(f"{ctx.author.mention}-> グローバルチャットに追加しました。 ")
+
 def setup(bot):
     bot.add_cog(Member(bot))
