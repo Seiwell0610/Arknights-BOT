@@ -37,6 +37,19 @@ class Member(commands.Cog):
                 embed.add_field(name=f"リンク", value=f"[詳細はこちら](<{wiki_link}>)", inline=True)
                 await message.channel.send(embed=embed)
 
+        if message.content.startswith(f"{p}add_global")
+            ch_id = message.channel.id
+            with open("channel_id.txt", mode="a") as f:
+                f.write(ch_id + ", ")
+            await message.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
+            with open("channel_id.txt", "rb") as f:
+                dbx.files_upload(f.read(), "/channel_id.txt")
+                print("アップロード完了(channel_id)")
+            with open("channel_id.txt", "wb") as f:
+                metadata, res = dbx.files_download(path="/channel_id.txt")
+                f.write(res.content)
+                print("更新完了")
+
     @commands.command(aliases=["addemoji", "aemoji"])
     async def add_emoji(self, ctx, *, triger):
         img = ctx.message.attachments[0]
@@ -56,19 +69,6 @@ class Member(commands.Cog):
         embed = discord.Embed(title="完了！", description=f"{ctx.author.mention}\n{msg}", color=discord.Color.blue())
         await ctx.send(embed=embed)
 
-    @commands.command()
-    async def add_global(self, ctx):
-        ch_id = ctx.channel.id
-        with open("channel_id.txt", mode="a") as f:
-            f.write(ch_id + ", ")
-        await ctx.send(f"{ctx.author.mention}-> グローバルチャットに追加しました。 ")
-        with open("channel_id.txt", "rb") as f:
-            dbx.files_upload(f.read(), "/channel_id.txt")
-            print("アップロード完了(channel_id)")
-        with open("channel_id.txt", "wb") as f:
-            metadata, res = dbx.files_download(path="/channel_id.txt")
-            f.write(res.content)
-            print("更新完了")
 
 def setup(bot):
     bot.add_cog(Member(bot))
