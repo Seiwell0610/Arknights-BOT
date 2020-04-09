@@ -1,8 +1,13 @@
 import discord
+import dropbox
 import pandas as pd
 from PIL import Image
 import io
 from discord.ext import commands
+
+dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
+dbx = dropbox.Dropbox(dbxtoken)
+dbx.users_get_current_account()
 
 class Member(commands.Cog):
     def __init__(self, bot):
@@ -57,6 +62,13 @@ class Member(commands.Cog):
         with open("channel_id.txt", mode="a") as f:
             f.write(ch_id + ", ")
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットに追加しました。 ")
+        with open("channel_id.txt", "rb") as f:
+            dbx.files_upload(f.read(), "/channel_id.txt")
+            print("アップロード完了(channel_id)")
+        with open("channel_id.txt", "wb") as f:
+            metadata, res = dbx.files_download(path="/channel_id.txt")
+            f.write(res.content)
+            print("更新完了")
 
 def setup(bot):
     bot.add_cog(Member(bot))
