@@ -42,13 +42,13 @@ class Member(commands.Cog):
             with open("channel_id.txt", mode="a") as f:
                 f.write(ch_id)
             await message.channel.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
-            with open("channel_id.txt", "rb") as f:
-                dbx.files_upload(f.read(), "/channel_id.txt")
+            with open("channel_id.txt", "rb") as fc:
+                dbx.files_upload(fc.read(), "/channel_id.txt", mode=dropbox.files.WriteMode.overwrite)
                 print("アップロード完了(channel_id)")
-            with open("channel_id.txt", "wb") as f:
+            with open("channel_id.txt", "wb") as fh:
                 metadata, res = dbx.files_download(path="/channel_id.txt")
-                f.write(res.content)
-                print("更新完了")
+                fh.write(res.content)
+            print("更新完了")
 
     @commands.command(aliases=["addemoji", "aemoji"])
     async def add_emoji(self, ctx, *, triger):
