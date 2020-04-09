@@ -15,8 +15,6 @@ loop = asyncio.new_event_loop()
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
-UPLOADPATH_LOCAL = "data.csv"
-UPLOADPATH_DBX = "/data.csv"
 
 async def run():
     bot = MyBot()
@@ -32,7 +30,7 @@ class MyBot(commands.Bot):
         self.remove_command('help')
 
     async def on_ready(self):
-        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval", "dropbox"]:
+        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
