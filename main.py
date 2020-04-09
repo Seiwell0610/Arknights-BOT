@@ -42,6 +42,10 @@ class MyBot(commands.Bot):
             metadata, res = dbx.files_download(path="/channel_id.txt")
             f.write(res.content)
 
+        with open("data.csv", "wb") as h:
+            metadata, res = dbx.files_download(path="/data.csv")
+            h.write(res.content)
+
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
 
     async def on_command_error(self, ctx, error1):
