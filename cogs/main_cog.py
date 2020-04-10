@@ -38,7 +38,8 @@ class Member(commands.Cog):
                 await message.channel.send(embed=embed)
 
         if message.content.startswith(f"{p}add_global"):
-            ch_id = (str(message.channel.id)) + ", "
+            ch = (str(message.channel.id))
+            ch_id = ', '.join(ch.splitlines())
             with open("channel_id.txt", mode="a") as f:
                 f.write(ch_id)
             await message.channel.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
