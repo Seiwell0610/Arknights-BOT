@@ -42,7 +42,7 @@ class Member(commands.Cog):
             ch_id = message.channel.id
             ch_name = message.channel.name
 
-            conn = sqlite3.connect('channel.db')
+            conn = sqlite3.connect('all_data.db')
             c = conn.cursor()
             c.execute("CREATE TABLE IF NOT EXISTS global_chat(id integer PRIMARY KEY, name text NOT NULL)")
             c.execute("insert into global_chat values(?,?)", (ch_id, ch_name));
@@ -50,9 +50,9 @@ class Member(commands.Cog):
             conn.close()
             await message.channel.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
 
-            with open("channel.db", "rb") as fc:
-                dbx.files_upload(fc.read(), "/channel.db", mode=dropbox.files.WriteMode.overwrite)
-                print("アップロード完了(channel)")
+            with open("all_data.db", "rb") as fc:
+                dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
+                print("アップロード完了")
 
     @commands.command(aliases=["addemoji", "aemoji"])
     async def add_emoji(self, ctx, *, triger):
