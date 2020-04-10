@@ -15,16 +15,16 @@ class arknights_global(commands.Cog):
 
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
-        GLOBAL_CH_NAME = []
+        GLOBAL_CH_ID = []
         for row in c.execute("SELECT * FROM global_chat"):
-            GLOBAL_CH_NAME.append(row[0])
+            GLOBAL_CH_ID.append(row[0])
 
-        if message.channel.id == GLOBAL_CH_NAME:
+        if message.channel.id in GLOBAL_CH_ID:
 
             await message.delete()  # 元のメッセージは削除しておく
 
             channels = self.bot.get_all_channels()
-            global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_NAME]
+            global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_ID]
 
             embed = discord.Embed(title=message.content,
                                   description=None, color=0x00bfff)
