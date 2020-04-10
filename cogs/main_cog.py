@@ -1,5 +1,6 @@
 import discord
 import dropbox
+import sqlite3
 import pandas as pd
 from PIL import Image
 import io
@@ -38,18 +39,20 @@ class Member(commands.Cog):
                 await message.channel.send(embed=embed)
 
         if message.content.startswith(f"{p}add_global"):
-            ch = (str(message.channel.id))
-            ch_id = ', '.join(ch.splitlines())
-            with open("channel_id.txt", mode="a") as f:
-                f.write(ch_id)
+            ch_id = message.channel.id
+            ch_name = message.channel.name
+
+            conn = sqlite3.connect('channel.db')
+            c = conn.cursor()
+            c.execute("create table users (id integer PRIMARY KEY, name text NOT NULL)")
+            c.execute("insert into users values(?,?)", (ch_id, ch_name));
+            conn.commit()
+            conn.close()
             await message.channel.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
-            with open("channel_id.txt", "rb") as fc:
-                dbx.files_upload(fc.read(), "/channel_id.txt", mode=dropbox.files.WriteMode.overwrite)
-                print("アップロード完了(channel_id)")
-            with open("channel_id.txt", "wb") as fh:
-                metadata, res = dbx.files_download(path="/channel_id.txt")
-                fh.write(res.content)
-            print("更新完了")
+
+            with open("channel.db", "rb") as fc:
+                dbx.files_upload(fc.read(), "/channel.db", mode=dropbox.files.WriteMode.overwrite)
+                print("アップロード完了(channel)")
 
     @commands.command(aliases=["addemoji", "aemoji"])
     async def add_emoji(self, ctx, *, triger):
