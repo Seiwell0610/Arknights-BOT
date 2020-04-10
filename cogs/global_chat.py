@@ -23,6 +23,9 @@ class arknights_global(commands.Cog):
 
             await message.delete()  # 元のメッセージは削除しておく
 
+            channels = self.bot.get_all_channels() #ボットが参加しているGuildで認識できる範囲のチャンネル
+            global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
+
             embed = discord.Embed(title=message.content,
                                   description=None, color=0x00bfff)
 
