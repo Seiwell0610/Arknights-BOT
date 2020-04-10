@@ -55,7 +55,7 @@ class Member(commands.Cog):
                     dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
         else:
-            await message.channel.send(f"{message.author.mention}-> サーバー管理者ではないため、使用できません。サーバー管理者にお問い合わせください。")
+            await message.channel.send(f"{message.author.mention}-> サーバー管理者ではないため使用できません。サーバー管理者にお問い合わせください。")
 
     @commands.command(aliases=["addemoji", "aemoji"])
     async def add_emoji(self, ctx, *, triger):
