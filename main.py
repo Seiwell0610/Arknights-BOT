@@ -38,8 +38,8 @@ class MyBot(commands.Bot):
             except commands.ExtensionAlreadyLoaded:
                 self.reload_extension(f"cogs.{extension}")
 
-        with open("channel.db", "wb") as f:
-            metadata, res = dbx.files_download(path="/channel.db")
+        with open("all_data.db", "wb") as f:
+            metadata, res = dbx.files_download(path="/all_data.db")
             f.write(res.content)
 
         with open("data.csv", "wb") as h:
