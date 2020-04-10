@@ -15,51 +15,43 @@ class Member(commands.Cog):
         self.bot = bot
 
 
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        p = ";"
-        if message.author.bot:
-            return
-
-        if message.content.startswith(f"{p}s "):
-            data = pd.read_csv("data.csv")
-            name = message.content.split()[1]
-            name_df = data.query('名前== @name')
-            if name_df.empty:
-                embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
-                                      color=discord.Color.dark_red())
-                await message.channel.send(embed=embed)
-
-            else:
-                wiki_link = name_df["リンク"].iloc[0]
-                embed = discord.Embed(title=f"{name}のデータ:", color=0x0096ff)
-                for key in name_df.keys()[1:12]:
-                    embed.add_field(name=f"{key}", value=f"{name_df[key].iloc[0]}", inline=True)
-                embed.add_field(name=f"リンク", value=f"[詳細はこちら](<{wiki_link}>)", inline=True)
-                await message.channel.send(embed=embed)
-
-        if message.author.guild_permissions.administrator:
-            if message.content.startswith(f"{p}add_global"):
-                ch_id = message.channel.id
-                ch_name = message.channel.name
-
-                conn = sqlite3.connect('all_data.db')
-                c = conn.cursor()
-                c.execute("CREATE TABLE IF NOT EXISTS global_chat(id integer PRIMARY KEY, name text NOT NULL)")
-                c.execute("insert into global_chat values(?,?)", (ch_id, ch_name));
-                conn.commit()
-                conn.close()
-                await message.channel.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
-
-                with open("all_data.db", "rb") as fc:
-                    dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
+    @commands.command()
+    async def s(self, ctx, character):
+        data = pd.read_csv("data.csv")
+        name_df = data.query('名前== @character')
+        if name_df.empty:
+            embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
+                                  color=discord.Color.dark_red())
+            await ctx.send(embed=embed)
 
         else:
-            await message.channel.send(f"{message.author.mention}-> サーバー管理者ではないため使用できません。サーバー管理者にお問い合わせください。")
+            wiki_link = name_df["リンク"].iloc[0]
+            embed = discord.Embed(title=f"{character}のデータ:", color=0x0096ff)
+            for key in name_df.keys()[1:12]:
+                embed.add_field(name=f"{key}", value=f"{name_df[key].iloc[0]}", inline=True)
+            embed.add_field(name=f"リンク", value=f"[詳細はこちら](<{wiki_link}>)", inline=True)
+            await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.has_permissions(manage_guild=True)
+    async def add_global(self, ctx):
+        ch_id = ctx.channel.id
+        ch_name = ctx.channel.name
+
+        conn = sqlite3.connect('all_data.db')
+        c = conn.cursor()
+        c.execute("CREATE TABLE IF NOT EXISTS global_chat(id integer PRIMARY KEY, name text NOT NULL)")
+        c.execute("insert into global_chat values(?,?)", (ch_id, ch_name));
+        conn.commit()
+        conn.close()
+        await ctx.send(f"{ctx.author.mention}-> グローバルチャットに追加しました。 ")
+
+        with open("all_data.db", "rb") as fc:
+            dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
     @commands.command(aliases=["addemoji", "aemoji"])
     async def add_emoji(self, ctx, *, triger):
-        img = ctx.message.attachments[0]
+        img = ctx.ctx.attachments[0]
         resize = False
         if len(await img.read()) >= 25600:
             im = Image.open(io.BytesIO(await img.read()))
