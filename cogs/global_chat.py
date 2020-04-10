@@ -35,7 +35,7 @@ class arknights_global(commands.Cog):
                              icon_url=message.guild.icon_url_as(format="png"))
             # Embedインスタンスを生成、投稿者、投稿場所などの設定
 
-            for channel in channels:
+            for channel in global_channels:
                 # メッセージを埋め込み形式で転送
                 await channel.send(embed=embed)
 
