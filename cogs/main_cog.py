@@ -44,7 +44,7 @@ class Member(commands.Cog):
 
             conn = sqlite3.connect('channel.db')
             c = conn.cursor()
-            c.execute("create table users (id integer PRIMARY KEY, name text NOT NULL)")
+            c.execute("create table IF NOT EXISTS channels (id integer PRIMARY KEY, name text NOT NULL)")
             c.execute("insert into users values(?,?)", (ch_id, ch_name));
             conn.commit()
             conn.close()
