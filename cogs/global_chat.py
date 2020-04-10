@@ -26,12 +26,9 @@ class arknights_global(commands.Cog):
             channels = self.bot.get_all_channels() #ボットが参加しているGuildで認識できる範囲のチャンネル
             global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
 
-            embed = discord.Embed(title=message.content,
-                                  description=None, color=0x00bfff)
-
-            embed.set_author(name=message.author.display_name,
-                             icon_url=message.author.avatar_url_as(format="png"))
-            embed.set_footer(text=f"{message.guild.name}",
+            embed = discord.Embed(title=message.author.display_name, icon_url=message.author.avatar_url_as(format="png"),
+                                  description=message.content, color=0x00bfff)
+            embed.set_footer(text=f"From:{message.guild.name}",
                              icon_url=message.guild.icon_url_as(format="png"))
             # Embedインスタンスを生成、投稿者、投稿場所などの設定
 
