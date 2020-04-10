@@ -23,9 +23,6 @@ class arknights_global(commands.Cog):
 
             await message.delete()  # 元のメッセージは削除しておく
 
-            channels = self.bot.get_all_channels()
-            global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_ID]
-
             embed = discord.Embed(title=message.content,
                                   description=None, color=0x00bfff)
 
@@ -35,7 +32,7 @@ class arknights_global(commands.Cog):
                              icon_url=message.guild.icon_url_as(format="png"))
             # Embedインスタンスを生成、投稿者、投稿場所などの設定
 
-            for channel in global_channels:
+            for channel in GLOBAL_CH_ID:
                 # メッセージを埋め込み形式で転送
                 await channel.send(embed=embed)
 
