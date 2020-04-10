@@ -52,7 +52,6 @@ class Member(commands.Cog):
 
             with open("all_data.db", "rb") as fc:
                 dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
-                print("アップロード完了")
 
     @commands.command(aliases=["addemoji", "aemoji"])
     async def add_emoji(self, ctx, *, triger):
