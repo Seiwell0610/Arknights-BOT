@@ -15,6 +15,8 @@ loop = asyncio.new_event_loop()
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
+UPLOADPATH_LOCAL = "data.csv"
+UPLOADPATH_DBX = "/data.csv"
 
 async def run():
     bot = MyBot()
@@ -30,21 +32,19 @@ class MyBot(commands.Bot):
         self.remove_command('help')
 
     async def on_ready(self):
-        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval"]:
+        for extension in ["info", "main_cog", "sub_cog", "global_chat", "eval", "dropbox"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
                 self.reload_extension(f"cogs.{extension}")
 
-        with open("channel_id.txt", "wb") as f:
-            metadata, res = dbx.files_download(path="/channel_id.txt")
+        with open("channel.db", "wb") as f:
+            metadata, res = dbx.files_download(path="/channel.db")
             f.write(res.content)
-            print("on_ready-channel_id.txtのダウンロード完了")
 
         with open("data.csv", "wb") as h:
             metadata, res = dbx.files_download(path="/data.csv")
             h.write(res.content)
-            print("on_ready-data,csvのダウンロード完了")
 
         await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
 
