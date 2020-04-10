@@ -44,8 +44,8 @@ class Member(commands.Cog):
 
             conn = sqlite3.connect('channel.db')
             c = conn.cursor()
-            c.execute("create table IF NOT EXISTS channels (id integer PRIMARY KEY, name text NOT NULL)")
-            c.execute("insert into users values(?,?)", (ch_id, ch_name));
+            c.execute("CREATE TABLE IF NOT EXISTS global_chat(id integer PRIMARY KEY, name text NOT NULL)")
+            c.execute("insert into global_chat values(?,?)", (ch_id, ch_name));
             conn.commit()
             conn.close()
             await message.channel.send(f"{message.author.mention}-> グローバルチャットに追加しました。 ")
