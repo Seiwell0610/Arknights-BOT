@@ -7,8 +7,8 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def info(self, ctx):
+    @commands.command(aliases=['info'])
+    async def about(self, ctx):
         invite = "https://discordapp.com/api/oauth2/authorize?client_id=688553944661754054&permissions=379968&scope=bot"
         url = "https://discord.gg/25yrUVp"
         timestamp = datetime.utcfromtimestamp(int(self.bot.user.created_at.timestamp()))
@@ -23,15 +23,36 @@ class Help(commands.Cog):
         embed.set_footer(text="このBOTの作成日")
         return await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.group()
     async def help(self, ctx):
-        embed = discord.Embed(title="このBOTで使用できる機能:", color=0x942192)
-        embed.add_field(name="[コマンド] ;info", value="招待リンクや応答速度などこのBOTの概要について表示します。", inline=False)
-        embed.add_field(name="[コマンド] ;s", value="指定されたキャラクターの主なステータスとwikiへのリンクを表示します。", inline=False)
-        embed.add_field(name="[コマンド] ;通知", value="一度送信すると通知されるようになります。\nまた、再度送信すると通知されなくなります。", inline=False)
-        embed.add_field(name="[機能] グローバルチャット",
-                        value="他のサーバーにこのBOTを入れ、「arknights-global」というチャンネル名で\n作成すると、グローバルチャットが使用できます", inline=False)
-        return await ctx.send(embed=embed)
+        if ctx.invoked_subcommand is None:
+            await ctx.send(f"{ctx.author.mention}-> `;help <コマンド>`と入力してください。", color=discord.Color.dark_red())
+
+    @help.command()
+    async def about(self, ctx):
+        embed = discord.Embed(title="`about`のヘルプ；",
+                              description="このBOTの概要を表示されます。", color=discord.Color.blue())
+        embed.add_field(name="必要な権限", value="なし")
+        await ctx.send(embed=embed)
+
+    @help.command()
+    async def s(self, ctx):
+        embed = discord.Embed(title="`;s`のヘルプ；", description="`;s <キャラクター名>`と送信すると、`<キャラクター名>`の基本的な情報が表示\nされます。", color=discord.Color.blue())
+        embed.add_field(name="必要な権限", value="なし")
+        await ctx.send(embed=embed)
+
+    @help.command()
+    async def add_global(self, ctx):
+        embed = discord.Embed(title="`;add_global`のヘルプ；", description="グローバルチャットを使用できるようになります。", color=discord.Color.blue())
+        embed.add_field(name="必要な権限", value="サーバー管理")
+        await ctx.send(embed=embed)
+
+    @help.command()
+    async def add_emoji(self, ctx):
+        embed = discord.Embed(title="`;add_emoji`のヘルプ；",
+                              description="カスタム絵文字にしたい画像を一緒に`;add_emoji <名前にしたい名前>`と送信\nするとカスタム絵文字を追加できます。", color=discord.Color.blue())
+        embed.add_field(name="必要な権限", value="絵文字の管理")
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Help(bot))
