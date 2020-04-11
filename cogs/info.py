@@ -25,8 +25,8 @@ class Help(commands.Cog):
 
     @commands.group()
     async def help(self, ctx):
-        if ctx.invoked_subcommand == None:
-            await ctx.send(f"{ctx.author.mention}-> `;help <コマンド>`と入力してください。", color=discord.Color.dark_red())
+        if ctx.invoked_subcommand is None:
+            await ctx.send(f"{ctx.author.mention}-> `;help <コマンド>`と入力してください。")
 
     @help.command()
     async def about(self, ctx):
