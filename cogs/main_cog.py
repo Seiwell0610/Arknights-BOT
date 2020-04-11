@@ -55,7 +55,7 @@ class Member(commands.Cog):
         ch_id = ctx.channel.id
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
-        c.execute('DELETE FROM global_chat WHERE ch_id = id')
+        c.execute('DELETE FROM global_chat WHERE id = ch_id')
         conn.commit()
         conn.close()
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットから削除しました。 ")
