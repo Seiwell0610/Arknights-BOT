@@ -35,20 +35,20 @@ class Help(commands.Cog):
         embed.add_field(name="必要な権限", value="なし")
         await ctx.send(embed=embed)
 
-    @help.command()
-    async def s(self, ctx):
+    @help.command(name="s")
+    async def _s(self, ctx):
         embed = discord.Embed(title="`;s`のヘルプ；", description="`;s <キャラクター名>`と送信すると、`<キャラクター名>`の基本的な情報が表示\nされます。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="なし")
         await ctx.send(embed=embed)
 
-    @help.command()
-    async def add_global(self, ctx):
+    @help.command(name="add_global")
+    async def _add_global(self, ctx):
         embed = discord.Embed(title="`;add_global`のヘルプ；", description="グローバルチャットを使用できるようになります。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="サーバー管理")
         await ctx.send(embed=embed)
 
-    @help.command()
-    async def add_emoji(self, ctx):
+    @help.command(name="add_emoji")
+    async def _add_emoji(self, ctx):
         embed = discord.Embed(title="`;add_emoji`のヘルプ；",
                               description="カスタム絵文字にしたい画像を一緒に`;add_emoji <名前にしたい名前>`と送信\nするとカスタム絵文字を追加できます。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="絵文字の管理")
