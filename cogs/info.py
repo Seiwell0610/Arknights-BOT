@@ -7,7 +7,7 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['info'])
+    @commands.command()
     async def about(self, ctx):
         invite = "https://discordapp.com/api/oauth2/authorize?client_id=688553944661754054&permissions=379968&scope=bot"
         url = "https://discord.gg/25yrUVp"
@@ -21,11 +21,11 @@ class Help(commands.Cog):
         embed.add_field(name='\u200b', value='\u200b')
         embed.add_field(name="応答速度", value=f"`{self.bot.ws.latency * 1000:.0f}ms`")
         embed.set_footer(text="このBOTの作成日")
-        return await ctx.send(embed=embed)
+        await ctx.send(embed=embed)
 
     @commands.group()
     async def help(self, ctx):
-        if ctx.invoked_subcommand is None:
+        if ctx.invoked_subcommand == None:
             await ctx.send(f"{ctx.author.mention}-> `;help <コマンド>`と入力してください。", color=discord.Color.dark_red())
 
     @help.command()
