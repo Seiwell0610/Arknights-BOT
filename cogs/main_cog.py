@@ -71,12 +71,12 @@ class Member(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_guild=True)
     async def ban(self, ctx, user):
+        guild = ctx.guild
         await ctx.send(f"{ctx.author.mention}-> {user}をBANします。よろしいですか？")
         if ctx.content == "y":
-            await user.ban(reason=None)
+            await guild.ban(user, reason=None)
         if ctx.content == "n":
             await ctx.send(f"{ctx.author.mention}-> {user}をBANするのをキャンセルしました。")
-
 
 def setup(bot):
     bot.add_cog(Member(bot))
