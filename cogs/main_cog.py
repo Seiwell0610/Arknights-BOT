@@ -68,6 +68,16 @@ class Member(commands.Cog):
         embed = discord.Embed(title="完了！", description=f"{ctx.author.mention}\n{msg}", color=discord.Color.blue())
         await ctx.send(embed=embed)
 
+    @commands.command()
+    @commands.has_permissions(manage_guild=True)
+    async def ban(self, ctx, user):
+        ban_user = user.mentions.id
+        await ctx.send(f"{ctx.author.mention}-> {user}をBANします。よろしいですか？")
+        if ctx.content == "y":
+            await ban_user.ban(reason=None)
+        if ctx.content == "n":
+            await ctx.send(f"{ctx.author.mention}-> {user}をBANするのをキャンセルしました。")
+
 
 def setup(bot):
     bot.add_cog(Member(bot))
