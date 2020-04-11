@@ -35,8 +35,11 @@ class Member(commands.Cog):
     @commands.command(name="add_global")
     @commands.has_permissions(manage_guild=True)
     async def _add_global(self, ctx):
+        channel = self.bot.channel.id(698520936374075453)
         ch_id = ctx.channel.id
         ch_name = ctx.channel.name
+        guild = ctx.guild.name
+        guild_id = ctx.guild.id
 
         conn = sqlite3.connect('all_data.db')
         c = conn.cursor()
@@ -44,24 +47,43 @@ class Member(commands.Cog):
         c.execute("insert into global_chat values(?,?)", (ch_id, ch_name));
         conn.commit()
         conn.close()
-        await ctx.send(f"{ctx.author.mention}-> グローバルチャットに追加しました。 ")
+        await ctx.send(f"{ctx.author.mention}-> グローバルチャットに登録しました。")
 
         with open("all_data.db", "rb") as fc:
             dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
+        embed = discord.Embed(title="登録", description=None, color=discord.Color.blue())
+        embed.add_field(name=f"GUILD", value=f"{guild}", inline=True)
+        embed.add_field(name="GUILD ID", value=f"{guild_id}", inline=True)
+        embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=True)
+        embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=True)
+        await channel.send(embed=embed)
+
     @commands.command(name="del_global")
     @commands.has_permissions(manage_guild=True)
-    async def _del_global(selfself, ctx):
+    async def _del_global(self, ctx):
+        channel = self.bot.channel.id(698520936374075453)
         ch_id = ctx.channel.id
+        ch_name = ctx.channel.name
+        guild = ctx.guild.name
+        guild_id = ctx.guild.id
+
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
         c.execute('DELETE FROM global_chat WHERE id = ?', (ch_id,))
         conn.commit()
         conn.close()
-        await ctx.send(f"{ctx.author.mention}-> グローバルチャットから削除しました。 ")
+        await ctx.send(f"{ctx.author.mention}-> グローバルチャットの登録を解除しました。")
 
-    with open("all_data.db", "rb") as fc:
-        dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
+        with open("all_data.db", "rb") as fc:
+            dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
+
+        embed = discord.Embed(title="解除", description=None, color=discord.Color.purple())
+        embed.add_field(name=f"GUILD", value=f"{guild}", inline=True)
+        embed.add_field(name="GUILD ID", value=f"{guild_id}", inline=True)
+        embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=True)
+        embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=True)
+        await channel.send(embed=embed)
 
     @commands.command(name="add_emoji", liases=["addemoji", "aemoji"])
     async def _add_emoji(self, ctx, *, triger):
