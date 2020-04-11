@@ -7,7 +7,7 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(aliases=['info'])
     async def about(self, ctx):
         invite = "https://discordapp.com/api/oauth2/authorize?client_id=688553944661754054&permissions=379968&scope=bot"
         url = "https://discord.gg/25yrUVp"
@@ -21,15 +21,15 @@ class Help(commands.Cog):
         embed.add_field(name='\u200b', value='\u200b')
         embed.add_field(name="応答速度", value=f"`{self.bot.ws.latency * 1000:.0f}ms`")
         embed.set_footer(text="このBOTの作成日")
-        await ctx.send(embed=embed)
+        return await ctx.send(embed=embed)
 
     @commands.group()
     async def help(self, ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.send(f"{ctx.author.mention}-> `;help <コマンド>`と入力してください。")
+            await ctx.send(f"{ctx.author.mention}-> `;help <コマンド>`と入力してください。", color=discord.Color.dark_red())
 
-    @help.command()
-    async def about(self, ctx):
+    @help.command(name="about")
+    async def _about(self, ctx):
         embed = discord.Embed(title="`about`のヘルプ；",
                               description="このBOTの概要を表示されます。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="なし")
