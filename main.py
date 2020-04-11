@@ -17,7 +17,7 @@ dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
 
 async def run():
-    bot = MyBot(command_prefix=prefix)
+    bot = MyBot()
     try:
         await bot.start(token)
     except KeyboardInterrupt:
@@ -63,7 +63,6 @@ class MyBot(commands.Bot):
 if __name__ == '__main__':
     try:
         print("Logged in as")
-
         main_task = loop.create_task(run())
         loop.run_until_complete(main_task)
         loop.close()
