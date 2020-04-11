@@ -48,12 +48,6 @@ class MyBot(commands.Bot):
 
         await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
 
-    async def on_command_error(self, ctx, error1):
-        if isinstance(error1, (
-        commands.CommandNotFound, commands.CommandInvokeError, commands.BadArgument, commands.UnexpectedQuoteError,
-        commands.CommandOnCooldown, commands.MissingPermissions, commands.MissingRequiredArgument)):
-            return
-
     async def on_guild_join(self, _):
         await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
 
