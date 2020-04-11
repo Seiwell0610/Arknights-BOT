@@ -49,6 +49,20 @@ class Member(commands.Cog):
         with open("all_data.db", "rb") as fc:
             dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
+    @commands.command()
+    @commands.has_permissions(manage_guild=True)
+    async def remove_global(selfself, ctx):
+        ch_id = ctx.channel.id
+        conn = sqlite3.connect("all_data.db")
+        c = conn.cursor()
+        c.execute('DELETE FROM global_chat WHERE ch_id = id')
+        conn.commit()
+        conn.close()
+        await ctx.send(f"{ctx.author.mention}-> グローバルチャットから削除しました。 ")
+
+    with open("all_data.db", "rb") as fc:
+        dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
+
     @commands.command(aliases=["addemoji", "aemoji"])
     async def add_emoji(self, ctx, *, triger):
         img = ctx.ctx.attachments[0]
