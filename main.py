@@ -46,7 +46,7 @@ class MyBot(commands.Bot):
             h.write(res.content)
             print("data.csvのダウンロード完了")
 
-        await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
+        await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
 
     async def on_command_error(self, ctx, error1):
         if isinstance(error1, (
@@ -55,10 +55,10 @@ class MyBot(commands.Bot):
             return
 
     async def on_guild_join(self, _):
-        await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
+        await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
 
     async def on_guild_remove(self, _):
-        await self.change_presence(activity=discord.Game(name=f"{prefix}info | {len(self.guilds)}guilds"))
+        await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
 
 if __name__ == '__main__':
     try:
