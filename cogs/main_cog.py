@@ -15,7 +15,7 @@ class Member(commands.Cog):
         self.bot = bot
 
 
-    @commands.command()
+    @commands.command(name="s")
     async def s(self, ctx, character):
         data = pd.read_csv("data.csv")
         name_df = data.query('名前== @character')
@@ -32,7 +32,7 @@ class Member(commands.Cog):
             embed.add_field(name=f"リンク", value=f"[詳細はこちら](<{wiki_link}>)", inline=True)
             await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(name="add_global")
     @commands.has_permissions(manage_guild=True)
     async def add_global(self, ctx):
         ch_id = ctx.channel.id
@@ -49,7 +49,7 @@ class Member(commands.Cog):
         with open("all_data.db", "rb") as fc:
             dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
-    @commands.command()
+    @commands.command(name="remove_global")
     @commands.has_permissions(manage_guild=True)
     async def remove_global(selfself, ctx):
         ch_id = ctx.channel.id
@@ -63,7 +63,7 @@ class Member(commands.Cog):
     with open("all_data.db", "rb") as fc:
         dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
-    @commands.command(aliases=["addemoji", "aemoji"])
+    @commands.command(name="add_emoji", liases=["addemoji", "aemoji"])
     async def add_emoji(self, ctx, *, triger):
         img = ctx.ctx.attachments[0]
         resize = False
@@ -82,7 +82,7 @@ class Member(commands.Cog):
         embed = discord.Embed(title="完了！", description=f"{ctx.author.mention}\n{msg}", color=discord.Color.blue())
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(name="ban")
     @commands.has_permissions(manage_guild=True)
     async def ban(self, ctx, user):
         guild = ctx.guild
