@@ -35,7 +35,7 @@ class Member(commands.Cog):
     @commands.command(name="add_global")
     @commands.has_permissions(manage_guild=True)
     async def _add_global(self, ctx):
-        channel = self.bot.channel.id(698520936374075453)
+        channel = self.bot.get_channel(698520936374075453)
         ch_id = ctx.channel.id
         ch_name = ctx.channel.name
         guild = ctx.guild.name
@@ -62,7 +62,7 @@ class Member(commands.Cog):
     @commands.command(name="del_global")
     @commands.has_permissions(manage_guild=True)
     async def _del_global(self, ctx):
-        channel = self.bot.channel.id(698520936374075453)
+        channel = self.bot.get_channel(698520936374075453)
         ch_id = ctx.channel.id
         ch_name = ctx.channel.name
         guild = ctx.guild.name
