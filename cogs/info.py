@@ -43,7 +43,13 @@ class Help(commands.Cog):
 
     @help.command()
     async def add_global(self, ctx):
-        embed = discord.Embed(title="`;add_global`のヘルプ；", description="グローバルチャットを使用できるようになります。", color=discord.Color.blue())
+        embed = discord.Embed(title="`;add_global`のヘルプ；", description="グローバルチャットに登録します。", color=discord.Color.blue())
+        embed.add_field(name="必要な権限", value="サーバー管理")
+        await ctx.send(embed=embed)
+
+    @help.command()
+    async def del_global(self,ctx):
+        embed = discord.Embed(title="`;del_global`のヘルプ；", description="グローバルチャットの登録を解除します。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="サーバー管理")
         await ctx.send(embed=embed)
 

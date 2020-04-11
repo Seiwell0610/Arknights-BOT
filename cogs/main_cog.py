@@ -49,9 +49,9 @@ class Member(commands.Cog):
         with open("all_data.db", "rb") as fc:
             dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
-    @commands.command(name="remove_global")
+    @commands.command(name="del_global")
     @commands.has_permissions(manage_guild=True)
-    async def _remove_global(selfself, ctx):
+    async def _del_global(selfself, ctx):
         ch_id = ctx.channel.id
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
