@@ -55,7 +55,7 @@ class Member(commands.Cog):
         embed = discord.Embed(title="登録", description=None, color=discord.Color.blue())
         embed.add_field(name=f"GUILD", value=f"{guild}", inline=True)
         embed.add_field(name="GUILD ID", value=f"{guild_id}", inline=True)
-        embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=True)
+        embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
         embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=True)
         await channel.send(embed=embed)
 
@@ -81,7 +81,7 @@ class Member(commands.Cog):
         embed = discord.Embed(title="解除", description=None, color=discord.Color.purple())
         embed.add_field(name=f"GUILD", value=f"{guild}", inline=True)
         embed.add_field(name="GUILD ID", value=f"{guild_id}", inline=True)
-        embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=True)
+        embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
         embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=True)
         await channel.send(embed=embed)
 
