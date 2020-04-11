@@ -16,7 +16,7 @@ class Member(commands.Cog):
 
 
     @commands.command(name="s")
-    async def s(self, ctx, character):
+    async def _s(self, ctx, character):
         data = pd.read_csv("data.csv")
         name_df = data.query('名前== @character')
         if name_df.empty:
@@ -34,7 +34,7 @@ class Member(commands.Cog):
 
     @commands.command(name="add_global")
     @commands.has_permissions(manage_guild=True)
-    async def add_global(self, ctx):
+    async def _add_global(self, ctx):
         ch_id = ctx.channel.id
         ch_name = ctx.channel.name
 
@@ -51,7 +51,7 @@ class Member(commands.Cog):
 
     @commands.command(name="remove_global")
     @commands.has_permissions(manage_guild=True)
-    async def remove_global(selfself, ctx):
+    async def _remove_global(selfself, ctx):
         ch_id = ctx.channel.id
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
@@ -64,7 +64,7 @@ class Member(commands.Cog):
         dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
     @commands.command(name="add_emoji", liases=["addemoji", "aemoji"])
-    async def add_emoji(self, ctx, *, triger):
+    async def _add_emoji(self, ctx, *, triger):
         img = ctx.ctx.attachments[0]
         resize = False
         if len(await img.read()) >= 25600:
@@ -84,7 +84,7 @@ class Member(commands.Cog):
 
     @commands.command(name="ban")
     @commands.has_permissions(manage_guild=True)
-    async def ban(self, ctx, user):
+    async def _ban(self, ctx, user):
         guild = ctx.guild
         await ctx.send(f"{ctx.author.mention}-> {user}をBANします。よろしいですか？")
         if ctx.content == "y":
