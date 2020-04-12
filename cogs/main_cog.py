@@ -13,10 +13,11 @@ class Member(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
+    ### アークナイツ/情報表示関連 ###
     @commands.command(name="s")
     async def _s(self, ctx, character):
         #データベース
+        character.title()
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
         c.execute('SELECT * FROM character_data WHERE 名前=?', (character,))
@@ -40,8 +41,10 @@ class Member(commands.Cog):
             embed.add_field(name="攻撃速度", value=f"{data[10]}", inline=True)
             embed.add_field(name="募集タグ", value=f"{data[11]}", inline=True)
             embed.add_field(name="リンク", value=f"[詳細はこちら](<{data[12]}>)", inline=True)
+            embed.set_thumbnail(url=f"{data[13]}")
             await ctx.send(embed=embed)
-            
+
+    ### グローバルチャット関連 ###
     @commands.command(name="add_global")
     @commands.has_permissions(manage_guild=True)
     async def _add_global(self, ctx):
@@ -95,6 +98,7 @@ class Member(commands.Cog):
         embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=False)
         await channel.send(embed=embed)
 
+    ### カスタム絵文字関連 ###
     @commands.command(name="add_emoji", liases=["addemoji", "aemoji"])
     async def _add_emoji(self, ctx, *, triger):
         img = ctx.ctx.attachments[0]
