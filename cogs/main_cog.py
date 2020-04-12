@@ -17,7 +17,7 @@ class Member(commands.Cog):
     @commands.command(name="s")
     async def _s(self, ctx, character):
         #データベース
-        character.title()
+        character = character.title()
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
         c.execute('SELECT * FROM character_data WHERE 名前=?', (character,))
