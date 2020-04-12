@@ -42,6 +42,13 @@ class Help(commands.Cog):
         await ctx.send(embed=embed)
 
     @help.command()
+    async def u(self, ctx):
+        embed = discord.Embed(title="`;u`のヘルプ；", description="`;u <キャラクター名>`と送信すると、`<キャラクター名>`の基本的な情報が表示\nされます。"
+                                                             "ただし、未実装キャラなため変更がある場合があります。", color=discord.Color.blue())
+        embed.add_field(name="必要な権限", value="なし")
+        await ctx.send(embed=embed)
+
+    @help.command()
     async def add_global(self, ctx):
         embed = discord.Embed(title="`;add_global`のヘルプ；", description="グローバルチャットに登録します。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="サーバー管理")
