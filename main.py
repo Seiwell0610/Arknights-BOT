@@ -53,11 +53,6 @@ if __name__ == '__main__':
             f.write(res.content)
             print("all_data.dbのダウンロード完了")
 
-        with open("data.csv", "wb") as h:
-            metadata, res = dbx.files_download(path="/data.csv")
-            h.write(res.content)
-            print("data.csvのダウンロード完了")
-            
         main_task = loop.create_task(run())
         loop.run_until_complete(main_task)
         loop.close()
