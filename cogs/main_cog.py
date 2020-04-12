@@ -19,8 +19,13 @@ class Member(commands.Cog):
         #データベース
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
-        if character in c.execute('SELECT * FROM character_data WHERE 名前=?', (character,)):
-            data = c.fetchone()
+        c.execute('SELECT * FROM character_data WHERE 名前=?', (character,))
+        data = c.fetchone()
+        while data == None:
+            embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
+                                  color=discord.Color.dark_red())
+            await ctx.send(embed=embed)
+        else:
             embed = discord.Embed(title=f"{data[0]}のデータ:", color=0x0096ff)
             embed.add_field(name="職業", value=f"{data[1]}", inline=True)
             embed.add_field(name="レア度", value=f"{data[2]}", inline=True)
@@ -34,10 +39,6 @@ class Member(commands.Cog):
             embed.add_field(name="攻撃速度", value=f"{data[10]}", inline=True)
             embed.add_field(name="募集タグ", value=f"{data[11]}", inline=True)
             embed.add_field(name="リンク", value=f"[詳細はこちら](<{data[12]}>)", inline=True)
-            await ctx.send(embed=embed)
-        else:
-            embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
-                                              color=discord.Color.dark_red())
             await ctx.send(embed=embed)
             
     @commands.command(name="add_global")
