@@ -25,6 +25,7 @@ class Member(commands.Cog):
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
                                   color=discord.Color.dark_red())
             await ctx.send(embed=embed)
+            break
         else:
             embed = discord.Embed(title=f"{data[0]}のデータ:", color=0x0096ff)
             embed.add_field(name="職業", value=f"{data[1]}", inline=True)
