@@ -50,14 +50,6 @@ class arknights_global(commands.Cog):
                         embed.set_footer(text=f"From:{message.guild.name}",
                                          icon_url=message.guild.icon_url_as(format="png"))
 
-                    else:
-                        embed = discord.Embed(title=None,
-                                              description=None, color=0x00bfff)
-                        embed.set_author(name=message.author.display_name,
-                                         icon_url=message.author.avatar_url_as(format="png"))
-                        embed.set_footer(text=f"From:{message.guild.name}",
-                                         icon_url=message.guild.icon_url_as(format="png"))
-
                     pcount = 0
                     for c in message.attachments:
                         pcount += 1
@@ -69,10 +61,24 @@ class arknights_global(commands.Cog):
                             pembed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
                             pembed.set_image(url=p.url)
+                            pembed.set_author(name=message.author.display_name,
+                                             icon_url=message.author.avatar_url_as(format="png"))
+                            pembed.set_footer(text=f"From:{message.guild.name}",
+                                             icon_url=message.guild.icon_url_as(format="png"))
+
                             for channel in global_channels:
                                 await channel.send(embed=pembed)
                     else:
-                        embed.set_image(url=message.attachments[0].url)
+                        if message.content:
+                            embed.set_image(url=message.attachments[0].url)
+                        else:
+                            embed = discord.Embed(title=None,
+                                                  description=None, color=0x00bfff)
+                            embed.set_image(url=p.url)
+                            embed.set_author(name=message.author.display_name,
+                                             icon_url=message.author.avatar_url_as(format="png"))
+                            embed.set_footer(text=f"From:{message.guild.name}",
+                                             icon_url=message.guild.icon_url_as(format="png"))
                         for channel in global_channels:
                             await channel.send(embed=embed)
                 
