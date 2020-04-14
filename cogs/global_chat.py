@@ -75,7 +75,7 @@ class arknights_global(commands.Cog):
                         else:
                             embed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
-                            embed.set_image(url=p.url)
+                            embed.set_image(url=message.attachments[0].url)
                             embed.set_author(name=message.author.display_name,
                                              icon_url=message.author.avatar_url_as(format="png"))
                             embed.set_footer(text=f"From:{message.guild.name}",
