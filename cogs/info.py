@@ -30,7 +30,7 @@ class Help(commands.Cog):
 
     @help.command(name="about")
     async def _about(self, ctx):
-        embed = discord.Embed(title="`about`のヘルプ；",
+        embed = discord.Embed(title="`;about`のヘルプ；",
                               description="このBOTの概要を表示されます。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="なし")
         await ctx.send(embed=embed)
@@ -65,6 +65,14 @@ class Help(commands.Cog):
         embed = discord.Embed(title="`;add_emoji`のヘルプ；",
                               description="カスタム絵文字にしたい画像を一緒に`;add_emoji <名前にしたい名前>`と送信\nするとカスタム絵文字を追加できます。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="絵文字の管理")
+        await ctx.send(embed=embed)
+
+    @help.command()
+    async def cleanup(self, ctx):
+        embed = discord.Embed(title="`;cleanup`のヘルプ；",
+                              description="全てのメッセージを削除します。",
+                              color=discord.Color.blue())
+        embed.add_field(name="必要な権限", value="サーバー管理")
         await ctx.send(embed=embed)
 
 def setup(bot):

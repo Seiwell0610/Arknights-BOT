@@ -127,7 +127,7 @@ class Member(commands.Cog):
         await channel.send(embed=embed)
 
     ### カスタム絵文字関連 ###
-    @commands.command(name="add_emoji", liases=["addemoji", "aemoji"])
+    @commands.command(name="add_emoji", aliases=["addemoji", "aemoji"])
     async def _add_emoji(self, ctx, *, triger):
         img = ctx.ctx.attachments[0]
         resize = False
@@ -146,7 +146,12 @@ class Member(commands.Cog):
         embed = discord.Embed(title="完了！", description=f"{ctx.author.mention}\n{msg}", color=discord.Color.blue())
         await ctx.send(embed=embed)
 
-
+    @commands.command()
+    @commands.has_permissions(manage_guild=True)
+    async def cleanup(self, ctx):
+        await ctx.channel.purge()
+        embed = discord.Embed(title="メッセージの削除完了", description="すべてのメッセージを正常に削除しました。", color=discord.Color.blue())
+        await ctx.channel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Member(bot))
