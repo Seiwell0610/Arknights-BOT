@@ -60,7 +60,7 @@ class arknights_global(commands.Cog):
                                          icon_url=message.guild.icon_url_as(format="png"))
 
                     for p in message.attachments:
-                        print(p[3])
+                        print(p[3].url)
                         #embed.set_image(url=p['url'])
 
                 for channel in global_channels:
