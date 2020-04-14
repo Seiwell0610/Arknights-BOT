@@ -58,8 +58,9 @@ class arknights_global(commands.Cog):
                         embed.set_footer(text=f"From:{message.guild.name}",
                                          icon_url=message.guild.icon_url_as(format="png"))
 
-                    for p in message.attachments[].url:
-                        embed.set_image(url=p)
+                    for p in message.attachments:
+                        await get_channel(697704665818726501).send(p)
+                        #embed.set_image(url=p)
 
                 for channel in global_channels:
                     await channel.send(embed=embed)
