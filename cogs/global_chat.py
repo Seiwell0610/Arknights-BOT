@@ -25,13 +25,13 @@ class arknights_global(commands.Cog):
 
             else:
 
-                if not message.attachments[0]:
+                if message.attachments[0]['size'] <= 0:
                     await message.delete()
 
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
 
-                if not message.attachments[0]:
+                if message.attachments[0]['size'] <= 0:
                     embed = discord.Embed(title=None,
                                           description=message.content, color=0x00bfff)
                     embed.set_author(name=message.author.display_name,
