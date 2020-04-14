@@ -25,17 +25,19 @@ class arknights_global(commands.Cog):
 
             else:
 
-                await message.delete()
+                if message.attachments.size <= 0:
+                    await message.delete()
 
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
 
-                embed = discord.Embed(title=None,
-                                      description=message.content, color=0x00bfff)
-                embed.set_author(name=message.author.display_name,
-                                 icon_url=message.author.avatar_url_as(format="png"))
-                embed.set_footer(text=f"From:{message.guild.name}",
-                                icon_url=message.guild.icon_url_as(format="png"))
+                if message.attachments.size <= 0:
+                    embed = discord.Embed(title=None,
+                                          description=message.content, color=0x00bfff)
+                    embed.set_author(name=message.author.display_name,
+                                     icon_url=message.author.avatar_url_as(format="png"))
+                    embed.set_footer(text=f"From:{message.guild.name}",
+                                     icon_url=message.guild.icon_url_as(format="png"))
 
                 for channel in global_channels:
                     await channel.send(embed=embed)
