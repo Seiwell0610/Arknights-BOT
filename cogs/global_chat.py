@@ -25,7 +25,7 @@ class arknights_global(commands.Cog):
 
             else:
 
-                if not message.attachments[]:
+                if not message.attachments[0]:
                     await message.delete()
 
                 channels = self.bot.get_all_channels()
