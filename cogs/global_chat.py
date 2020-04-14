@@ -6,7 +6,7 @@ import asyncio
 class arknights_global(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
+        self.pcount = 0
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -39,12 +39,13 @@ class arknights_global(commands.Cog):
                                      icon_url=message.author.avatar_url_as(format="png"))
                     embed.set_footer(text=f"From:{message.guild.name}",
                                      icon_url=message.guild.icon_url_as(format="png"))
+                    for channel in global_channels:
+                        await channel.send(embed=embed)
 
                 else:
                     if message.content:
                         embed = discord.Embed(title=None,
                                               description=message.content, color=0x00bfff)
-                        #embed.set_image(url=message.attachments[0].url)
                         embed.set_author(name=message.author.display_name,
                                          icon_url=message.author.avatar_url_as(format="png"))
                         embed.set_footer(text=f"From:{message.guild.name}",
@@ -53,17 +54,26 @@ class arknights_global(commands.Cog):
                     else:
                         embed = discord.Embed(title=None,
                                               description=None, color=0x00bfff)
-                        #embed.set_image(url=message.attachments[0].url)
                         embed.set_author(name=message.author.display_name,
                                          icon_url=message.author.avatar_url_as(format="png"))
                         embed.set_footer(text=f"From:{message.guild.name}",
                                          icon_url=message.guild.icon_url_as(format="png"))
 
-                    for p in message.attachments:
-                        embed.set_image(url=p.url)
+                    for c in message.attachments:
+                        pcount += 1
 
-                for channel in global_channels:
-                    await channel.send(embed=embed)
+                    if pcount > 1:
+                        for channel in global_channels:
+                            await channel.send(embed=embed)
+                        for p in message.attachments:
+                            pembed = discord.Embed(title=None,
+                                                  description=None, color=0x00bfff)
+                            pembed.set_image(url=p.url)
+                            await channel.send(embed=pembed)
+                    else:
+                        embed.set_image(url=message.attachments[0].url)
+                        await channel.send(embed=embed)
+                
 
                 if message.attachments:
                     await asyncio.sleep(1)
