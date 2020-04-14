@@ -60,6 +60,7 @@ class arknights_global(commands.Cog):
 
                 for channel in global_channels:
                     await channel.send(embed=embed)
+
                 if message.attachments:
                     await message.delete()
 
