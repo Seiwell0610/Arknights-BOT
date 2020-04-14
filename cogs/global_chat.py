@@ -6,8 +6,7 @@ import asyncio
 class arknights_global(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.pcount = 0
-
+        
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot:
@@ -59,6 +58,7 @@ class arknights_global(commands.Cog):
                         embed.set_footer(text=f"From:{message.guild.name}",
                                          icon_url=message.guild.icon_url_as(format="png"))
 
+                    pcount = 0
                     for c in message.attachments:
                         pcount += 1
 
