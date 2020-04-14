@@ -25,7 +25,7 @@ class arknights_global(commands.Cog):
 
             else:
 
-                if message.attachment.size <= 0:
+                if attachment.size <= 0:
                     await message.delete()
 
                 channels = self.bot.get_all_channels()
