@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import sqlite3
+import asyncio
 
 class arknights_global(commands.Cog):
     def __init__(self, bot):
@@ -66,6 +67,7 @@ class arknights_global(commands.Cog):
                     await channel.send(embed=embed)
 
                 if message.attachments:
+                    await asyncio.sleep(1)
                     await message.delete()
 
 def setup(bot):
