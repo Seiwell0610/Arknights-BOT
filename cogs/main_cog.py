@@ -17,7 +17,7 @@ class Member(commands.Cog):
     @commands.command(name="s")
     async def _s(self, ctx, character):
         #データベース
-        character = character.title()
+        character.title()
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
         c.execute('SELECT * FROM character_data WHERE 名前=?', (character,))
@@ -28,7 +28,7 @@ class Member(commands.Cog):
             await ctx.send(embed=embed)
             break
         else:
-            embed = discord.Embed(title=f"{data[0]}のデータ:", color=0x0096ff)
+            embed = discord.Embed(title=f"{data[0]}(初期)のデータ:", color=0x0096ff)
             embed.add_field(name="職業", value=f"{data[1]}", inline=True)
             embed.add_field(name="レア度", value=f"{data[2]}", inline=True)
             embed.add_field(name="HP", value=f"{data[3]}", inline=True)
@@ -56,7 +56,7 @@ class Member(commands.Cog):
             await ctx.send(embed=embed)
             break
         else:
-            embed = discord.Embed(title=f"{data[0]}のデータ:", color=discord.Color.purple())
+            embed = discord.Embed(title=f"{data[0]}(初期)のデータ:", color=discord.Color.purple())
             embed.add_field(name="職業", value=f"{data[1]}", inline=True)
             embed.add_field(name="レア度", value=f"{data[2]}", inline=True)
             embed.add_field(name="HP", value=f"{data[3]}", inline=True)
