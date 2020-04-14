@@ -55,8 +55,9 @@ class arknights_global(commands.Cog):
                         pcount += 1
 
                     if pcount > 1:
-                        for channel in global_channels:
-                            await channel.send(embed=embed)
+                        if message.content:
+                            for channel in global_channels:
+                                await channel.send(embed=embed)
                         for p in message.attachments:
                             pembed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
