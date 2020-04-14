@@ -69,10 +69,12 @@ class arknights_global(commands.Cog):
                             pembed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
                             pembed.set_image(url=p.url)
-                            await channel.send(embed=pembed)
+                            for channel in global_channels:
+                                await channel.send(embed=pembed)
                     else:
                         embed.set_image(url=message.attachments[0].url)
-                        await channel.send(embed=embed)
+                        for channel in global_channels:
+                            await channel.send(embed=embed)
                 
 
                 if message.attachments:
