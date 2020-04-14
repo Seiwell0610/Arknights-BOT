@@ -43,7 +43,7 @@ class arknights_global(commands.Cog):
                     if message.content:
                         embed = discord.Embed(title=None,
                                               description=message.content, color=0x00bfff)
-                        embed.set_image(url=discord.attachment.url)
+                        embed.set_image(url=discord.Attachment.url)
                         embed.set_author(name=message.author.display_name,
                                          icon_url=message.author.avatar_url_as(format="png"))
                         embed.set_footer(text=f"From:{message.guild.name}",
@@ -52,7 +52,7 @@ class arknights_global(commands.Cog):
                     else:
                         embed = discord.Embed(title=None,
                                               description=None, color=0x00bfff)
-                        embed.set_image(url=discord.attachment.url)
+                        embed.set_image(url=discord.Attachment.url)
                         embed.set_author(name=message.author.display_name,
                                          icon_url=message.author.avatar_url_as(format="png"))
                         embed.set_footer(text=f"From:{message.guild.name}",
