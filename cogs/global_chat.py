@@ -49,6 +49,7 @@ class arknights_global(commands.Cog):
                                            username=message.author.name,
                                            avatar_url=message.author.avatar_url_as(format="png"))
                         return
- 
+
+                await message.channel.send("line31 Error")
 def setup(bot):
     bot.add_cog(arknights_global(bot))
