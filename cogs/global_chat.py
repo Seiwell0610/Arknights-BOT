@@ -88,7 +88,7 @@ class arknights_global(commands.Cog):
                             print(filenames)
                             pembed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
-                            pembed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filenames}')
+                            pembed.set_image(url=f"attachment://{filenames}")
                             pembed.set_author(name=message.author.display_name,
                                              icon_url=message.author.avatar_url_as(format="png"))
                             pembed.set_footer(text=f"From:{message.guild.name}",
@@ -101,15 +101,15 @@ class arknights_global(commands.Cog):
                             dcount = 1
                             filenames = filename + f"{dcount}.png"
                             print(filenames)
-                            embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filenames}')
-                            
+                            embed.set_image(url=f"attachment://{filenames}")
+
                         else:
                             dcount = 1
                             filenames = filename + f"{dcount}.png"
                             print(filenames)
                             embed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
-                            embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filenames}')
+                            embed.set_image(url=f"attachment://{filenames}")
                             embed.set_author(name=message.author.display_name,
                                              icon_url=message.author.avatar_url_as(format="png"))
                             embed.set_footer(text=f"From:{message.guild.name}",
