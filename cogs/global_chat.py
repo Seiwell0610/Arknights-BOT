@@ -74,9 +74,10 @@ class arknights_global(commands.Cog):
                             for channel in global_channels:
                                 await channel.send(embed=embed)
                         for p in message.attachments:
+                            filename = message.attachments[0].filename
                             pembed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
-                            pembed.set_image(url=p.url)
+                            pembed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
                             pembed.set_author(name=message.author.display_name,
                                              icon_url=message.author.avatar_url_as(format="png"))
                             pembed.set_footer(text=f"From:{message.guild.name}",
@@ -86,11 +87,13 @@ class arknights_global(commands.Cog):
                                 await channel.send(embed=pembed)
                     else:
                         if message.content:
-                            embed.set_image(url=message.attachments[0].url)
+                            filename = message.attachments[0].filename
+                            embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
                         else:
+                            filename = message.attachments[0].filename
                             embed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
-                            embed.set_image(url=message.attachments[0].url)
+                            embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
                             embed.set_author(name=message.author.display_name,
                                              icon_url=message.author.avatar_url_as(format="png"))
                             embed.set_footer(text=f"From:{message.guild.name}",
@@ -105,9 +108,3 @@ class arknights_global(commands.Cog):
 
 def setup(bot):
     bot.add_cog(arknights_global(bot))
-
-
-
-
-
-
