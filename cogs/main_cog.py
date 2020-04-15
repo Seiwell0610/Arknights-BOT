@@ -78,10 +78,7 @@ class Member(commands.Cog):
         tag_split = name.split("/")
         print(tag_split)
 
-        if c.execute('SELECT * FROM open_recruitment WHERE ? in not (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
-            embed = discord.Embed(title="エラー", description="選択されたタグが間違っているか、該当のキャラクターが\n存在しません。")
-            await ctx.send(embed=embed)
-        else:
+        if c.execute('SELECT * FROM open_recruitment WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
             embed = discord.Embed(title=name, description=None)
             for i in c.execute('SELECT * FROM open_recruitment WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
                 data = c.fetchone()
@@ -89,6 +86,9 @@ class Member(commands.Cog):
                 i_tag = "/".join(i[1:5])
                 embed.add_field(name=data[0], value=f"{data_tag}")
                 embed.add_field(name=i[0], value=f"{i_tag}")
+            await ctx.send(embed=embed)
+        else:
+            embed = discord.Embed(title="エラー", description="選択されたタグが間違っているか、該当のキャラクターが\n存在しません。")
             await ctx.send(embed=embed)
 
     ### グローバルチャット関連 ###
