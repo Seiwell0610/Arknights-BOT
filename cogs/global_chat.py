@@ -29,7 +29,8 @@ class arknights_global(commands.Cog):
                 pass
 
             else:
-                return
+                if message.content:
+                    return
 
                 if not message.attachments:
                     await message.delete()
