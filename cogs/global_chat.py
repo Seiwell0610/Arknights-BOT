@@ -27,7 +27,6 @@ class arknights_global(commands.Cog):
 
             else:
 
-                await message.delete()
 
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_ID]
@@ -43,6 +42,7 @@ class arknights_global(commands.Cog):
                     await webhook.send(content=message.content,
                                        username=message.author.name,
                                        avatar_url=message.author.avatar_url_as(format="png"))
+                await message.delete()
 
 def setup(bot):
     bot.add_cog(arknights_global(bot))
