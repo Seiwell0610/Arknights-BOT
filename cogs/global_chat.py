@@ -2,6 +2,13 @@ import discord
 from discord.ext import commands
 import sqlite3
 import asyncio
+import requests
+
+def download_img(url, file_name):
+    r = requests.get(url, stream=True)
+    if r.status_code == 200:
+        with open(file_name, 'wb') as f:
+            f.write(r.content)
 
 class arknights_global(commands.Cog):
     def __init__(self, bot):
@@ -30,8 +37,10 @@ class arknights_global(commands.Cog):
 
                 else:
                     filepath = message.attachments[0].url
+                    filename = message.attachments[0].filename
+                    download_img(filepath, filename)
                     channel = self.bot.get_channel(699791241134735453)
-                    await channel.send(file=discord.File(filepath))
+                    await channel.send(file=discord.File(filename))
 
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
