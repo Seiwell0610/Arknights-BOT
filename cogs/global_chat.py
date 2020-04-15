@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import sqlite3
+import random
 
 class arknights_global(commands.Cog):
     def __init__(self, bot):
