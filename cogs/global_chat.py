@@ -38,11 +38,20 @@ class arknights_global(commands.Cog):
                     if webhook is None:
                         await message.channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
                         continue
+                    if message.attachments:
+                        MSG = message.attachments[0].url
+                        embed = discord.Embed(title="画像送信",description=" ",color = random.choice((0,0x1abc9c,0x11806a,0x2ecc71,0x1f8b4c,0x3498db,0x206694,0x9b59b6,0x71368a,0xe91e63,0xad1457,0xf1c40f,0xc27c0e,0xe67e22,0x95a5a6,0x607d8b,0x979c9f,0x546e7a,0x7289da,0x99aab5)))
+                        embed.set_image(url=MSG)   
+                        await webhook.send(content=message.content, embed=embed,  username=message.author.name, avatar_url=message.author.avatar_url_as(format="png"))
+                        return
+                    else:
+                        #await message.delete()
+                        await webhook.send(content=message.content,
+                                           username=message.author.name,
+                                           avatar_url=message.author.avatar_url_as(format="png"))
+                        return
 
-                    await webhook.send(content=message.content,
-                                       username=message.author.name,
-                                       avatar_url=message.author.avatar_url_as(format="png"))
-                await message.delete()
+                    
 
 def setup(bot):
     bot.add_cog(arknights_global(bot))
