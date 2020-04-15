@@ -75,10 +75,9 @@ class Member(commands.Cog):
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
 
-        tag_split = name.split()
-        tag_name = "・".join(name)
+        tag_split = name.split("/")
 
-        embed = discord.Embed(title=tag_name, description=None)
+        embed = discord.Embed(title=name, description=None)
         for i in c.execute('SELECT * FROM open_recruitment WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
             data = c.fetchone()
             data_tag = "/".join(data[1:5])
