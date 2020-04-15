@@ -27,10 +27,12 @@ class arknights_global(commands.Cog):
 
                 if not message.attachments:
                     await message.delete()
+
                 else:
                     filepath = message.attachments[0].url
                     channel = self.bot.get_channel(699791241134735453)
                     await self.bot.send_file(channel,filepath)
+
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
 
