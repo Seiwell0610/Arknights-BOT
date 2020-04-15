@@ -43,11 +43,11 @@ class arknights_global(commands.Cog):
                     dcount = 0
                     for p in message.attachments:
                         dcount += 1
-                        filename = filename + f"({dcount}).png"
+                        filenames = filename + f"({dcount}).png"
                         filepath = p.url
-                        download_img(filepath, filename)
+                        download_img(filepath, filenames)
                         channel = self.bot.get_channel(699791241134735453)
-                        await channel.send(file=discord.File(filename))
+                        await channel.send(file=discord.File(filenames))
 
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
@@ -83,10 +83,10 @@ class arknights_global(commands.Cog):
                         dcount = 0
                         for p in message.attachments:
                             dcount += 1
-                            filename = filename + f"({dcount}).png"
+                            filenames = filename + f"({dcount}).png"
                             pembed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
-                            pembed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
+                            pembed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filenames}')
                             pembed.set_author(name=message.author.display_name,
                                              icon_url=message.author.avatar_url_as(format="png"))
                             pembed.set_footer(text=f"From:{message.guild.name}",
@@ -97,15 +97,15 @@ class arknights_global(commands.Cog):
                     else:
                         if message.content:
                             dcount = 1
-                            filename = filename + f"({dcount}).png"
-                            embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
+                            filenames = filename + f"({dcount}).png"
+                            embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filenames}')
                             
                         else:
                             dcount = 1
-                            filename = filename + f"({dcount}).png"
+                            filenames = filename + f"({dcount}).png"
                             embed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
-                            embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
+                            embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filenames}')
                             embed.set_author(name=message.author.display_name,
                                              icon_url=message.author.avatar_url_as(format="png"))
                             embed.set_footer(text=f"From:{message.guild.name}",
