@@ -118,9 +118,7 @@ class Member(commands.Cog):
         embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
         embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=False)
         await channel.send(embed=embed)
-        GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
-        await ctx.create_webhook(name=GLOBAL_WEBHOOK_NAME)
-
+        
     @commands.command(name="del_global")
     @commands.has_permissions(manage_guild=True)
     async def _del_global(self, ctx):
@@ -146,9 +144,7 @@ class Member(commands.Cog):
         embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
         embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=False)
         await channel.send(embed=embed)
-        GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
-        await ctx.delete_webhook(name=GLOBAL_WEBHOOK_NAME)
-
+        
     ### カスタム絵文字関連 ###
     @commands.command(name="add_emoji", aliases=["addemoji", "aemoji"])
     async def _add_emoji(self, ctx, *, triger):
