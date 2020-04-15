@@ -85,7 +85,7 @@ class arknights_global(commands.Cog):
                         for p in message.attachments:
                             dcount += 1
                             filenames = filename + f"{dcount}.png"
-                            print(filenames)
+                            file = discord.File(filename=filenames)
                             pembed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
                             pembed.set_image(url=f"attachment://{filenames}")
@@ -95,18 +95,18 @@ class arknights_global(commands.Cog):
                                              icon_url=message.guild.icon_url_as(format="png"))
 
                             for channel in global_channels:
-                                await channel.send(embed=pembed)
+                                await channel.send(file=file, embed=pembed)
                     else:
                         if message.content:
                             dcount = 1
                             filenames = filename + f"{dcount}.png"
-                            print(filenames)
+                            file = discord.File(filename=filenames)
                             embed.set_image(url=f"attachment://{filenames}")
 
                         else:
                             dcount = 1
                             filenames = filename + f"{dcount}.png"
-                            print(filenames)
+                            file = discord.File(filename=filenames)
                             embed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
                             embed.set_image(url=f"attachment://{filenames}")
@@ -115,7 +115,7 @@ class arknights_global(commands.Cog):
                             embed.set_footer(text=f"From:{message.guild.name}",
                                              icon_url=message.guild.icon_url_as(format="png"))
                         for channel in global_channels:
-                            await channel.send(embed=embed)
+                            await channel.send(file=file, embed=embed)
                 
 
                 if message.attachments:
