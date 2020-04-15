@@ -76,6 +76,7 @@ class Member(commands.Cog):
         c = conn.cursor()
 
         tag_split = name.split("/")
+        print(tag_split)
 
         embed = discord.Embed(title=name, description=None)
         for i in c.execute('SELECT * FROM open_recruitment WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
