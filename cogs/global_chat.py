@@ -36,7 +36,7 @@ class arknights_global(commands.Cog):
                     await message.delete()
 
                 else:
-                    for p in message.attachments
+                    for p in message.attachments:
                         filepath = p.url
                         filename = p.filename
                         download_img(filepath, filename)
