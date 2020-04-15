@@ -3,6 +3,7 @@ from discord.ext import commands
 import sqlite3
 import asyncio
 import requests
+import datetime
 
 def download_img(url, file_name):
     r = requests.get(url, stream=True)
@@ -25,6 +26,9 @@ class arknights_global(commands.Cog):
         for row in c.execute("SELECT * FROM global_chat"):
             GLOBAL_CH_ID.append(row[0])
 
+        date = datetime.datetime.now()
+        filename = f"{date.year}{date.month}{date.day}-{date.hour}{date.minute}{date.second}"
+                        
         if message.channel.id in GLOBAL_CH_ID:
 
             if message.content.startswith(";"):
@@ -36,9 +40,11 @@ class arknights_global(commands.Cog):
                     await message.delete()
 
                 else:
+                    dcount = 0
                     for p in message.attachments:
+                        dcount += 1
+                        filename = filename + "({dcount}).png"
                         filepath = p.url
-                        filename = p.filename
                         download_img(filepath, filename)
                         channel = self.bot.get_channel(699791241134735453)
                         await channel.send(file=discord.File(filename))
@@ -74,8 +80,10 @@ class arknights_global(commands.Cog):
                         if message.content:
                             for channel in global_channels:
                                 await channel.send(embed=embed)
+                        dcount = 0
                         for p in message.attachments:
-                            filename = message.attachments[0].filename
+                            dcount += 1
+                            filename = filename + "({dcount}).png"
                             pembed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
                             pembed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
@@ -88,12 +96,13 @@ class arknights_global(commands.Cog):
                                 await channel.send(embed=pembed)
                     else:
                         if message.content:
-                            filename = message.attachments[0].filename
+                            dcount = 1
+                            filename = filename + "({dcount}).png"
                             embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
-                            print(f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
-                        
+                            
                         else:
-                            filename = message.attachments[0].filename
+                            dcount = 1
+                            filename = filename + "({dcount}).png"
                             embed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
                             embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
