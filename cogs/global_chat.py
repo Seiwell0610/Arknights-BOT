@@ -36,11 +36,12 @@ class arknights_global(commands.Cog):
                     await message.delete()
 
                 else:
-                    filepath = message.attachments[0].url
-                    filename = message.attachments[0].filename
-                    download_img(filepath, filename)
-                    channel = self.bot.get_channel(699791241134735453)
-                    await channel.send(file=discord.File(filename))
+                    for p in message.attachments
+                        filepath = p.url
+                        filename = p.filename
+                        download_img(filepath, filename)
+                        channel = self.bot.get_channel(699791241134735453)
+                        await channel.send(file=discord.File(filename))
 
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
