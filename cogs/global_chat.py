@@ -104,4 +104,3 @@ class arknights_global(commands.Cog):
 
 def setup(bot):
     bot.add_cog(arknights_global(bot))
-
