@@ -13,7 +13,7 @@ class arknights_global(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-
+        
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
         GLOBAL_CH_ID = []
@@ -29,6 +29,7 @@ class arknights_global(commands.Cog):
                 pass
 
             else:
+                return
 
                 if not message.attachments:
                     await message.delete()
