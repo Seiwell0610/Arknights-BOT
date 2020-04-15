@@ -27,8 +27,6 @@ class arknights_global(commands.Cog):
                 pass
 
             else:
-
-
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_ID]
 
