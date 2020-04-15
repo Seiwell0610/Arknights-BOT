@@ -37,6 +37,7 @@ class arknights_global(commands.Cog):
                     webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
 
                     if webhook is None:
+                        await message.channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
                         continue
 
                     await webhook.send(content=message.content,
