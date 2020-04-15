@@ -50,7 +50,5 @@ class arknights_global(commands.Cog):
                                            avatar_url=message.author.avatar_url_as(format="png"))
                         return
  
-        else:                   
-            await message.channel.send("NoneTypeError:Line24 pass")
 def setup(bot):
     bot.add_cog(arknights_global(bot))
