@@ -65,6 +65,7 @@ class arknights_global(commands.Cog):
                         embed.set_footer(text=f"From:{message.guild.name}",
                                          icon_url=message.guild.icon_url_as(format="png"))
 
+                    await asyncio.sleep(5)
                     pcount = 0
                     for c in message.attachments:
                         pcount += 1
