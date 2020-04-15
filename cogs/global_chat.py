@@ -79,7 +79,7 @@ class arknights_global(commands.Cog):
                         for p in message.attachments:
                             dcount += 1
                             filenames = filename + f"{dcount}.png"
-                            file = discord.File(f"https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filenames}", filename=filenames)
+                            file = discord.File(filenames)
                             pembed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
                             pembed.set_image(url=f"attachment://{filenames}")
@@ -94,13 +94,13 @@ class arknights_global(commands.Cog):
                         if message.content:
                             dcount = 1
                             filenames = filename + f"{dcount}.png"
-                            file = discord.File(f"https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filenames}", filename=filenames)
+                            file = discord.File(filenames)
                             embed.set_image(url=f"attachment://{filenames}")
 
                         else:
                             dcount = 1
                             filenames = filename + f"{dcount}.png"
-                            file = discord.File(f"https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filenames}", filename=filenames)
+                            file = discord.File(filenames)
                             embed = discord.Embed(title=None,
                                                   description=None, color=0x00bfff)
                             embed.set_image(url=f"attachment://{filenames}")
