@@ -90,6 +90,8 @@ class arknights_global(commands.Cog):
                         if message.content:
                             filename = message.attachments[0].filename
                             embed.set_image(url=f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
+                            print(f'https://cdn.discordapp.com/attachments/664353316846829568/699791241134735453/{filename}')
+                        
                         else:
                             filename = message.attachments[0].filename
                             embed = discord.Embed(title=None,
