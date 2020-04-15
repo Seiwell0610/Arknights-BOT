@@ -46,7 +46,7 @@ class arknights_global(commands.Cog):
                         filenames = filename + f"{dcount}.png"
                         attachment = message.attachments[0]
                         # 送られてきたファイルをattachment.pngという名前で保存する
-                        await attachment.save(f"{filenames})
+                        await attachment.save(f"{filenames}")
                         channel = self.bot.get_channel(699791241134735453)
                         await channel.send(file=discord.File(filenames))
 
