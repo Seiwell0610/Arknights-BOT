@@ -24,7 +24,7 @@ class arknights_global(commands.Cog):
         if message.channel.id in GLOBAL_CH_ID:
 
             if message.content.startswith(";"):
-                pass
+                return
 
             else:
                 channels = self.bot.get_all_channels()
@@ -51,6 +51,6 @@ class arknights_global(commands.Cog):
                         return
  
         else:                   
-            await message.channel.send("NoneTypeError")
+            await message.channel.send("NoneTypeError:Line24 pass")
 def setup(bot):
     bot.add_cog(arknights_global(bot))
