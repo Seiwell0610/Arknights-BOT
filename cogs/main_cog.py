@@ -70,7 +70,22 @@ class Member(commands.Cog):
             embed.add_field(name="募集タグ", value=f"{data[11]}", inline=True)
             await ctx.send(embed=embed)
 
+    @commands.command()
+    async def kk(self, ctx, name):
+        conn = sqlite3.connect("all_data.db")
+        c = conn.cursor()
 
+        tag_split = name.split()
+        tag_name = "・".join(name)
+
+        embed = discord.Embed(title=tag_name, description=None)
+        for i in c.execute('SELECT * FROM open_recruitment WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
+            data = c.fetchone()
+            data_tag = "/".join(data[1:5])
+            i_tag = "/".join(i[1:5])
+            embed.add_field(name=data[0], value=f"{data_tag}")
+            embed.add_field(name=i[0], value=f"{i_tag}")
+        await ctx.send(embed=embed)
 
     ### グローバルチャット関連 ###
     @commands.command(name="add_global")
