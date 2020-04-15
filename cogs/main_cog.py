@@ -118,6 +118,8 @@ class Member(commands.Cog):
         embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
         embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=False)
         await channel.send(embed=embed)
+        GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
+        await ctx.create_webhook(name=GLOBAL_WEBHOOK_NAME)
 
     @commands.command(name="del_global")
     @commands.has_permissions(manage_guild=True)
