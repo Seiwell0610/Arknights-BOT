@@ -12,7 +12,7 @@ class arknights_global(commands.Cog):
         if message.author.bot:
             return
 
-        GLOBAL_WEBHOOK_NAME = message.guild.neme
+        GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
 
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
