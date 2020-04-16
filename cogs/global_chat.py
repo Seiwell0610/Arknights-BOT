@@ -21,21 +21,22 @@ class arknights_global(commands.Cog):
         for row in c.execute("SELECT * FROM global_chat"):
             GLOBAL_CH_ID.append(row[0])
 
-        print(GLOBAL_CH_ID)
         if message.channel.id in GLOBAL_CH_ID:
 
             if message.content.startswith(";"):
                 pass
 
             else:
-
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_ID]
-
+                print(channels)
+                print(global_channels)
                 for channel in global_channels:
+                    print(channel)
                     ch_webhooks = await channel.webhooks()
                     webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
-
+                    print(ch_webhooks)
+                    print(webhook)
                     if webhook is None:
                         await message.channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
                         continue
