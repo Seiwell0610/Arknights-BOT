@@ -21,6 +21,7 @@ class arknights_global(commands.Cog):
         for row in c.execute("SELECT * FROM global_chat"):
             GLOBAL_CH_ID.append(row[0])
 
+        print(GLOBAL_CH_ID)
         if message.channel.id in GLOBAL_CH_ID:
 
             if message.content.startswith(";"):
