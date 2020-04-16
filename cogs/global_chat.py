@@ -29,7 +29,6 @@ class arknights_global(commands.Cog):
             else:
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
-                print(global_channels)
                 for channel in global_channels:
                     ch_webhooks = await channel.webhooks()
                     webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
