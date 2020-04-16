@@ -56,3 +56,5 @@ class arknights_global(commands.Cog):
                 await message.channel.send("line31 Error \n https://github.com/Seiwell0610/Arknights-BOT/blob/0471658b5a7c608a7276f00914c891b583258d9c/cogs/global_chat.py#L31 ")
 def setup(bot):
     bot.add_cog(arknights_global(bot))
+
+
