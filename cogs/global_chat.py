@@ -10,6 +10,9 @@ class arknights_global(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.author.bot:
+            return
+
         GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
 
         conn = sqlite3.connect("all_data.db")
@@ -25,7 +28,7 @@ class arknights_global(commands.Cog):
 
             else:
                 channels = self.bot.get_all_channels()
-                global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_ID]
+                global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
                 for ch in channels:
                     print(ch.id)
                 for channel in global_channels:
