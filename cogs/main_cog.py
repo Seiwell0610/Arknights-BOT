@@ -20,7 +20,7 @@ class Member(commands.Cog):
         character.title()
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
-        c.execute('SELECT * FROM character_data WHERE 名前=?', (character,))
+        c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()
         while data == None:
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
@@ -48,7 +48,7 @@ class Member(commands.Cog):
     async def _u(self, ctx, character):
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
-        c.execute('SELECT * FROM unimplemented_character_data WHERE 名前=?', (character,))
+        c.execute('SELECT * FROM unimplemented_character WHERE 名前=?', (character,))
         data = c.fetchone()
         while data == None:
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは既に実装されているキャラクターです。",
@@ -78,9 +78,9 @@ class Member(commands.Cog):
         tag_split = name.split("/")
         print(tag_split)
 
-        if c.execute('SELECT * FROM open_recruitment WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
+        if c.execute('SELECT * FROM character WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
             embed = discord.Embed(title=name, description=None)
-            for i in c.execute('SELECT * FROM open_recruitment WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
+            for i in c.execute('SELECT * FROM character WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
                 data = c.fetchone()
                 data_tag = "/".join(data[1:5])
                 i_tag = "/".join(i[1:5])
@@ -118,7 +118,7 @@ class Member(commands.Cog):
         embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
         embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=False)
         await channel.send(embed=embed)
-        
+
     @commands.command(name="del_global")
     @commands.has_permissions(manage_guild=True)
     async def _del_global(self, ctx):
@@ -144,7 +144,7 @@ class Member(commands.Cog):
         embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
         embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=False)
         await channel.send(embed=embed)
-        
+
     ### カスタム絵文字関連 ###
     @commands.command(name="add_emoji", aliases=["addemoji", "aemoji"])
     async def _add_emoji(self, ctx, *, triger):
