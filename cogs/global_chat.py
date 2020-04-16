@@ -52,12 +52,12 @@ class arknights_global(commands.Cog):
                            await attachment.save(f"{filenames}")
                            await webhook.send(file=discord.File(filenames), username=message.author.name,
                                               avatar_url=message.author.avatar_url_as(format="png"))
-                           return
+                           
                     else:
                         await message.delete()
                         await webhook.send(content=message.content, username=message.author.name,
                                            avatar_url=message.author.avatar_url_as(format="png"))
-                        return
+                        
 
 def setup(bot):
     bot.add_cog(arknights_global(bot))
