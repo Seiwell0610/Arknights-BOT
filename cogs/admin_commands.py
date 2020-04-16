@@ -20,24 +20,24 @@ class Member(commands.Cog):
 
     @commands.command()
     async def all_guilds(self, ctx):
-        if admin_list not in ctx.author.id:
-            await ctx.send("指定のユーザーのみが使用できます。")
-
-        else:
+        if ctx.author.id in admin_list:
             guilds = self.bot.guilds  # 参加しているすべてのサーバー
             for guild in guilds:
                 await ctx.send(guild.name)
 
-    @commands.command()
-    async def global_chat(self, ctx):
-        if admin_list not in ctx.author.id:
+        else:
             await ctx.send("指定のユーザーのみが使用できます。")
 
-        else:
+    @commands.command()
+    async def global_chat(self, ctx):
+        if ctx.author.id in admin_list:
             conn = sqlite3.connect("all_data.db")
             c = conn.cursor()
             for data in c.execute('SELECT * FROM global_chat'):
                 await ctx.send(data)
+
+        else:
+            await ctx.send("指定のユーザーのみが使用できます。")
 
 
 def setup(bot):
