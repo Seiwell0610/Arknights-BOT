@@ -10,7 +10,8 @@ dbx.users_get_current_account()
 admin_list = []
 conn = sqlite3.connect("all_data.db")
 c = conn.cursor()
-c.execute('SELECT * FROM admin_list WHERE id = ?', (admin_list,))
+for row in c.execute("SELECT * FROM admin_list"):
+    admin_list.append(row[0])
 
 class Member(commands.Cog):
     def __init__(self, bot):
