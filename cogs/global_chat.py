@@ -3,6 +3,7 @@ from discord.ext import commands
 import sqlite3
 import random
 import re
+import datetime
 
 class arknights_global(commands.Cog):
     def __init__(self, bot):
@@ -12,6 +13,9 @@ class arknights_global(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
+
+        date = datetime.datetime.now()
+        filename = f"{date.year}{date.month}{date.day}-{date.hour}{date.minute}{date.second}" 
 
         GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
 
@@ -37,12 +41,15 @@ class arknights_global(commands.Cog):
                         await message.channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
                         continue
                     if message.attachments:
-                        MSG = message.attachments[0].url
-                        embed = discord.Embed(title="画像送信", description=" ", color=discord.Color.blue())
-                        embed.set_image(url=MSG)
-                        await webhook.send(content=message.content, embed=embed, username=message.author.name,
-                                           avatar_url=message.author.avatar_url_as(format="png"))
-                        return
+                        dcount = 0
+                        for p in message.attachments:
+                           dcount += 1
+                           filenames = filename + f"{dcount}.png"
+                           attachment = message.attachments[0]
+                           # 送られてきたファイルをattachment.pngという名前で保存する
+                           await attachment.save(f"{filenames}")
+                           await webhook.send(file=discord.File(filenames))
+                           return
                     else:
                         await message.delete()
                         await webhook.send(content=message.content, username=message.author.name,
