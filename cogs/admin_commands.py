@@ -26,7 +26,7 @@ class Member(commands.Cog):
                 await ctx.send(guild.name)
 
         else:
-            await ctx.send("指定のユーザーのみが使用できます。")
+            await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
     @commands.command()
     async def global_chat(self, ctx):
@@ -37,7 +37,7 @@ class Member(commands.Cog):
                 await ctx.send(data)
 
         else:
-            await ctx.send("指定のユーザーのみが使用できます。")
+            await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
 
 def setup(bot):
