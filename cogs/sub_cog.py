@@ -61,11 +61,5 @@ class sub(commands.Cog):
                                       color=discord.Color.dark_red())
                 await message.channel.send(embed=embed)
 
-        #サーバー一覧
-        if message.content.startswith(f";all_guilds"):
-            guilds = self.bot.guilds  # 参加しているすべてのサーバー
-            for guild in guilds:
-                await message.channel.send(guild.name)
-
 def setup(bot):
     bot.add_cog(sub(bot))
