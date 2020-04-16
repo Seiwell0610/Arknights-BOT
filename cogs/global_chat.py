@@ -20,7 +20,6 @@ class arknights_global(commands.Cog):
         GLOBAL_CH_ID = []
         for row in c.execute("SELECT * FROM global_chat"):
             GLOBAL_CH_ID.append(row[1])
-
         if message.channel.name in GLOBAL_CH_ID:
 
             if message.content.startswith(";"):
@@ -29,6 +28,7 @@ class arknights_global(commands.Cog):
             else:
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.name == GLOBAL_CH_ID]
+                print(channels)
                 print(global_channels)
                 print(GLOBAL_CH_ID)
                 for channel in global_channels:
