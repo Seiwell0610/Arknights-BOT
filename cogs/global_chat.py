@@ -48,7 +48,8 @@ class arknights_global(commands.Cog):
                            attachment = message.attachments[0]
                            # 送られてきたファイルをattachment.pngという名前で保存する
                            await attachment.save(f"{filenames}")
-                           await webhook.send(file=discord.File(filenames))
+                           await webhook.send(file=discord.File(filenames), username=message.author.name,
+                                              avatar_url=message.author.avatar_url_as(format="png"))
                            return
                     else:
                         await message.delete()
