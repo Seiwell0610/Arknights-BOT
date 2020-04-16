@@ -29,14 +29,12 @@ class arknights_global(commands.Cog):
             else:
                 channels = self.bot.get_all_channels()
                 global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_ID]
-                print(channels)
-                print(global_channels)
+                for ch in channels:
+                    print(ch.id)
                 for channel in global_channels:
-                    print(channel)
                     ch_webhooks = await channel.webhooks()
                     webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
-                    print(ch_webhooks)
-                    print(webhook)
+
                     if webhook is None:
                         await message.channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
                         continue
