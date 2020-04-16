@@ -19,7 +19,7 @@ class arknights_global(commands.Cog):
         c = conn.cursor()
         GLOBAL_CH_ID = []
         for row in c.execute("SELECT * FROM global_chat"):
-            GLOBAL_CH_ID.append(row[0])
+            GLOBAL_CH_ID.append(row[1])
 
         if message.channel.id in GLOBAL_CH_ID:
 
@@ -28,7 +28,7 @@ class arknights_global(commands.Cog):
 
             else:
                 channels = self.bot.get_all_channels()
-                global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_ID]
+                global_channels = [ch for ch in channels if ch.name == GLOBAL_CH_ID]
                 print(global_channels)
                 print(GLOBAL_CH_ID)
                 for channel in global_channels:
