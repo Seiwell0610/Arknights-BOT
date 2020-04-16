@@ -36,7 +36,7 @@ class arknights_global(commands.Cog):
                 for channel in global_channels:
                     ch_webhooks = await channel.webhooks()
                     webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
-
+                    print(webhook)
                     if webhook is None:
                         await message.channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
                         continue
@@ -48,15 +48,14 @@ class arknights_global(commands.Cog):
                         attachment = message.attachments[0]
                         # 送られてきたファイルをattachment.pngという名前で保存する
                         await attachment.save(f"{filenames}")
-                        await channel.webhook.send(file=discord.File(filenames), username=message.author.name,
-                                                   avatar_url=message.author.avatar_url_as(format="png"))
+                        await webhook.send(file=discord.File(filenames), username=message.author.name,
+                                           avatar_url=message.author.avatar_url_as(format="png"))
                            
                     else:
+                        await webhook.send(content=message.content, username=message.author.name,
+                                           avatar_url=message.author.avatar_url_as(format="png"))
                         await message.delete()
-                        await channel.webhook.send(content=message.content, username=message.author.name,
-                                                   avatar_url=message.author.avatar_url_as(format="png"))
                         
-
 def setup(bot):
     bot.add_cog(arknights_global(bot))
 
