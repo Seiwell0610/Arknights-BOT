@@ -41,6 +41,8 @@ class arknights_global(commands.Cog):
                         await message.channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
                         continue
                     if message.attachments:
+                        if channelid == message.channel.id:
+                            return
                         dcount = 0
                         for p in message.attachments:
                            dcount += 1
