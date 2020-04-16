@@ -12,6 +12,7 @@ conn = sqlite3.connect("all_data.db")
 c = conn.cursor()
 for row in c.execute("SELECT * FROM admin_list"):
     admin_list.append(row[0])
+print(admin_list)
 
 class Member(commands.Cog):
     def __init__(self, bot):
