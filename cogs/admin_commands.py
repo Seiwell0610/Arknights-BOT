@@ -20,7 +20,7 @@ class Member(commands.Cog):
 
     @commands.command()
     async def all_guilds(self, ctx):
-        if ctx.author.id not in admin_list:
+        if admin_list not in ctx.author.id:
             await ctx.send("指定のユーザーのみが使用できます。")
 
         else:
@@ -30,7 +30,7 @@ class Member(commands.Cog):
 
     @commands.command()
     async def global_chat(self, ctx):
-        if ctx.author.id not in admin_list:
+        if admin_list not in ctx.author.id:
             await ctx.send("指定のユーザーのみが使用できます。")
 
         else:
