@@ -17,7 +17,7 @@ class arknights_global(commands.Cog):
         GLOBAL_CH_ID = []
         for row in c.execute("SELECT * FROM global_chat"):
             GLOBAL_CH_ID.append(row[0])
-
+        print(GLOBAL_CH_ID)
         if message.channel.id in GLOBAL_CH_ID:
 
             if message.content.startswith(";"):
@@ -28,7 +28,6 @@ class arknights_global(commands.Cog):
                 global_channels = [ch for ch in channels if ch.id == GLOBAL_CH_ID]
                 for ch in channels:
                     print(ch.id)
-                    print(GLOBAL_CH_ID)
                 for channel in global_channels:
                     ch_webhooks = await channel.webhooks()
                     webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
