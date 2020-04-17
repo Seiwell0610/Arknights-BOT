@@ -66,8 +66,10 @@ class arknights_global(commands.Cog):
                                 filenames = p.filename
                             elif ".jpg" in p.filename:
                                 filenames = filename + f"{dcount}.jpg"
+                            elif ".png" in p.filename:
+                                filenames = filename + f"{dcount}.png"
                             else:
-                                filenames = filename + f"{dcount}.png" #保存名.png 決定
+                                filenames = p.filename #保存名.png 決定
                             await p.save(f"{filenames}") #ローカル保存
                             await webhook.send(file=discord.File(filenames), username=message.author.name,
                                                avatar_url=message.author.avatar_url_as(format="png"))
