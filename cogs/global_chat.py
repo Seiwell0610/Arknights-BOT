@@ -62,7 +62,10 @@ class arknights_global(commands.Cog):
                         dcount = 0 #dcountには数字
                         for p in message.attachments:
                             dcount += 1
-                            filenames = filename + f"{dcount}.png" #保存名.png 決定
+                            if ".gif" in p.filename:
+                                filenames = p.filename
+                            else:
+                                filenames = filename + f"{dcount}.png" #保存名.png 決定
                             await p.save(f"{filenames}") #ローカル保存
                             await webhook.send(file=discord.File(filenames), username=message.author.name,
                                                avatar_url=message.author.avatar_url_as(format="png"))
