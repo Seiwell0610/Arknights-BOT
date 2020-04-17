@@ -64,6 +64,8 @@ class arknights_global(commands.Cog):
                             dcount += 1
                             if ".gif" in p.filename:
                                 filenames = p.filename
+                            elif ".jpg" in p.filename:
+                                filenames = filename + f"{dcount}.jpg"
                             else:
                                 filenames = filename + f"{dcount}.png" #保存名.png 決定
                             await p.save(f"{filenames}") #ローカル保存
