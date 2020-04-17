@@ -44,11 +44,12 @@ class arknights_global(commands.Cog):
                         if channel.id == message.channel.id:
                             return
                         dcount = 0
-                        filenames = filename + f"{dcount}.png"
                         attachment = message.attachments[0]
                         # 送られてきたファイルをattachment.pngという名前で保存する
-                        await attachment.save(f"{filenames}")
-                        await webhook.send(file=discord.File(filenames), username=message.author.name,
+                        for dcount in message.attachments:
+                            filenames = filename + f"{dcount}.png"
+                            await attachment.save(f"{filenames}")
+                            await webhook.send(file=discord.File(filenames), username=message.author.name,
                                            avatar_url=message.author.avatar_url_as(format="png"))
                            
                     else:
