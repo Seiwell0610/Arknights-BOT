@@ -57,7 +57,7 @@ class arknights_global(commands.Cog):
                     #画像処理
                         if channel.id == message.channel.id:
                             return
-                        送信チャンネルが発言チャンネルと同じならreturn
+                        #送信チャンネルが発言チャンネルと同じならreturn
 
                         dcount = 0 #dcountには数字
                         for p in message.attachments:
