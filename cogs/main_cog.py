@@ -138,7 +138,7 @@ class Member(commands.Cog):
         with open("all_data.db", "rb") as fc:
             dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
-        embed = discord.Embed(title="グローバルチャット[解除]", description=None, color=discord.Color.red())
+        embed = discord.Embed(title="グローバルチャット[解除]", description=None, color=discord.Color.dark_red())
         embed.add_field(name=f"GUILD", value=f"{guild}", inline=False)
         embed.add_field(name="GUILD ID", value=f"{guild_id}", inline=False)
         embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
