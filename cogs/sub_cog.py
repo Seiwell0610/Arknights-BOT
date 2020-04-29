@@ -8,16 +8,16 @@ class sub(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = self.bot.get_channel(689987791127576753)
+        channel = self.bot.get_channel(689264601006997547)
 
         if member.guild.id == 689263691669176426:
-            embed = discord.Embed(title="サーバー新規参加", description=f"{member.mention}さん\nサーバー参加ありがとうございます:grinning:\nこのサーバーのことを拡散・宣伝してもらえると嬉しいです:sunglasses:",
+            embed = discord.Embed(title="メンバー新規参加", description=f"{member.mention}さんがサーバーに参加しました。",
                                   color=discord.Color.blue())
             await channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        channel = self.bot.get_channel(689987791127576753)
+        channel = self.bot.get_channel(689265615516598434)
 
         if member.guild.id == 689263691669176426:
             embed = discord.Embed(title="サーバーから退出", description=f"{member.mention}さんがサーバーから退出しました。",color=discord.Color.purple())
@@ -60,12 +60,6 @@ class sub(commands.Cog):
                 embed = discord.Embed(title="エラー", description="このチャンネルでは、このコマンドは実行できません。",
                                       color=discord.Color.dark_red())
                 await message.channel.send(embed=embed)
-
-        #サーバー一覧
-        if message.content.startswith(f";all_guilds"):
-            guilds = self.bot.guilds  # 参加しているすべてのサーバー
-            for guild in guilds:
-                await message.channel.send(guild.name)
 
 def setup(bot):
     bot.add_cog(sub(bot))

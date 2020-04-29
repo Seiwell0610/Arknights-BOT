@@ -20,7 +20,7 @@ class Member(commands.Cog):
         character.title()
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
-        c.execute('SELECT * FROM character_data WHERE 名前=?', (character,))
+        c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()
         while data == None:
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
@@ -48,7 +48,7 @@ class Member(commands.Cog):
     async def _u(self, ctx, character):
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
-        c.execute('SELECT * FROM unimplemented_character_data WHERE 名前=?', (character,))
+        c.execute('SELECT * FROM unimplemented_character WHERE 名前=?', (character,))
         data = c.fetchone()
         while data == None:
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは既に実装されているキャラクターです。",
@@ -78,9 +78,9 @@ class Member(commands.Cog):
         tag_split = name.split("/")
         print(tag_split)
 
-        if c.execute('SELECT * FROM open_recruitment WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
+        if c.execute('SELECT * FROM character WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
             embed = discord.Embed(title=name, description=None)
-            for i in c.execute('SELECT * FROM open_recruitment WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
+            for i in c.execute('SELECT * FROM character WHERE ? in (タグ1,タグ2,タグ3,タグ4,タグ5)', (tag_split[0],)):
                 data = c.fetchone()
                 data_tag = "/".join(data[1:5])
                 i_tag = "/".join(i[1:5])
@@ -138,7 +138,7 @@ class Member(commands.Cog):
         with open("all_data.db", "rb") as fc:
             dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
 
-        embed = discord.Embed(title="グローバルチャット[解除]", description=None, color=discord.Color.purple())
+        embed = discord.Embed(title="グローバルチャット[解除]", description=None, color=discord.Color.dark_red())
         embed.add_field(name=f"GUILD", value=f"{guild}", inline=False)
         embed.add_field(name="GUILD ID", value=f"{guild_id}", inline=False)
         embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)

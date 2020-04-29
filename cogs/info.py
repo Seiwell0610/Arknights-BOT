@@ -9,7 +9,7 @@ class Help(commands.Cog):
 
     @commands.command(aliases=['info'])
     async def about(self, ctx):
-        invite = "https://discordapp.com/api/oauth2/authorize?client_id=688553944661754054&permissions=1611000896&scope=bot"
+        invite = "https://discordapp.com/api/oauth2/authorize?client_id=688553944661754054&permissions=379968&scope=bot"
         url = "https://discord.gg/25yrUVp"
         timestamp = datetime.utcfromtimestamp(int(self.bot.user.created_at.timestamp()))
         embed = discord.Embed(title="このBOTのヘルプ:", description=f">>> ```アークナイツに関する情報を表示したり、\n他にも様々な機能を提供します。```[このBOTの招待はこちら](<{invite}>)\n[Arknights JP[Unofficial]サーバーはこちら](<{url}>)", timestamp=timestamp, color=0x009193)
