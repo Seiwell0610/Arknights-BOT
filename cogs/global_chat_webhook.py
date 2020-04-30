@@ -58,7 +58,9 @@ class arknights_global(commands.Cog):
                         if channel.id == message.channel.id:
                             return
                         #送信チャンネルが発言チャンネルと同じならreturn
-
+                        if message.content:
+                            await webhook.send(content=message.content, username=message.author.name,
+                                               avatar_url=message.author.avatar_url_as(format="png"))
                         dcount = 0 #dcountには数字
                         for p in message.attachments:
                             dcount += 1
