@@ -26,7 +26,12 @@ class Help(commands.Cog):
     @commands.group()
     async def help(self, ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.send(f"{ctx.author.mention}-> `;help <コマンド>`と入力してください。")
+            embed = discord.Embed(title="コマンド一覧", color=discord.Color.bule())
+            embed.add_field(name="基本コマンド", value="`;about`, `;help <コマンド名>`, `;s <キャラクター名>`, `;u`")
+            embed.add_field(name="補助コマンド", value="`;add_emoji`, `;cleanup`")
+            embed.add_field(name="グローバルチャット", value="`;add_global`, `;del_global`")
+            embed.add_field(name="一部のサーバー限定", value=";通知")
+            embed.add_field(name="運勢専用コマンド", value="`;admin_list`, `;global_chat`")
 
     @help.command(name="about")
     async def _about(self, ctx):
