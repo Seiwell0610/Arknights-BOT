@@ -27,11 +27,11 @@ class Help(commands.Cog):
     async def help(self, ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title="コマンド一覧", description=None, color=discord.Color.blue())
-            embed.add_field(name="基本コマンド", value="`;about`, `;help <コマンド名>`, `;s <キャラクター名>`, `;u`")
-            embed.add_field(name="補助コマンド", value="`;add_emoji`, `;cleanup`")
-            embed.add_field(name="グローバルチャット", value="`;add_global`, `;del_global`")
-            embed.add_field(name="一部のサーバー限定", value=";通知")
-            embed.add_field(name="運勢専用コマンド", value="`;admin_list`, `;global_chat`")
+            embed.add_field(name="基本コマンド", value="`;about`, `;help <コマンド名>`, `;s <キャラクター名>`, `;u`", inline=False)
+            embed.add_field(name="補助コマンド", value="`;add_emoji`, `;cleanup`", inline=False)
+            embed.add_field(name="グローバルチャット", value="`;add_global`, `;del_global`", inline=False)
+            embed.add_field(name="一部のサーバー限定", value="`;通知`", inline=False)
+            embed.add_field(name="運勢専用コマンド", value="`;admin_list`, `;global_chat`", inline=False)
             await ctx.send(embed=embed)
 
     @help.command(name="about")
