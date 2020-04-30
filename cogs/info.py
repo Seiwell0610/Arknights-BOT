@@ -32,6 +32,7 @@ class Help(commands.Cog):
             embed.add_field(name="グローバルチャット", value="`;add_global`, `;del_global`")
             embed.add_field(name="一部のサーバー限定", value=";通知")
             embed.add_field(name="運勢専用コマンド", value="`;admin_list`, `;global_chat`")
+            await ctx.send(embed=embed)
 
     @help.command(name="about")
     async def _about(self, ctx):
