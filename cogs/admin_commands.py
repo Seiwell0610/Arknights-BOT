@@ -39,6 +39,15 @@ class Member(commands.Cog):
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
+    @commands.command()
+    async def admin_list(self, ctx):
+        if ctx.author.id in admin_list:
+            admin_list_1 = ",".join(admin_list)
+            embed = discord.Embed(title="現在の管理者情報", description=f"{admin_list_1}", color=discord.Color.blue())
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
+
 
 def setup(bot):
     bot.add_cog(Member(bot))
