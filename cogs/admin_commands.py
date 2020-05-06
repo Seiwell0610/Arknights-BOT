@@ -42,7 +42,7 @@ class Member(commands.Cog):
     @commands.command()
     async def admin_list(self, ctx):
         if ctx.author.id in admin_list:
-            admin_list_1 = ",".join(admin_list)
+            admin_list_1 = ",".join(map(str, admin_list))
             embed = discord.Embed(title="現在の管理者情報", description=f"{admin_list_1}", color=discord.Color.blue())
             await ctx.send(embed=embed)
         else:
