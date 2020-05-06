@@ -19,6 +19,7 @@ class Disboard(commands.Cog):
                     await msg.edit(content=f"あと{s}秒後にBumpできます。")
                     await asyncio.sleep(1)
                     m += 1
+                await msg.edit(content=f"Bump可能")
             
 def setup(bot):
     bot.add_cog(Disboard(bot))
