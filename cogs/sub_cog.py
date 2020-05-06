@@ -39,7 +39,7 @@ class sub(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
 
-        role = discord.utils.get(message.guild.roles, name='Notification')
+        role = discord.utils.get(message.guild.roles, name='メンションOK')
         if message.author.bot:
             return
 
