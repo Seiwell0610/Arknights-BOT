@@ -23,7 +23,6 @@ class Disboard(commands.Cog):
                     await msg.edit(content=f"あと{s}秒後にBumpできます。")
                     await asyncio.sleep(1)
                     m += 1
-                await msg.delete()
                 await msg.edit(content=f"<@{mn}>さん\nBumpができるようになりました。")
             
 def setup(bot):
