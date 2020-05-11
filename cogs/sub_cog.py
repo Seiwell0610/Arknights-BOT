@@ -45,7 +45,7 @@ class sub(commands.Cog):
 
         #通知
         if message.content.startswith(";通知"):
-            if message.channel.id == 689279925030486045:
+            if message.channel.id == 708503714713043004:
                 if role in message.author.roles:
                     embed = discord.Embed(title="役職の剥奪", description=f"{message.author.mention}\n役職：`{role}`を剥奪しました。",
                                           color=discord.Color.dark_blue())
