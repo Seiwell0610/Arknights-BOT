@@ -56,7 +56,7 @@ class arknights_global(commands.Cog):
                     if message.attachments:
                     #画像処理
                         if channel.id == message.channel.id:
-                            return await message.attachments[0].add_reaction('☑️')
+                            return await message.attachments.add_reaction('☑️')
                         #送信チャンネルが発言チャンネルと同じならreturn
 
                         if message.content:
