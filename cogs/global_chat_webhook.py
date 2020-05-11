@@ -56,11 +56,13 @@ class arknights_global(commands.Cog):
                     if message.attachments:
                     #画像処理
                         if channel.id == message.channel.id:
-                            return
+                            return await message.attachments[0].add_reaction('☑️')
                         #送信チャンネルが発言チャンネルと同じならreturn
+
                         if message.content:
                             await webhook.send(content=message.content, username=message.author.name,
                                                avatar_url=message.author.avatar_url_as(format="png"))
+
                         dcount = 0 #dcountには数字
                         for p in message.attachments:
                             dcount += 1
