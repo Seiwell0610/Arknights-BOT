@@ -31,7 +31,7 @@ class Help(commands.Cog):
             embed.add_field(name="補助コマンド", value="`;add_emoji`, `;cleanup`", inline=False)
             embed.add_field(name="グローバルチャット", value="`;add_global`, `;del_global`", inline=False)
             embed.add_field(name="一部のサーバー限定", value="`;通知`", inline=False)
-            embed.add_field(name="運営専用コマンド", value="`;admin_list`, `;global_chat`, `all_guilds`, `get_user <ユーザーID>`,\n`news <タイトル> <本文> <チャンネルID>`", inline=False)
+            embed.add_field(name="運営専用コマンド", value="`;admin_list`, `;global_chat`, `;all_guilds`, `;get_user <ユーザーID>`,\n`;news <タイトル> <本文> <チャンネルID>`", inline=False)
             await ctx.send(embed=embed)
 
     @help.command(name="about")
