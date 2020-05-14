@@ -31,7 +31,7 @@ class Help(commands.Cog):
             embed.add_field(name="補助コマンド", value="`;add_emoji`, `;cleanup`", inline=False)
             embed.add_field(name="グローバルチャット", value="`;add_global`, `;del_global`", inline=False)
             embed.add_field(name="一部のサーバー限定", value="`;通知`", inline=False)
-            embed.add_field(name="運勢専用コマンド", value="`;admin_list`, `;global_chat`", inline=False)
+            embed.add_field(name="運営専用コマンド", value="`;admin_list`, `;global_chat`, `all_guilds`, `get_user <ユーザーID>`,\n`news <タイトル> <本文> <チャンネルID>`", inline=False)
             await ctx.send(embed=embed)
 
     @help.command(name="about")
@@ -61,7 +61,7 @@ class Help(commands.Cog):
         await ctx.send(embed=embed)
 
     @help.command()
-    async def del_global(self,ctx):
+    async def del_global(self, ctx):
         embed = discord.Embed(title="`;del_global`のヘルプ；", description="グローバルチャットの登録を解除します。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="サーバー管理")
         await ctx.send(embed=embed)
