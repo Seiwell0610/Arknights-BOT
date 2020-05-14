@@ -22,8 +22,8 @@ class Member(commands.Cog):
     async def news(self, ctx, title, main, channel_id):
         if ctx.author.id in admin_list:
             embed = discord.Embed(title=f"{title}", description=f"{main}")
-            channel = self.bot.get_channel(channel_id)
-            await channel.channel.send(embed=embed)
+            channel = self.bot.get_channel(int(channel_id))
+            await channel.send(embed=embed)
 
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
