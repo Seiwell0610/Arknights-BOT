@@ -62,7 +62,7 @@ class Member(commands.Cog):
     async def get_user(self, ctx, id):
         if ctx.author.id in admin_list:
             embed = discord.Embed(title="ユーザー情報", description=None, color=discord.Color.blue())
-            user_name = self.bot.get_user(id)
+            user_name = self.bot.get_user(int(id))
             embed.add_field(name="該当ユーザー名", value=f"{user_name}")
             embed.add_field(name="検索ユーザーID", value=f"{id}")
             await ctx.send(embed=embed)
