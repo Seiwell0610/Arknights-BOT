@@ -172,5 +172,26 @@ class Member(commands.Cog):
         embed = discord.Embed(title="メッセージの削除完了", description="すべてのメッセージを正常に削除しました。", color=discord.Color.blue())
         await ctx.channel.send(embed=embed)
 
+    @commands.command()
+    async def 通知(self, ctx):
+        role = discord.utils.get(ctx.guild.roles, name='メンションOK')
+        if ctx.author.bot:
+            return
+        if ctx.channel.id == 708503714713043004:
+            if role in ctx.author.roles:
+                embed = discord.Embed(title="役職の剥奪", description=f"{ctx.author.mention}\n役職：`{role}`を剥奪しました。",
+                                      color=discord.Color.dark_blue())
+                await ctx.channel.send(embed=embed)
+                await ctx.author.remove_roles(role)
+            else:
+                embed = discord.Embed(title="役職の追加", description=f"{ctx.author.mention}\n役職：`{role}`を付与しました。",
+                                     color=discord.Color.dark_blue())
+                await ctx.channel.send(embed=embed)
+                await ctx.author.add_roles(role)
+        else:
+            embed = discord.Embed(title="エラー", description="このチャンネルでは、このコマンドは実行できません。",
+                                  color=discord.Color.dark_red())
+            await ctx.channel.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(Member(bot))
