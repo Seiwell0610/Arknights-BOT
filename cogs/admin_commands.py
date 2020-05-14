@@ -20,9 +20,13 @@ class Member(commands.Cog):
 
     @commands.command()
     async def news(self, ctx, title, main, channel_id):
-        embed = discord.Embed(title = f"{title}", description=f"{main}")
-        channel = self.bot.get_channel(channel_id)
-        await channel.send(embed=embed)
+        if ctx.author.id in admin_list:
+            embed = discord.Embed(title=f"{title}", description=f"{main}")
+            channel = self.bot.get_channel(channel_id)
+            await channel.channel.send(embed=embed)
+
+        else:
+            await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
     @commands.command()
     async def all_guilds(self, ctx):
