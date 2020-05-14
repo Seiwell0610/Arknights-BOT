@@ -19,6 +19,12 @@ class Member(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    async def news(self, ctx, title, main, channel_id):
+        embed = discord.Embed(title = f"{title}", description=f"{main}")
+        channel = self.bot.get_channel(channel_id)
+        await channel.send(embed=embed)
+
+    @commands.command()
     async def all_guilds(self, ctx):
         if ctx.author.id in admin_list:
             guilds = self.bot.guilds  # 参加しているすべてのサーバー
@@ -49,7 +55,7 @@ class Member(commands.Cog):
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
     @commands.command()
-    async def get_uname(self, ctx, id):
+    async def get_user(self, ctx, id):
         if ctx.author.id in admin_list:
             embed = discord.Embed(title="ユーザー情報", description=None, color=discord.Color.blue())
             user_name = self.bot.get_user(id)
