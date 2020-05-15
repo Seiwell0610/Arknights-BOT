@@ -63,10 +63,14 @@ class Member(commands.Cog):
     async def get_user(self, ctx, id):
         if ctx.author.id in admin_list:
             embed = discord.Embed(title="ユーザー情報", description=None, color=discord.Color.blue())
-            user_name = self.bot.get_user(int(id))
-            embed.add_field(name="該当ユーザー名", value=f"{user_name}")
-            embed.add_field(name="検索ユーザーID", value=f"{id}")
+            user = await self.bot.fetch_user(int(id))
+            embed.add_field(name="該当ユーザー名", value=f"{user.name}", inline=True)
+            embed.add_field(name="該当タグ情報", value=f"{user.discriminator}", inline=True)
+            embed.add_field(name="検索ユーザーID", value=f"{user.id}", inline=True)
+            embed.add_field(name="BOT判定", value=f"{user.bot}", inline=True)
+            embed.add_field(name="アカウント作成日", value=f"{user.created_at}", inline=True)
             await ctx.send(embed=embed)
+
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
