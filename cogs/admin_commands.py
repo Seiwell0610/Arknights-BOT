@@ -65,11 +65,11 @@ class Member(commands.Cog):
             user = await self.bot.fetch_user(int(id))
             embed = discord.Embed(title="該当ユーザー情報", description=None, color=0x39E64B)
             embed.set_thumbnail(url=user.avatar_url_as(static_format="png"))
-            embed.add_field(name="該当ユーザー名", value=f"{user.name}", inline=True)
-            embed.add_field(name="該当タグ情報", value=f"{user.discriminator}", inline=True)
-            embed.add_field(name="検索ユーザーID", value=f"{user.id}", inline=True)
-            embed.add_field(name="BOT判定", value=f"{user.bot}", inline=True)
-            embed.add_field(name="アカウント作成日", value=f"{user.created_at}", inline=True)
+            embed.add_field(name="該当ユーザー名", value=f"{user.name}", inline=False)
+            embed.add_field(name="該当タグ情報", value=f"{user.discriminator}", inline=False)
+            embed.add_field(name="検索ユーザーID", value=f"{user.id}", inline=False)
+            embed.add_field(name="BOT判定", value=f"{user.bot}", inline=False)
+            embed.add_field(name="アカウント作成日", value=f"{user.created_at}", inline=False)
             await ctx.send(embed=embed)
 
         else:
