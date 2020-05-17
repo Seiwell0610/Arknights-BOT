@@ -8,7 +8,7 @@ class sub(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = self.bot.get_channel(689264601006997547)
+        channel = self.bot.get_channel(711611799614783489)
 
         if member.guild.id == 689263691669176426:
             embed = discord.Embed(title="メンバー新規参加", description=f"{member.mention}さんがサーバーに参加しました。",
