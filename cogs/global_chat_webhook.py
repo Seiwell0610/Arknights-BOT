@@ -84,7 +84,8 @@ class arknights_global(commands.Cog):
                             await message.delete()
                             
                         user = self.bot.get_user(message.author.id)
-                        await webhook.send(content=message.content, username=user,
+                        print(user)
+                        await webhook.send(content=message.content, username=message.author.name,
                                            avatar_url=message.author.avatar_url_as(format="png"))
                         
                         
