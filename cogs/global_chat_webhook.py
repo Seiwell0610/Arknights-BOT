@@ -4,6 +4,7 @@ import sqlite3
 import random
 import re
 import datetime
+ng_content = ["@everyone","@here"]
 
 class arknights_global(commands.Cog):
     def __init__(self, bot):
@@ -11,8 +12,12 @@ class arknights_global(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+
         if message.author.bot:
             return
+
+        if message.content in ng_content:
+            return await message.delete()
 
         date = datetime.datetime.now()
         filename = f"{date.year}{date.month}{date.day}-{date.hour}{date.minute}{date.second}" 
