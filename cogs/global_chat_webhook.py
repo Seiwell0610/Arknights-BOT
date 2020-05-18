@@ -83,7 +83,7 @@ class arknights_global(commands.Cog):
                         if channel.id == message.channel.id:
                             await message.delete()
                             
-                        user = self.bot.fetch_user(int(message.author.id))
+                        user = self.bot.get_user(mmessage.author.id)
                         await webhook.send(content=message.content, username=user,
                                            avatar_url=message.author.avatar_url_as(format="png"))
                         
