@@ -16,9 +16,6 @@ class arknights_global(commands.Cog):
         if message.author.bot:
             return
 
-        if message.content in ng_content:
-            return await message.delete()
-
         date = datetime.datetime.now()
         filename = f"{date.year}{date.month}{date.day}-{date.hour}{date.minute}{date.second}" 
         #画像保存名(基本)を｢年月日-時分秒｣とする。
@@ -38,6 +35,9 @@ class arknights_global(commands.Cog):
             if message.content.startswith(";"):
                 pass
             #発言時、頭に｢;｣がついていたらpass
+
+            if message.content in ng_content:
+                return await message.delete()
 
             else:
                 channels = self.bot.get_all_channels()
