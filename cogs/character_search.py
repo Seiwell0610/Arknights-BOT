@@ -23,6 +23,7 @@ class Character_Search(commands.Cog):
         c = conn.cursor()
         c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()
+        print(data)
 
         promotion = data[3].split("/")
         hp = data[4].split("/") #HP
