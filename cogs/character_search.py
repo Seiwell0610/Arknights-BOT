@@ -17,8 +17,8 @@ class Test(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def test_s(self, ctx, character):
+    @commands.command(name="s")
+    async def _s(self, ctx, character):
 
         character.title()
         conn = sqlite3.connect("all_data.db")
