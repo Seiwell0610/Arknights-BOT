@@ -30,7 +30,7 @@ class MyBot(commands.Bot):
         self.remove_command('help')
 
     async def on_ready(self):
-        for extension in ["info", "main_cog", "sub_cog", "global_chat_webhook", "url", "eval", "admin_commands", "disboard"]:
+        for extension in ["global_chat_webhook", "info", "main_cog", "sub_cog", "url", "eval", "admin_commands", "disboard", "global_chat"]:
             try:
                 self.load_extension(f"cogs.{extension}")
             except commands.ExtensionAlreadyLoaded:
