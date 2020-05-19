@@ -75,7 +75,7 @@ class Member(commands.Cog):
     async def tag(self, ctx, character):
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
-        c.execute('SELECT * FROM unimplemented_character WHERE 名前=?', (character,))
+        c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()
         while data == None:
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは既に実装されているキャラクターです。",
