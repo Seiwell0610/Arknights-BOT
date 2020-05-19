@@ -83,7 +83,7 @@ class Member(commands.Cog):
             await ctx.send(embed=embed)
             break
         else:
-            await ctx.send(f"{data[0]}：\n{data[12]}")
+            await ctx.send(f"{data[0]}：\n　{data[12]}")
 
 
     @commands.command()
