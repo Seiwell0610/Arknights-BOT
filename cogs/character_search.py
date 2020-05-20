@@ -36,7 +36,7 @@ class Character_Search(commands.Cog):
             pages = []
 
             for count in range(int(len(promotion))):
-                pages.append(discord.Embed(title=f"{data[0]}({promotion[count]})"))
+                pages.append(discord.Embed(title=f"{data[0]}({promotion[count]})", color=0x0096ff))
                 pages[count].add_field(name="職業", value=f"{data[1]}")
                 pages[count].add_field(name="レア度", value=f"{data[2]}")
                 pages[count].add_field(name="HP(信頼度)", value=f"{hp[count]}")
