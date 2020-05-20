@@ -17,7 +17,6 @@ class Character_Search(commands.Cog):
 
     @commands.command(name="s")
     async def _s(self, ctx, character):
-
         character.title()
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
@@ -60,6 +59,46 @@ class Character_Search(commands.Cog):
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
+
+    @commands.command(name="u")
+    async def _u(self, ctx, character):
+        conn = sqlite3.connect("all_data.db")
+        c = conn.cursor()
+        c.execute('SELECT * FROM unimplemented_character WHERE 名前=?', (character,))
+        data = c.fetchone()
+        while data == None:
+            embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは既に実装されているキャラクターです。",
+                                  color=discord.Color.dark_red())
+            await ctx.send(embed=embed)
+            break
+        else:
+            embed = discord.Embed(title=f"{data[0]}のデータ:", color=discord.Color.purple())
+            embed.add_field(name="職業", value=f"{data[1]}", inline=True)
+            embed.add_field(name="レア度", value=f"{data[2]}", inline=True)
+            embed.add_field(name="HP", value=f"{data[3]}", inline=True)
+            embed.add_field(name="攻撃力", value=f"{data[4]}", inline=True)
+            embed.add_field(name="防御力", value=f"{data[5]}", inline=True)
+            embed.add_field(name="魔法防御力", value=f"{data[6]}", inline=True)
+            embed.add_field(name="再配置", value=f"{data[7]}", inline=True)
+            embed.add_field(name="配置コスト", value=f"{data[8]}", inline=True)
+            embed.add_field(name="ブロック数", value=f"{data[9]}", inline=True)
+            embed.add_field(name="攻撃速度", value=f"{data[10]}", inline=True)
+            embed.add_field(name="募集タグ", value=f"{data[11]}", inline=True)
+            await ctx.send(embed=embed)
+
+    @commands.command(name="tag")
+    async def _tag(self, ctx, character):
+        conn = sqlite3.connect("all_data.db")
+        c = conn.cursor()
+        c.execute('SELECT * FROM character WHERE 名前=?', (character,))
+        data = c.fetchone()
+        while data == None:
+            embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは既に実装されているキャラクターです。",
+                                  color=discord.Color.dark_red())
+            await ctx.send(embed=embed)
+            break
+        else:
+            await ctx.send(f"{data[0]}：\n{data[12]}")
 
 
 def setup(bot):
