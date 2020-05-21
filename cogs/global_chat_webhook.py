@@ -44,6 +44,21 @@ class arknights_global(commands.Cog):
                 #ボットの参加する全てのチャンネル取得
                 global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
                 #channelsからGLOBAL_CH_IDと合致する物をglobal_channelsに格納
+                if message.attachments:
+                    dcount = 0 #dcountには数字
+                    for p in message.attachments:
+                        dcount += 1
+                        if ".gif" in p.filename:
+                            await p.save(f"{dcount}.gif")
+                        elif ".jpg" in p.filename:
+                            await p.save(f"{dcount}.jpg")
+                        elif ".png" in p.filename:
+                            await p.save(f"{dcount}.png")
+                        elif ".mp4" in p.filename:
+                            await p.save(f"{dcount}.mp4")
+                        elif ".mp3" in p.filename:
+                            await p.save(f"{dcount}.mp3")
+                        
 
                 for channel in global_channels:
                 #global_channelsから一つずつ取得
@@ -73,14 +88,16 @@ class arknights_global(commands.Cog):
                         for p in message.attachments:
                             dcount += 1
                             if ".gif" in p.filename:
-                                filenames = p.filename
+                                filenames=f"{dcount}.gif"
                             elif ".jpg" in p.filename:
-                                filenames = filename + f"{dcount}.jpg"
+                                filenames=f"{dcount}.jpg"
                             elif ".png" in p.filename:
-                                filenames = filename + f"{dcount}.png"
-                            else:
-                                filenames = p.filename #保存名.png 決定
-                            await p.save(f"{filenames}") #ローカル保存
+                                filenames=f"{dcount}.png"
+                            elif ".mp4" in p.filename:
+                                filenames=f"{dcount}.mp4"
+                            elif ".mp3" in p.filename:
+                                filenames=f"{dcount}.mp3"
+                            
                             await webhook.send(file=discord.File(filenames), username=message.author.name,
                                                avatar_url=message.author.avatar_url_as(format="png"))
                            
