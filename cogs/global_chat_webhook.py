@@ -33,7 +33,7 @@ class arknights_global(commands.Cog):
         #発言チャンネルidがGLOBAL_CH_IDに入っていたら反応
 
             if message.content.startswith(";" and ";add_global"):
-                pass
+                return
             #発言時、頭に｢;｣がついていたらpass
 
             if message.content in ng_content:
