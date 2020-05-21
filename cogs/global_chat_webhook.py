@@ -35,6 +35,10 @@ class arknights_global(commands.Cog):
             if message.content.startswith(";"):
                 pass
             #発言時、頭に｢;｣がついていたらpass
+            
+            if message.content.startswith(";add_global")
+                pass
+            #発言時、「;add_global」があったらpass
 
             if message.content in ng_content:
                 return await message.delete()
