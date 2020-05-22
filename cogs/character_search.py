@@ -16,7 +16,13 @@ class Character_Search(commands.Cog):
         self.bot = bot
 
     @commands.command(name="s")
-    async def _s(self, ctx, character):
+    async def _s(self, ctx, character=None):
+
+        if character==None:
+            embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
+                                  color=discord.Color.dark_red())
+            return await ctx.send(embed=embed)
+
         character.title()
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
