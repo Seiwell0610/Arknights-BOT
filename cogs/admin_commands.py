@@ -24,7 +24,7 @@ class Member(commands.Cog):
 
             if channel_id==None:
                 channel_id=ctx.channel.id
-                #await message.delete()
+                await ctx.message.delete()
 
             try:
                 embed = discord.Embed(title=f"**{title}**", description=f"{main}")
