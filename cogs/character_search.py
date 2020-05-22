@@ -67,7 +67,13 @@ class Character_Search(commands.Cog):
             return await ctx.send(embed=embed)
 
     @commands.command(name="u")
-    async def _u(self, ctx, character):
+    async def _u(self, ctx, character=None):
+
+        if character==None:
+            embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
+                                  color=discord.Color.dark_red())
+            return await ctx.send(embed=embed)
+
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
         c.execute('SELECT * FROM unimplemented_character WHERE 名前=?', (character,))
@@ -93,7 +99,13 @@ class Character_Search(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command(name="tag")
-    async def _tag(self, ctx, character):
+    async def _tag(self, ctx, character=None):
+
+        if character==None:
+            embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
+                                  color=discord.Color.dark_red())
+            return await ctx.send(embed=embed)
+
         conn = sqlite3.connect("all_data.db")
         c = conn.cursor()
         c.execute('SELECT * FROM character WHERE 名前=?', (character,))
