@@ -26,7 +26,7 @@ class Member(commands.Cog):
                 channel_id=ctx.channel.id
 
             try:
-                embed = discord.Embed(title=f"{title}", description=f"{main}")
+                embed = discord.Embed(title=f"**{title}**", description=f"{main}")
                 channel = self.bot.get_channel(int(channel_id))
                 await channel.send(embed=embed)
                 if channel_id!=ctx.channel.id:
