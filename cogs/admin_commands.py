@@ -19,8 +19,12 @@ class Member(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def news(self, ctx, title, main, channel_id):
+    async def news(self, ctx, title, main, channel_id=None):
         if ctx.author.id in admin_list:
+
+            if channel_id==None:
+                channel_id=ctx.channel.id
+
             try:
                 embed = discord.Embed(title=f"{title}", description=f"{main}")
                 channel = self.bot.get_channel(int(channel_id))
