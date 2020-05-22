@@ -29,7 +29,7 @@ class Member(commands.Cog):
                 embed = discord.Embed(title=f"{title}", description=f"{main}")
                 channel = self.bot.get_channel(int(channel_id))
                 await channel.send(embed=embed)
-                if channel_id!=None:
+                if channel_id!=ctx.channel.id:
                     await ctx.send(f"{ctx.author.mention}-> メッセージの送信が完了しました。")
 
             except:
