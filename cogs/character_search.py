@@ -10,6 +10,7 @@ class Character_Search(commands.Cog):
 
     @commands.command(name="s")
     async def _s(self, ctx, character=None):
+        channel = self.bot.get_channel(714615013968576572)
 
         if character==None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
@@ -60,7 +61,6 @@ class Character_Search(commands.Cog):
             return await ctx.send(embed=embed)
 
         """コマンドログを送信"""
-        channel = self.bot.get_channel(714615013968576572)
         ex_user = self.bot.get_user(int(ctx.author.id))
         ex_guild = self.bot.get_guild(int(ctx.guild))
         ex_channel = self.bot.get_channel(int(ctx.channel))
@@ -74,6 +74,7 @@ class Character_Search(commands.Cog):
 
     @commands.command(name="u")
     async def _u(self, ctx, character=None):
+        channel = self.bot.get_channel(714615013968576572)
 
         if character==None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
@@ -105,7 +106,6 @@ class Character_Search(commands.Cog):
             await ctx.send(embed=embed)
 
         """コマンドログを送信"""
-        channel = self.bot.get_channel(714615013968576572)
         ex_user = self.bot.get_user(int(ctx.author.id))
         ex_guild = self.bot.get_guild(int(ctx.guild))
         ex_channel = self.bot.get_channel(int(ctx.channel))
@@ -119,6 +119,7 @@ class Character_Search(commands.Cog):
 
     @commands.command(name="tag")
     async def _tag(self, ctx, character=None):
+        channel = self.bot.get_channel(714615013968576572)
 
         if character==None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
@@ -138,7 +139,6 @@ class Character_Search(commands.Cog):
             await ctx.send(f"{data[0]}：\n{data[12]}")
 
         """コマンドログを送信"""
-        channel = self.bot.get_channel(714615013968576572)
         ex_user = self.bot.get_user(int(ctx.author.id))
         ex_guild = self.bot.get_guild(int(ctx.guild))
         ex_channel = self.bot.get_channel(int(ctx.channel))
