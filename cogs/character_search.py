@@ -1,15 +1,8 @@
 import discord
 from discord.ext import commands
 import libneko
-import asyncio
 import sqlite3
 
-admin_list = []
-conn = sqlite3.connect("all_data.db")
-c = conn.cursor()
-for row in c.execute("SELECT * FROM admin_list"):
-    admin_list.append(row[0])
-print(admin_list)
 
 class Character_Search(commands.Cog):
     def __init__(self, bot):
