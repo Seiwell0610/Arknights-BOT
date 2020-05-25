@@ -59,6 +59,19 @@ class Character_Search(commands.Cog):
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
 
+        """コマンドログを送信"""
+        channel = self.bot.get_channel(714615013968576572)
+        ex_user = self.bot.get_user(int(ctx.author.id))
+        ex_guild = self.bot.get_guild(int(ctx.guild))
+        ex_channel = self.bot.get_channel(int(ctx.channel))
+        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
+        embed.add_field(name="実行コマンド", value="`;s`", inline=True)
+        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
+        embed.add_field(name="実行者", value=f"{ex_user}", inline=True)
+        embed.add_field(name="ギルド名・ID", value=f"{ex_guild.name}：{ex_guild.id}", inline=True)
+        embed.add_field(name="チャンネル名・ID", value=f"{ex_channel.name}：{ex_channel.id}", inline=True)
+        await channel.send(embed=embed)
+
     @commands.command(name="u")
     async def _u(self, ctx, character=None):
 
@@ -91,6 +104,19 @@ class Character_Search(commands.Cog):
             embed.add_field(name="募集タグ", value=f"{data[11]}", inline=True)
             await ctx.send(embed=embed)
 
+        """コマンドログを送信"""
+        channel = self.bot.get_channel(714615013968576572)
+        ex_user = self.bot.get_user(int(ctx.author.id))
+        ex_guild = self.bot.get_guild(int(ctx.guild))
+        ex_channel = self.bot.get_channel(int(ctx.channel))
+        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
+        embed.add_field(name="実行コマンド", value="`;u`", inline=True)
+        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
+        embed.add_field(name="実行者", value=f"{ex_user}", inline=True)
+        embed.add_field(name="ギルド名・ID", value=f"{ex_guild.name}：{ex_guild.id}", inline=True)
+        embed.add_field(name="チャンネル名・ID", value=f"{ex_channel.name}：{ex_channel.id}", inline=True)
+        await channel.send(embed=embed)
+
     @commands.command(name="tag")
     async def _tag(self, ctx, character=None):
 
@@ -110,6 +136,19 @@ class Character_Search(commands.Cog):
             break
         else:
             await ctx.send(f"{data[0]}：\n{data[12]}")
+
+        """コマンドログを送信"""
+        channel = self.bot.get_channel(714615013968576572)
+        ex_user = self.bot.get_user(int(ctx.author.id))
+        ex_guild = self.bot.get_guild(int(ctx.guild))
+        ex_channel = self.bot.get_channel(int(ctx.channel))
+        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
+        embed.add_field(name="実行コマンド", value="`;tag`", inline=True)
+        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
+        embed.add_field(name="実行者", value=f"{ex_user}", inline=True)
+        embed.add_field(name="ギルド名・ID", value=f"{ex_guild.name}：{ex_guild.id}", inline=True)
+        embed.add_field(name="チャンネル名・ID", value=f"{ex_channel.name}：{ex_channel.id}", inline=True)
+        await channel.send(embed=embed)
 
 
 def setup(bot):
