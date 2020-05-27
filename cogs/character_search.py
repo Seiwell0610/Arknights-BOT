@@ -13,8 +13,9 @@ class Character_Search(commands.Cog):
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
-        embed.add_field(name="実行コマンド", value="`;s`", inline=False)
-        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=False)
+        embed.set_thumbnail(url=ctx.author.avatar_url_as(format="png"))
+        embed.add_field(name="実行コマンド", value="`;s`", inline=True)
+        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
         embed.add_field(name="ユーザー名", value=f"{ctx.author.name}", inline=True)
         embed.add_field(name="ユーザーID", value=f"{ctx.author.id}", inline=True)
         embed.add_field(name="サーバー名", value=f"{ctx.guild.name}", inline=True)
@@ -78,8 +79,9 @@ class Character_Search(commands.Cog):
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
-        embed.add_field(name="実行コマンド", value="`;u`", inline=False)
-        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=False)
+        embed.set_thumbnail(url=ctx.author.avatar_url_as(format="png"))
+        embed.add_field(name="実行コマンド", value="`;u`", inline=True)
+        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
         embed.add_field(name="ユーザー名", value=f"{ctx.author.name}", inline=True)
         embed.add_field(name="ユーザーID", value=f"{ctx.author.id}", inline=True)
         embed.add_field(name="サーバー名", value=f"{ctx.guild.name}", inline=True)
@@ -125,6 +127,7 @@ class Character_Search(commands.Cog):
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
+        embed.set_thumbnail(url=ctx.author.avatar_url_as(format="png"))
         embed.add_field(name="実行コマンド", value="`;tag`", inline=True)
         embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
         embed.add_field(name="ユーザー名", value=f"{ctx.author.name}", inline=True)
