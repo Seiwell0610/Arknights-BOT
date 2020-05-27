@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import libneko
 import sqlite3
+import traceback
 
 
 class Character_Search(commands.Cog):
@@ -59,18 +60,20 @@ class Character_Search(commands.Cog):
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
-
-        """コマンドログを送信"""
-        ex_user = self.bot.get_user(ctx.author.id)
-        ex_guild = self.bot.get_guild(ctx.guild)
-        ex_channel = self.bot.get_channel(ctx.channel)
-        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
-        embed.add_field(name="実行コマンド", value="`;s`", inline=True)
-        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
-        embed.add_field(name="実行者", value=f"{ex_user}", inline=True)
-        embed.add_field(name="ギルド名・ID", value=f"{ex_guild.name}：{ex_guild.id}", inline=True)
-        embed.add_field(name="チャンネル名・ID", value=f"{ex_channel.name}：{ex_channel.id}", inline=True)
-        await channel.send(embed=embed)
+        try:
+            """コマンドログを送信"""
+            ex_user = self.bot.get_user(ctx.author.id)
+            ex_guild = self.bot.get_guild(ctx.guild)
+            ex_channel = self.bot.get_channel(ctx.channel)
+            embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
+            embed.add_field(name="実行コマンド", value="`;s`", inline=True)
+            embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
+            embed.add_field(name="実行者", value=f"{ex_user}", inline=True)
+            embed.add_field(name="ギルド名・ID", value=f"{ex_guild.name}：{ex_guild.id}", inline=True)
+            embed.add_field(name="チャンネル名・ID", value=f"{ex_channel.name}：{ex_channel.id}", inline=True)
+            await channel.send(embed=embed)
+        except Exception as error:
+            print("エラー情報\n" + traceback.format_exc())
 
     @commands.command(name="u")
     async def _u(self, ctx, character=None):
@@ -105,17 +108,20 @@ class Character_Search(commands.Cog):
             embed.add_field(name="募集タグ", value=f"{data[11]}", inline=True)
             await ctx.send(embed=embed)
 
-        """コマンドログを送信"""
-        ex_user = self.bot.get_user(ctx.author.id)
-        ex_guild = self.bot.get_guild(ctx.guild)
-        ex_channel = self.bot.get_channel(ctx.channel)
-        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
-        embed.add_field(name="実行コマンド", value="`;u`", inline=True)
-        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
-        embed.add_field(name="実行者", value=f"{ex_user}", inline=True)
-        embed.add_field(name="ギルド名・ID", value=f"{ex_guild.name}：{ex_guild.id}", inline=True)
-        embed.add_field(name="チャンネル名・ID", value=f"{ex_channel.name}：{ex_channel.id}", inline=True)
-        await channel.send(embed=embed)
+        try:
+            """コマンドログを送信"""
+            ex_user = self.bot.get_user(ctx.author.id)
+            ex_guild = self.bot.get_guild(ctx.guild)
+            ex_channel = self.bot.get_channel(ctx.channel)
+            embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
+            embed.add_field(name="実行コマンド", value="`;u`", inline=True)
+            embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
+            embed.add_field(name="実行者", value=f"{ex_user}", inline=True)
+            embed.add_field(name="ギルド名・ID", value=f"{ex_guild.name}：{ex_guild.id}", inline=True)
+            embed.add_field(name="チャンネル名・ID", value=f"{ex_channel.name}：{ex_channel.id}", inline=True)
+            await channel.send(embed=embed)
+        except Exception as error:
+            print("エラー情報\n" + traceback.format_exc())
 
     @commands.command(name="tag")
     async def _tag(self, ctx, character=None):
@@ -138,17 +144,20 @@ class Character_Search(commands.Cog):
         else:
             await ctx.send(f"{data[0]}：\n{data[12]}")
 
-        """コマンドログを送信"""
-        ex_user = self.bot.get_user(ctx.author.id)
-        ex_guild = self.bot.get_guild(ctx.guild)
-        ex_channel = self.bot.get_channel(ctx.channel)
-        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
-        embed.add_field(name="実行コマンド", value="`;tag`", inline=True)
-        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
-        embed.add_field(name="実行者", value=f"{ex_user}", inline=True)
-        embed.add_field(name="ギルド名・ID", value=f"{ex_guild.name}：{ex_guild.id}", inline=True)
-        embed.add_field(name="チャンネル名・ID", value=f"{ex_channel.name}：{ex_channel.id}", inline=True)
-        await channel.send(embed=embed)
+        try:
+            """コマンドログを送信"""
+            ex_user = self.bot.get_user(ctx.author.id)
+            ex_guild = self.bot.get_guild(ctx.guild)
+            ex_channel = self.bot.get_channel(ctx.channel)
+            embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
+            embed.add_field(name="実行コマンド", value="`;tag`", inline=True)
+            embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
+            embed.add_field(name="実行者", value=f"{ex_user}", inline=True)
+            embed.add_field(name="ギルド名・ID", value=f"{ex_guild.name}：{ex_guild.id}", inline=True)
+            embed.add_field(name="チャンネル名・ID", value=f"{ex_channel.name}：{ex_channel.id}", inline=True)
+            await channel.send(embed=embed)
+        except Exception as error:
+            print("エラー情報\n" + traceback.format_exc())
 
 
 def setup(bot):
