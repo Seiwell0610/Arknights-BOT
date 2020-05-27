@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import libneko
 import sqlite3
-import traceback
 
 
 class Character_Search(commands.Cog):
@@ -12,6 +11,14 @@ class Character_Search(commands.Cog):
     @commands.command(name="s")
     async def _s(self, ctx, character=None):
         channel = self.bot.get_channel(714615013968576572)
+        """コマンドログを送信"""
+        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
+        embed.add_field(name="実行コマンド", value="`;s`", inline=True)
+        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
+        embed.add_field(name="実行者(ID)", value=f"{ctx.author.name}({ctx.author.id})", inline=True)
+        embed.add_field(name="ギルド名(ID)", value=f"{ctx.guild.name}({ctx.guild.id})", inline=True)
+        embed.add_field(name="チャンネル名(ID)", value=f"{ctx.channel.name}({ctx.channel.id})", inline=True)
+        await channel.send(embed=embed)
 
         if character==None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
@@ -61,18 +68,19 @@ class Character_Search(commands.Cog):
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
 
+
+
+    @commands.command(name="u")
+    async def _u(self, ctx, character=None):
+        channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
-        embed.add_field(name="実行コマンド", value="`;s`", inline=True)
+        embed.add_field(name="実行コマンド", value="`;u`", inline=True)
         embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
         embed.add_field(name="実行者(ID)", value=f"{ctx.author.name}({ctx.author.id})", inline=True)
         embed.add_field(name="ギルド名(ID)", value=f"{ctx.guild.name}({ctx.guild.id})", inline=True)
         embed.add_field(name="チャンネル名(ID)", value=f"{ctx.channel.name}({ctx.channel.id})", inline=True)
         await channel.send(embed=embed)
-
-    @commands.command(name="u")
-    async def _u(self, ctx, character=None):
-        channel = self.bot.get_channel(714615013968576572)
 
         if character==None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
@@ -103,20 +111,20 @@ class Character_Search(commands.Cog):
             embed.add_field(name="募集タグ", value=f"{data[11]}", inline=True)
             await ctx.send(embed=embed)
 
-        """コマンドログを送信"""
-        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
-        embed.add_field(name="実行コマンド", value="`;u`", inline=True)
-        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
-        embed.add_field(name="実行者(ID)", value=f"{ctx.author.name}({ctx.author.id})", inline=True)
-        embed.add_field(name="ギルド名(ID)", value=f"{ctx.guild.name}({ctx.guild.id})", inline=True)
-        embed.add_field(name="チャンネル名(ID)", value=f"{ctx.channel.name}({ctx.channel.id})", inline=True)
-        await channel.send(embed=embed)
+
 
 
     @commands.command(name="tag")
     async def _tag(self, ctx, character=None):
         channel = self.bot.get_channel(714615013968576572)
-
+        """コマンドログを送信"""
+        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
+        embed.add_field(name="実行コマンド", value="`;tag`", inline=True)
+        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
+        embed.add_field(name="実行者(ID)", value=f"{ctx.author.name}({ctx.author.id})", inline=True)
+        embed.add_field(name="ギルド名(ID)", value=f"{ctx.guild.name}({ctx.guild.id})", inline=True)
+        embed.add_field(name="チャンネル名(ID)", value=f"{ctx.channel.name}({ctx.channel.id})", inline=True)
+        await channel.send(embed=embed)
 
         if character==None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
@@ -134,15 +142,6 @@ class Character_Search(commands.Cog):
             break
         else:
             await ctx.send(f"{data[0]}：\n{data[12]}")
-
-        """コマンドログを送信"""
-        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
-        embed.add_field(name="実行コマンド", value="`;tag`", inline=True)
-        embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
-        embed.add_field(name="実行者(ID)", value=f"{ctx.author.name}({ctx.author.id})", inline=True)
-        embed.add_field(name="ギルド名(ID)", value=f"{ctx.guild.name}({ctx.guild.id})", inline=True)
-        embed.add_field(name="チャンネル名(ID)", value=f"{ctx.channel.name}({ctx.channel.id})", inline=True)
-        await channel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Character_Search(bot))
