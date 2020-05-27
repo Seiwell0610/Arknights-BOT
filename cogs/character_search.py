@@ -61,9 +61,9 @@ class Character_Search(commands.Cog):
             return await ctx.send(embed=embed)
 
         """コマンドログを送信"""
-        ex_user = self.bot.get_user(int(ctx.author.id))
-        ex_guild = self.bot.get_guild(int(ctx.guild))
-        ex_channel = self.bot.get_channel(int(ctx.channel))
+        ex_user = self.bot.get_user(ctx.author.id)
+        ex_guild = self.bot.get_guild(ctx.guild)
+        ex_channel = self.bot.get_channel(ctx.channel)
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
         embed.add_field(name="実行コマンド", value="`;s`", inline=True)
         embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
@@ -106,9 +106,9 @@ class Character_Search(commands.Cog):
             await ctx.send(embed=embed)
 
         """コマンドログを送信"""
-        ex_user = self.bot.get_user(int(ctx.author.id))
-        ex_guild = self.bot.get_guild(int(ctx.guild))
-        ex_channel = self.bot.get_channel(int(ctx.channel))
+        ex_user = self.bot.get_user(ctx.author.id)
+        ex_guild = self.bot.get_guild(ctx.guild)
+        ex_channel = self.bot.get_channel(ctx.channel)
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
         embed.add_field(name="実行コマンド", value="`;u`", inline=True)
         embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
@@ -139,9 +139,9 @@ class Character_Search(commands.Cog):
             await ctx.send(f"{data[0]}：\n{data[12]}")
 
         """コマンドログを送信"""
-        ex_user = self.bot.get_user(int(ctx.author.id))
-        ex_guild = self.bot.get_guild(int(ctx.guild))
-        ex_channel = self.bot.get_channel(int(ctx.channel))
+        ex_user = self.bot.get_user(ctx.author.id)
+        ex_guild = self.bot.get_guild(ctx.guild)
+        ex_channel = self.bot.get_channel(ctx.channel)
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
         embed.add_field(name="実行コマンド", value="`;tag`", inline=True)
         embed.add_field(name="検索キャラクター", value=f"`{character}`", inline=True)
