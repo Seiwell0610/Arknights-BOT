@@ -3,6 +3,25 @@ from discord.ext import commands
 import libneko
 import sqlite3
 
+def default_buttons():
+    from libneko.pag.reactionbuttons import (
+        first_page,
+        back_10_pages,
+        previous_page,
+        next_page,
+        forward_10_pages,
+        last_page
+    )
+
+    return (
+        first_page(),
+        back_10_pages(),
+        previous_page(),
+        next_page(),
+        forward_10_pages(),
+        last_page()
+    )
+buttons = default_buttons()
 
 class Character_Search(commands.Cog):
     def __init__(self, bot):
@@ -67,7 +86,7 @@ class Character_Search(commands.Cog):
                 pages[count].set_thumbnail(url=f"{data[14]}")
                 count += 1
 
-            nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, timeout=10)
+            nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
             nav.start()
             await ctx.send(nav)
 
