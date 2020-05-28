@@ -3,7 +3,7 @@ import discord
 import dropbox
 import asyncio
 import traceback
-from discord.ext import tasks, commands
+from discord.ext import commands
 
 with open('setting.json', mode='r', encoding='utf-8') as fh:
     json_txt = fh.read()
@@ -53,9 +53,9 @@ if __name__ == '__main__':
     try:
         print("Logged in as")
         with open("all_data.db", "wb") as f:
-            metadata, res = dbx.files_download(path="/all_data.db")
+            metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
             f.write(res.content)
-            print("all_data.dbのダウンロード完了")
+            print("データベースのダウンロード完了")
 
         main_task = loop.create_task(run())
         loop.run_until_complete(main_task)
