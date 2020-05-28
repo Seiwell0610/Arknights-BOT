@@ -8,7 +8,7 @@ dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
 
 admin_list = []
-conn = sqlite3.connect("all_data.db")
+conn = sqlite3.connect("all_data_arknights_main.db")
 c = conn.cursor()
 for row in c.execute("SELECT * FROM admin_list"):
     admin_list.append(row[0])
@@ -52,7 +52,7 @@ class Member(commands.Cog):
     @commands.command()
     async def global_chat(self, ctx):
         if ctx.author.id in admin_list:
-            conn = sqlite3.connect("all_data.db")
+            conn = sqlite3.connect("all_data_arknights_main.db")
             c = conn.cursor()
             for data in c.execute('SELECT * FROM global_chat'):
                 await ctx.send(data)

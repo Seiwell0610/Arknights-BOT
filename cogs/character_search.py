@@ -34,7 +34,7 @@ class Character_Search(commands.Cog):
             return await ctx.send(embed=embed)
 
         character.title()
-        conn = sqlite3.connect("all_data.db")
+        conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
         c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()
@@ -103,7 +103,7 @@ class Character_Search(commands.Cog):
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
 
-        conn = sqlite3.connect("all_data.db")
+        conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
         c.execute('SELECT * FROM unimplemented_character WHERE 名前=?', (character,))
         data = c.fetchone()
@@ -155,7 +155,7 @@ class Character_Search(commands.Cog):
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
 
-        conn = sqlite3.connect("all_data.db")
+        conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
         c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()

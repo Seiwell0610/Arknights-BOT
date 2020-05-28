@@ -21,7 +21,7 @@ class Member(commands.Cog):
         guild = ctx.guild.name
         guild_id = ctx.guild.id
 
-        conn = sqlite3.connect('all_data.db')
+        conn = sqlite3.connect('all_data_arknights_main.db')
         c = conn.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS global_chat(id integer PRIMARY KEY, name text NOT NULL)")
         c.execute("insert into global_chat values(?,?)", (ch_id, ch_name))
@@ -29,8 +29,8 @@ class Member(commands.Cog):
         conn.close()
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットに登録しました。")
 
-        with open("all_data.db", "rb") as fc:
-            dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
+        with open("all_data_arknights_main.db", "rb") as fc:
+            dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
 
         embed = discord.Embed(title="グローバルチャット[登録]", description=None, color=discord.Color.blue())
         embed.add_field(name=f"GUILD", value=f"{guild}", inline=False)
@@ -48,15 +48,15 @@ class Member(commands.Cog):
         guild = ctx.guild.name
         guild_id = ctx.guild.id
 
-        conn = sqlite3.connect("all_data.db")
+        conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
         c.execute('DELETE FROM global_chat WHERE id = ?', (ch_id,))
         conn.commit()
         conn.close()
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットの登録を解除しました。")
 
-        with open("all_data.db", "rb") as fc:
-            dbx.files_upload(fc.read(), "/all_data.db", mode=dropbox.files.WriteMode.overwrite)
+        with open("all_data_arknights_main.db", "rb") as fc:
+            dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
 
         embed = discord.Embed(title="グローバルチャット[解除]", description=None, color=discord.Color.dark_red())
         embed.add_field(name=f"GUILD", value=f"{guild}", inline=False)

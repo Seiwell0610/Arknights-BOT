@@ -23,7 +23,7 @@ class arknights_global(commands.Cog):
         GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
         #グローバルチャットのウェブフック名
 
-        conn = sqlite3.connect("all_data.db")
+        conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
         GLOBAL_CH_ID = []
         for row in c.execute("SELECT * FROM global_chat"):
