@@ -1,11 +1,6 @@
 import discord
-import dropbox
 import sqlite3
 from discord.ext import commands
-
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
-dbx = dropbox.Dropbox(dbxtoken)
-dbx.users_get_current_account()
 
 admin_list = []
 conn = sqlite3.connect("all_data_arknights_main.db")
