@@ -52,10 +52,10 @@ class MyBot(commands.Bot):
 if __name__ == '__main__':
     try:
         print("Logged in as")
-        with open("all_data.db", "wb") as f:
+        with open("all_data_arknights_main.db", "wb") as f:
             metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
             f.write(res.content)
-            print("データベースのダウンロード完了")
+        print("データベースのダウンロード完了")
 
         main_task = loop.create_task(run())
         loop.run_until_complete(main_task)
