@@ -55,5 +55,10 @@ class Member(commands.Cog):
                                   color=discord.Color.dark_red())
             await ctx.channel.send(embed=embed)
 
+    @commands.command()
+    async def youtube(self, ctx, url):
+        channel = self.bot.get_channel(714589443373269042)
+        await channel.send(url)
+
 def setup(bot):
     bot.add_cog(Member(bot))
