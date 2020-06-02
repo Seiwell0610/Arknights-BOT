@@ -10,7 +10,7 @@ class Ninsyo(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="arknight")
+    @commands.command(name="agree")
     async def _ninsyo(self, ctx):
         if ctx.guild.id!=main_guild_id:
             return
