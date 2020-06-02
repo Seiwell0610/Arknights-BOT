@@ -2,6 +2,7 @@ import discord
 import sqlite3
 from discord.ext import commands
 import r
+import os
 
 admin_list = []
 conn = sqlite3.connect("all_data_arknights_main.db")
