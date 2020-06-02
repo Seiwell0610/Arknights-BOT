@@ -4,6 +4,7 @@ import datetime
 import r
 
 main_guild_id=689263691669176426
+role_name=""
 
 class Ninsyo(commands.Cog):
     def __init__(self, bot):
@@ -24,7 +25,9 @@ class Ninsyo(commands.Cog):
         if x<0:
             x+=60
         if x>4:
-            #ここに
+            members=self.bot.get_user(members)
+            role = discord.utils.get(ctx.guild.roles,name=role_name)
+            await members.add_roles(role1)
             await ctx.send("登録しました")
             p=conn.delete(members)
             print(p)
