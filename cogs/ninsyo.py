@@ -23,7 +23,7 @@ class Ninsyo(commands.Cog):
         x=command_minute-jt
         if x<0:
             x+=60
-        if x=>5:
+        if x>4:
             #ここに
             await ctx.send("登録しました")
             p=conn.delete(members)
