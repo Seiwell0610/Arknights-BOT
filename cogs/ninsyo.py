@@ -26,7 +26,7 @@ class Ninsyo(commands.Cog):
             x+=60
         if x>4:
             members=self.bot.get_user(members)
-            role = discord.utils.get(ctx.guild.roles,name=role_name)
+            role = discord.utils.get(ctx.guild.roles,name="認証済み")
             await members.add_roles(role1)
             await ctx.send("登録しました")
             p=conn.delete(members)
