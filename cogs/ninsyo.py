@@ -14,8 +14,14 @@ class Ninsyo(commands.Cog):
             return
         command_time=datetime.datetime.now()
         command_minute=command_time.minute
-        #データベース読み込み
-        
+        #データベース読み込み(値をjtに)
+        x=command_minute-jt
+        if x<0:
+            x+=60
+        if x=>5:
+            True
+        else:
+            False
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -26,7 +32,7 @@ class Ninsyo(commands.Cog):
         join_time=datetime.datetime.now()
         join_minute=join_time.minute
         member_id=member.id
-        #データベース書き込み
+        #データベース書き込み(keyをmember_id,valueをjoin_minute)
 
 def setup(bot):
     bot.add_cog(Ninsyo(bot))
