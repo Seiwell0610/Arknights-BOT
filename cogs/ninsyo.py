@@ -4,7 +4,7 @@ import datetime
 import r
 
 main_guild_id=689263691669176426
-role_name=""
+role_name="認証完了済み"
 
 class Ninsyo(commands.Cog):
     def __init__(self, bot):
