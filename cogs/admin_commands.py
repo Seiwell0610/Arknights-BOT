@@ -87,7 +87,11 @@ class Member(commands.Cog):
         if ctx.author.id in admin_list:
             conn=r.connect()
             ky=conn.keys()
-            embed = discord.Embed(title="Radis-Key", description=None)
+            if ky==None:
+                des="None"
+            else:
+                des=None
+            embed = discord.Embed(title="Radis-Key", description=des)
             c=1
             for i in ky:
                 embed.add_field(name=f'({c})', value=f'`{i}`')
