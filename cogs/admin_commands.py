@@ -83,7 +83,6 @@ class Member(commands.Cog):
 
     @commands.command()
     async def rkey(self, ctx):
-        await message.delete()
         if ctx.author.id in admin_list:
             conn=r.connect()
             ky=conn.keys()
@@ -100,7 +99,6 @@ class Member(commands.Cog):
 
     @commands.command()
     async def rdel(self, ctx, what=None):
-        await message.delete()
         if ctx.author.id in admin_list:
             if what==None:
                 return await ctx.send("削除Key指定エラー")
