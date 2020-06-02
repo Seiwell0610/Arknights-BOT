@@ -14,6 +14,7 @@ class Ninsyo(commands.Cog):
     async def _ninsyo(self, ctx):
         if ctx.guild.id!=main_guild_id:
             return
+        await message.delete()
         command_time=datetime.datetime.now()
         command_minute=command_time.minute
         members=ctx.author.id
