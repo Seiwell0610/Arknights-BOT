@@ -1,6 +1,7 @@
 import discord
 import sqlite3
 from discord.ext import commands
+import r
 
 admin_list = []
 conn = sqlite3.connect("all_data_arknights_main.db")
@@ -79,6 +80,29 @@ class Member(commands.Cog):
 
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
+
+    @commands.command()
+    async def rkey(self, ctx):
+        await message.delete()
+        if ctx.author.id in admin_list:
+            conn=r.connect()
+            ky=conn.keys()
+            embed = discord.Embed(title="Radis-Key", description=None)
+            c=1
+            for i in ky:
+                embed.add_field(name=f'({c})', value=f'`{i}`')
+                c+=1
+            await ctx.send(embed=embed)
+
+    @commands.command()
+    async def rdel(self, ctx, what=None):
+        await message.delete()
+        if ctx.author.id in admin_list:
+            if what==None:
+                return await ctx.send("削除Key指定エラー")
+            conn=r.connect()
+            d=conn.delete(what)
+            await ctx.send(d)
 
 def setup(bot):
     bot.add_cog(Member(bot))
