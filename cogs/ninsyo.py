@@ -38,7 +38,7 @@ class Ninsyo(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        if ctx.guild.id!=main_guild_id:
+        if member.guild.id!=main_guild_id:
             return
         if member.bot:
             return
