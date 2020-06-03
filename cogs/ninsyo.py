@@ -20,7 +20,7 @@ class Ninsyo(commands.Cog):
             if i.name==role_name:
                 c=1
         if c==1:
-            return await ctx.send("認証済みです")
+            return await ctx.send("既に、認証しています。")
         command_time=datetime.datetime.now()
         command_minute=command_time.minute
         members=ctx.author.id
@@ -33,12 +33,12 @@ class Ninsyo(commands.Cog):
         if x>2:
             role = discord.utils.get(ctx.guild.roles,name=role_name)
             await ctx.author.add_roles(role)
-            await ctx.send("認証しました")
+            await ctx.send("認証が完了しました。")
             p=conn.delete(members)
             print(p)
         else:
             x=3-x
-            await ctx.send(f"後{x}分後に認証できます")
+            await ctx.send(f"後{x}分後に認証ができます。")
 
 def setup(bot):
     bot.add_cog(Ninsyo(bot))
