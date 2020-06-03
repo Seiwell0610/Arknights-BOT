@@ -31,7 +31,7 @@ class Ninsyo(commands.Cog):
             print("True")
             memberss=self.bot.get_user(members)
             role = discord.utils.get(ctx.guild.roles,name=role_name)
-            await members.add_roles(role)
+            await memberss.add_roles(role)
             await ctx.send("登録しました")
             p=conn.delete(memberss)
             print(p)
