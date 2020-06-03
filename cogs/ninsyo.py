@@ -28,6 +28,7 @@ class Ninsyo(commands.Cog):
         if x<0:
             x+=60
         if x>4:
+            print("True")
             memberss=self.bot.get_user(members)
             role = discord.utils.get(ctx.guild.roles,name=role_name)
             await members.add_roles(role)
@@ -35,6 +36,7 @@ class Ninsyo(commands.Cog):
             p=conn.delete(memberss)
             print(p)
         else:
+            print("False")
             x=5-x
             await ctx.send(f"後{x}分後に登録できます")
 
