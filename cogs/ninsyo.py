@@ -13,29 +13,25 @@ class Ninsyo(commands.Cog):
 
     @commands.command()
     async def agree(self, ctx):
-        print("0")
+        await message.delete()
         if ctx.guild.id!=main_guild_id:
             return
         command_time=datetime.datetime.now()
         command_minute=command_time.minute
         members=ctx.author.id
-        print("1")
         #データベース読み込み(値をjtに)
         conn=r.connect()
         jt=conn.get(members)
         x=int(command_minute)-int(jt)
-        print(x)
         if x<0:
             x+=60
         if x>4:
-            print("True")
             role = discord.utils.get(ctx.guild.roles,name=role_name)
             await ctx.author.add_roles(role)
             await ctx.send("登録しました")
             p=conn.delete(members)
             print(p)
         else:
-            print("False")
             x=5-x
             await ctx.send(f"後{x}分後に登録できます")
 
