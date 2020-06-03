@@ -1,5 +1,9 @@
 import discord
 from discord.ext import commands
+import os
+import r
+
+main_guild_id=689263691669176426
 
 class sub(commands.Cog):
     def __init__(self, bot):
@@ -14,6 +18,19 @@ class sub(commands.Cog):
             embed = discord.Embed(title="メンバー新規参加", description=f"{member.mention}さんがサーバーに参加しました。",
                                   color=discord.Color.blue())
             await channel.send(embed=embed)
+
+        if member.guild.id!=main_guild_id:
+            return
+        if member.bot:
+            return
+        join_time=datetime.datetime.now()
+        join_minute=join_time.minute
+        member_id=member.id
+        conn=r.connect()
+        ps=conn.set(member_id,join_minute)
+        print(ps)
+        #データベース書き込み(keyをmember_id,valueをjoin_minute)
+
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
