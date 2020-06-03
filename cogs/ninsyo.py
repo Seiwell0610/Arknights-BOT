@@ -36,19 +36,5 @@ class Ninsyo(commands.Cog):
             x=5-x
             await ctx.send(f"後{x}分後に登録できます")
 
-    @commands.Cog.listener()
-    async def on_member_join(self, member):
-        if member.guild.id!=main_guild_id:
-            return
-        if member.bot:
-            return
-        join_time=datetime.datetime.now()
-        join_minute=join_time.minute
-        member_id=member.id
-        conn=r.connect()
-        ps=conn.set(member_id,join_minute)
-        print(ps)
-        #データベース書き込み(keyをmember_id,valueをjoin_minute)
-
 def setup(bot):
     bot.add_cog(Ninsyo(bot))
