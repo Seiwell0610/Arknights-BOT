@@ -24,15 +24,15 @@ class Ninsyo(commands.Cog):
         x=int(command_minute)-int(jt)
         if x<0:
             x+=60
-        if x>4:
+        if x>2:
             role = discord.utils.get(ctx.guild.roles,name=role_name)
             await ctx.author.add_roles(role)
-            await ctx.send("登録しました")
+            await ctx.send("認証しました")
             p=conn.delete(members)
             print(p)
         else:
-            x=5-x
-            await ctx.send(f"後{x}分後に登録できます")
+            x=3-x
+            await ctx.send(f"後{x}分後に認証できます")
 
 def setup(bot):
     bot.add_cog(Ninsyo(bot))
