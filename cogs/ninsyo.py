@@ -29,11 +29,10 @@ class Ninsyo(commands.Cog):
             x+=60
         if x>4:
             print("True")
-            memberss=self.bot.get_user(members)
             role = discord.utils.get(ctx.guild.roles,name=role_name)
             await ctx.author.add_roles(role)
             await ctx.send("登録しました")
-            p=conn.delete(memberss)
+            p=conn.delete(members)
             print(p)
         else:
             print("False")
