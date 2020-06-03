@@ -92,10 +92,9 @@ class Member(commands.Cog):
             else:
                 des=None
             embed = discord.Embed(title="Radis-Key", description=des)
-            c=1
             for i in ky:
-                embed.add_field(name=f'({c})', value=f'`{i}`')
-                c+=1
+                vl=conn.get(i)
+                embed.add_field(name=f'key:`{i}`', value=f'value:`{vl}`')
             await ctx.send(embed=embed)
 
     @commands.command()
