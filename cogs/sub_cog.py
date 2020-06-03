@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import os
 import r
+import datetime
 
 main_guild_id=689263691669176426
 
