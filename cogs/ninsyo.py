@@ -15,6 +15,12 @@ class Ninsyo(commands.Cog):
     async def agree(self, ctx):
         if ctx.guild.id!=main_guild_id:
             return
+        c=0
+        for i in ctx.author.roles:
+            if i.name==role_name:
+                c=1
+        if c==1:
+            return await ctx.send("認証済みです")
         command_time=datetime.datetime.now()
         command_minute=command_time.minute
         members=ctx.author.id
