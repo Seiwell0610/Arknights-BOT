@@ -13,7 +13,6 @@ class Ninsyo(commands.Cog):
 
     @commands.command()
     async def agree(self, ctx):
-        await message.delete()
         if ctx.guild.id!=main_guild_id:
             return
         command_time=datetime.datetime.now()
