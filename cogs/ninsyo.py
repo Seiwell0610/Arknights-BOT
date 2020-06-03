@@ -11,8 +11,8 @@ class Ninsyo(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="agree")
-    async def _ninsyo(self, ctx):
+    @commands.command()
+    async def agree(self, ctx):
         if ctx.guild.id!=main_guild_id:
             return
         command_time=datetime.datetime.now()
