@@ -40,6 +40,8 @@ class sub(commands.Cog):
         if member.guild.id == 689263691669176426:
             embed = discord.Embed(title="サーバーから退出", description=f"{member.mention}さんがサーバーから退出しました。",color=discord.Color.purple())
             await channel.send(embed=embed)
+            conn=r.connect()
+            p=conn.delete(member.id)
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
