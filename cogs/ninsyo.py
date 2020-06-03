@@ -21,8 +21,7 @@ class Ninsyo(commands.Cog):
         #データベース読み込み(値をjtに)
         conn=r.connect()
         jt=conn.get(members)
-        jt=str(jt)
-        x=command_minute-jt
+        x=int(command_minute)-int(jt)
         if x<0:
             x+=60
         if x>4:
