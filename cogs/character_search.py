@@ -47,7 +47,7 @@ class Character_Search(commands.Cog):
         embed.add_field(name="チャンネルID", value=f"{ctx.channel.id}", inline=True)
         await channel.send(embed=embed)
 
-        if character==None:
+        if character is None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
@@ -58,7 +58,12 @@ class Character_Search(commands.Cog):
         c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()
 
-        if data is not None:
+        while data is None:
+            embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
+                                  color=discord.Color.dark_red())
+            return await ctx.send(embed=embed)
+
+        else:
             promotion = data[3].split("/")
             hp = data[4].split("/")  # HP
             attack = data[5].split("/")  # 攻撃力
@@ -90,13 +95,6 @@ class Character_Search(commands.Cog):
             nav.start()
             await ctx.send(nav)
 
-        else:
-            embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
-                                  color=discord.Color.dark_red())
-            return await ctx.send(embed=embed)
-
-
-
     @commands.command(name="u")
     async def _u(self, ctx, character=None):
         channel = self.bot.get_channel(714615013968576572)
@@ -117,7 +115,7 @@ class Character_Search(commands.Cog):
         embed.add_field(name="チャンネルID", value=f"{ctx.channel.id}", inline=True)
         await channel.send(embed=embed)
 
-        if character==None:
+        if character is None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
@@ -126,7 +124,7 @@ class Character_Search(commands.Cog):
         c = conn.cursor()
         c.execute('SELECT * FROM unimplemented_character WHERE 名前=?', (character,))
         data = c.fetchone()
-        while data == None:
+        while data is None:
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは既に実装されているキャラクターです。",
                                   color=discord.Color.dark_red())
             await ctx.send(embed=embed)
@@ -169,7 +167,7 @@ class Character_Search(commands.Cog):
         embed.add_field(name="チャンネルID", value=f"{ctx.channel.id}", inline=True)
         await channel.send(embed=embed)
 
-        if character==None:
+        if character is None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
@@ -178,13 +176,62 @@ class Character_Search(commands.Cog):
         c = conn.cursor()
         c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()
-        while data == None:
+        while data is  None:
             embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは既に実装されているキャラクターです。",
                                   color=discord.Color.dark_red())
             await ctx.send(embed=embed)
             break
         else:
             await ctx.send(f"{data[0]}：\n{data[12]}")
+
+    @commands.command(name="skill")
+    async def _skill(self, ctx, character=None):
+        channel = self.bot.get_channel(714615013968576572)
+        """コマンドログを送信"""
+        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.orange())
+        embed.set_thumbnail(url=ctx.author.avatar_url_as(format="png"))
+        embed.add_field(name="実行コマンド", value=";tag", inline=True)
+        embed.add_field(name='\u200b', value='\u200b')
+        embed.add_field(name="検索キャラクター", value=f"{character}", inline=True)
+        embed.add_field(name="ユーザー名", value=f"{ctx.author.name}", inline=True)
+        embed.add_field(name='\u200b', value='\u200b')
+        embed.add_field(name="ユーザーID", value=f"{ctx.author.id}", inline=True)
+        embed.add_field(name="サーバー名", value=f"{ctx.guild.name}", inline=True)
+        embed.add_field(name='\u200b', value='\u200b')
+        embed.add_field(name="サーバーID", value=f"{ctx.guild.id}", inline=True)
+        embed.add_field(name="チャンネル", value=f"{ctx.channel.name}", inline=True)
+        embed.add_field(name='\u200b', value='\u200b')
+        embed.add_field(name="チャンネルID", value=f"{ctx.channel.id}", inline=True)
+        await channel.send(embed=embed)
+        conn = sqlite3.connect("all_data_arknights_main.db")
+        c = conn.cursor()
+        c.execute('SELECT * FROM character_skill WHERE 名前=?', (character,))
+        data = c.fetchone()
+
+        if character is None:
+            embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
+                                  color=discord.Color.dark_red())
+            return await ctx.send(embed=embed)
+
+        while data is None:
+            embed = discord.Embed(title="エラー", description="アークナイツに存在しないキャラクター、もしくは日本版では実装されていないキャラクターです。",
+                                  color=discord.Color.dark_red())
+            return await ctx.send(embed=embed)
+
+        else:
+            quality_name = data[1].split("/")
+            quality = data[2].split("/")
+            skill = data[3].split("/")
+
+            embed = discord.Embed(title=f"{character}", color=discord.Color.orange())
+
+            for count in range(int(len(quality_name))):
+                embed.add_field(name=f"{quality_name[count]}(素質)", value=f"{quality[count]}\n", inline=False)
+
+            for count in range(int(len(skill))):
+                embed.add_field(name=f"{skill[count]}(スキル)", value=f"データなし", inline=False)
+
+            await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Character_Search(bot))
