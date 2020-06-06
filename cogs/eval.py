@@ -9,7 +9,7 @@ import glob
 from discord.ext import commands
 from discord import NotFound, Embed,  Forbidden
 
-admin_list = [343956207754805251]
+admin_list = [343956207754805251,459936557432963103]
 
 def cleanup_code(content):
     if content.startswith('```') and content.endswith('```'):

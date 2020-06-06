@@ -2,3 +2,4 @@ discord.py
 Pillow
 dropbox
 libneko
+redis==3.3.11

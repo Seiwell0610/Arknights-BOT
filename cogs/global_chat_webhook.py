@@ -10,12 +10,19 @@ class arknights_global(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command(aliases=['p'])
+    async def picture(self, ctx, what=None):
+        if ctx.author.bot:
+            return
+        file = discord.File(f"picture/{what}.png", filename=f"{what}.png")
+        await ctx.send(file=file)
+
     @commands.Cog.listener()
     async def on_message(self, message):
 
         if message.author.bot:
             return
-
+        
         date = datetime.datetime.now()
         filename = f"{date.year}{date.month}{date.day}-{date.hour}{date.minute}{date.second}" 
         #画像保存名(基本)を｢年月日-時分秒｣とする。
@@ -82,7 +89,7 @@ class arknights_global(commands.Cog):
 
                         if message.content:
                             await webhook.send(content=message.content, username=message.author.name,
-                                               avatar_url=message.author.avatar_url_as(format="png"))
+                                               avatar_url=message.author.avatar_url)#_as(format="png")
 
                         dcount = 0 #dcountには数字
                         for p in message.attachments:
@@ -99,14 +106,14 @@ class arknights_global(commands.Cog):
                                 filenames=f"{dcount}.mp3"
                             
                             await webhook.send(file=discord.File(filenames), username=message.author.name,
-                                               avatar_url=message.author.avatar_url_as(format="png"))
+                                               avatar_url=message.author.avatar_url)#_as(format="png")
                            
                     else:
                         if channel.id == message.channel.id:
                             await message.delete()
                             
                         await webhook.send(content=message.content, username=message.author.name,
-                                           avatar_url=message.author.avatar_url_as(format="png"))
+                                           avatar_url=message.author.avatar_url)#_as(format="png")
                         
                         
 def setup(bot):
