@@ -190,7 +190,7 @@ class Character_Search(commands.Cog):
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.orange())
         embed.set_thumbnail(url=ctx.author.avatar_url_as(format="png"))
-        embed.add_field(name="実行コマンド", value=";tag", inline=True)
+        embed.add_field(name="実行コマンド", value=";skill", inline=True)
         embed.add_field(name='\u200b', value='\u200b')
         embed.add_field(name="検索キャラクター", value=f"{character}", inline=True)
         embed.add_field(name="ユーザー名", value=f"{ctx.author.name}", inline=True)
