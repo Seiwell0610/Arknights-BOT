@@ -10,6 +10,13 @@ class arknights_global(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command(aliases=['p'])
+    async def picture(self, ctx, what=None):
+        if ctx.author.bot:
+            return
+        file = discord.File(f"picture/{what}.png", filename=f"{what}.png")
+        await ctx.send(file=file)
+
     @commands.Cog.listener()
     async def on_message(self, message):
 
