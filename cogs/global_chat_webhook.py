@@ -4,7 +4,9 @@ import sqlite3
 import random
 import re
 import datetime
+
 ng_content = ["@everyone","@here"]
+GLOBAL_WEBHOOK_NAME = "Arknights-webhook"#グローバルチャットのウェブフック名
 
 class arknights_global(commands.Cog):
     def __init__(self, bot):
@@ -44,9 +46,6 @@ class arknights_global(commands.Cog):
         date = datetime.datetime.now()
         filename = f"{date.year}{date.month}{date.day}-{date.hour}{date.minute}{date.second}" 
         #画像保存名(基本)を｢年月日-時分秒｣とする。
-
-        GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
-        #グローバルチャットのウェブフック名
 
         conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
