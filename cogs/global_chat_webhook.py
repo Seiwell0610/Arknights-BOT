@@ -14,8 +14,26 @@ class arknights_global(commands.Cog):
     async def picture(self, ctx, what=None):
         if ctx.author.bot:
             return
+
+        conn = sqlite3.connect("all_data_arknights_main.db")
+        c = conn.cursor()
+        GLOBAL_CH_ID = []
+        for row in c.execute("SELECT * FROM global_chat"):
+            GLOBAL_CH_ID.append(row[0])
+
         file = discord.File(f"picture/{what}.png", filename=f"{what}.png")
-        await ctx.send(file=file)
+
+        if ctx.channel.id in GLOBAL_CH_ID:
+            channels = self.bot.get_all_channels()
+            global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
+            for channel in global_channels:
+                ch_webhooks = await channel.webhooks()
+                webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
+                await webhook.send(file=file, 
+                                   username=ctx.author.name,
+                                   avatar_url=ctx.author.avatar_url)
+        else:
+            await ctx.send(file=file)
 
     @commands.Cog.listener()
     async def on_message(self, message):
