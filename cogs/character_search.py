@@ -219,20 +219,24 @@ class Character_Search(commands.Cog):
             return await ctx.send(embed=embed)
 
         else:
-            quality_name = data[1].split("/")
-            quality = data[2].split("/")
-            skill = data[3].split("/")
+
+            quality_name = data[2].split("/")
+            quality = data[3].split("/")
+            skill = data[4].split("/")
 
             pages = [
+                (discord.Embed(title=f"{character}", color=discord.Color.orange())),
                 (discord.Embed(title=f"{character}", description="素質", color=discord.Color.orange())),
                 (discord.Embed(title=f"{character}", description="スキル", color=discord.Color.orange()))
                  ]
 
+            pages[0].add_field(name=f"特性", value=f"{data[1]}\n", inline=False)
+
             for count in range(int(len(quality_name))):
-                pages[0].add_field(name=f"{quality_name[count]}", value=f"{quality[count]}\n", inline=False)
+                pages[1].add_field(name=f"{quality_name[count]}", value=f"{quality[count]}\n", inline=False)
 
             for count in range(int(len(skill))):
-                pages[1].add_field(name=f"{skill[count]}", value=f"None", inline=False)
+                pages[2].add_field(name=f"{skill[count]}", value=f"None", inline=False)
 
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
             nav.start()
