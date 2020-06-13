@@ -68,6 +68,11 @@ class arknights_global(commands.Cog):
                 #ボットの参加する全てのチャンネル取得
                 global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
                 #channelsからGLOBAL_CH_IDと合致する物をglobal_channelsに格納
+                au=message.author.avatar_url
+                if ".gif" in str(au):
+                    kakutyo="gif"
+                else:
+                    kakutyo="png"
                 if message.attachments:
                     dcount = 0 #dcountには数字
                     for p in message.attachments:
@@ -106,7 +111,7 @@ class arknights_global(commands.Cog):
 
                         if message.content:
                             await webhook.send(content=message.content, username=message.author.name,
-                                               avatar_url=message.author.avatar_url)#_as(format="png")
+                                               avatar_url=message.author.avatar_url_as(format=kakutyo))
 
                         dcount = 0 #dcountには数字
                         for p in message.attachments:
@@ -123,14 +128,14 @@ class arknights_global(commands.Cog):
                                 filenames=f"{dcount}.mp3"
                             
                             await webhook.send(file=discord.File(filenames), username=message.author.name,
-                                               avatar_url=message.author.avatar_url)#_as(format="png")
+                                               avatar_url=message.author.avatar_url_as(format=kakutyo))
                            
                     else:
                         if channel.id == message.channel.id:
                             await message.delete()
                             
                         await webhook.send(content=message.content, username=message.author.name,
-                                           avatar_url=message.author.avatar_url)#_as(format="png")
+                                           avatar_url=message.author.avatar_url_as(format=kakutyo))
                         
                         
 def setup(bot):
