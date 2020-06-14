@@ -237,7 +237,7 @@ class Character_Search(commands.Cog):
                 pages[1].add_field(name=f"{quality_name[count]}", value=f"{quality[count]}\n", inline=False)
 
             for count in range(int(len(skill_name))):
-                pages[2].add_field(name=f"{skill_name[count]}", value=f"{skill}", inline=False)
+                pages[2].add_field(name=f"{skill_name[count]}", value=f"{skill[count]}", inline=False)
 
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
             nav.start()
