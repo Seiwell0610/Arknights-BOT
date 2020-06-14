@@ -27,7 +27,7 @@ class Help(commands.Cog):
     async def help(self, ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title="コマンド一覧", description=None, color=discord.Color.blue())
-            embed.add_field(name="基本コマンド", value="`;about`, `;help <コマンド名>`, `;s <キャラクター名>`, `;u <キャラクター名>`\n`;tag <キャラクター名>`", inline=False)
+            embed.add_field(name="基本コマンド", value="`;about`, `;help <コマンド名>`, `;s <キャラクター名>`, `;skill <キャラクター名>`\n`;u <キャラクター名>`, `;tag <キャラクター名>`", inline=False)
             embed.add_field(name="補助コマンド", value="`;add_emoji`, `;cleanup`", inline=False)
             embed.add_field(name="グローバルチャット", value="`;add_global`, `;del_global`", inline=False)
             embed.add_field(name="一部のサーバー限定", value="`;通知`", inline=False)
@@ -44,6 +44,13 @@ class Help(commands.Cog):
     @help.command()
     async def s(self, ctx):
         embed = discord.Embed(title="`;s`のヘルプ；", description="`;s <キャラクター名>`と送信すると、`<キャラクター名>`の基本的な情報が表示\nされます。", color=discord.Color.blue())
+        embed.add_field(name="必要な権限", value="なし")
+        await ctx.send(embed=embed)
+
+    @help.command()
+    async def skill(self, ctx):
+        embed = discord.Embed(title="`;skill`のヘルプ；", description="`;skill <キャラクター名>`と送信すると、`<キャラクター名>`の特性や、素質・スキルが見れます。",
+                              color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="なし")
         await ctx.send(embed=embed)
 
