@@ -22,10 +22,17 @@ class Member(commands.Cog):
 
     @commands.command()
     async def db_update(self, ctx):
-        with open("all_data_arknights_main.db", "wb") as f:
-            metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
-            f.write(res.content)
-        await ctx.send(f"{ctx.mention}-> データベースの更新が完了しました。")
+        if ctx.author.id in admin_list:
+            try:
+                with open("..all_data_arknights_main.db", "wb") as f:
+                    metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
+                    f.write(res.content)
+                await ctx.send(f"{ctx.author.mention}-> データベースの更新が完了しました。")
+            except:
+                await ctx.send(f"{ctx.author.mention}-> 何らかのエラーが発生しました。")
+
+        else:
+            await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
     @commands.command()
     async def news(self, ctx, title, main, channel_id=None):
