@@ -3,6 +3,11 @@ import sqlite3
 from discord.ext import commands
 import r
 import os
+import dropbox
+
+dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
+dbx = dropbox.Dropbox(dbxtoken)
+dbx.users_get_current_account()
 
 admin_list = []
 conn = sqlite3.connect("all_data_arknights_main.db")
@@ -14,6 +19,13 @@ print(admin_list)
 class Member(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    async def db_update(self, ctx):
+        with open("all_data_arknights_main.db", "wb") as f:
+            metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
+            f.write(res.content)
+        print("データベースのダウンロード完了")
 
     @commands.command()
     async def news(self, ctx, title, main, channel_id=None):
