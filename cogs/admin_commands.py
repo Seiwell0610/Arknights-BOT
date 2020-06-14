@@ -25,7 +25,7 @@ class Member(commands.Cog):
         with open("all_data_arknights_main.db", "wb") as f:
             metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
             f.write(res.content)
-        print("データベースのダウンロード完了")
+        await ctx.send(f"{ctx.mention}-> データベースの更新が完了しました。")
 
     @commands.command()
     async def news(self, ctx, title, main, channel_id=None):
