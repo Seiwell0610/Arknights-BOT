@@ -24,7 +24,7 @@ class Member(commands.Cog):
     async def db_update(self, ctx):
         if ctx.author.id in admin_list:
             try:
-                with open("..all_data_arknights_main.db", "wb") as f:
+                with open("all_data_arknights_main.db", "wb") as f:
                     metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
                     f.write(res.content)
                 await ctx.send(f"{ctx.author.mention}-> データベースの更新が完了しました。")
