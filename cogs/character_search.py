@@ -56,7 +56,7 @@ class Character_Search(commands.Cog):
         character = jaconv.hira2kata(str(character_1))
         try:
             character.title()
-        else:
+        except:
             pass
         conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
