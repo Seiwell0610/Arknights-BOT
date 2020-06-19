@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import libneko
 import sqlite3
+import jaconv
 
 def default_buttons():
     from libneko.pag.reactionbuttons import (
@@ -28,7 +29,7 @@ class Character_Search(commands.Cog):
         self.bot = bot
 
     @commands.command(name="s")
-    async def _s(self, ctx, character=None):
+    async def _s(self, ctx, character_1=None):
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
@@ -46,6 +47,8 @@ class Character_Search(commands.Cog):
         embed.add_field(name='\u200b', value='\u200b')
         embed.add_field(name="チャンネルID", value=f"{ctx.channel.id}", inline=True)
         await channel.send(embed=embed)
+        
+        character = jaconv.hira2kata(character_1)
 
         if character is None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
