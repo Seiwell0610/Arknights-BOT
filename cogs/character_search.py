@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import libneko
 import sqlite3
-import jaconv
 
 def default_buttons():
     from libneko.pag.reactionbuttons import (
@@ -29,7 +28,7 @@ class Character_Search(commands.Cog):
         self.bot = bot
 
     @commands.command(name="s")
-    async def _s(self, ctx, character_1=None):
+    async def _s(self, ctx, character=None):
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
@@ -48,16 +47,12 @@ class Character_Search(commands.Cog):
         embed.add_field(name="チャンネルID", value=f"{ctx.channel.id}", inline=True)
         await channel.send(embed=embed)
 
-        if character_1 is None:
+        if character is None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
                                   color=discord.Color.dark_red())
             return await ctx.send(embed=embed)
-        
-        character = jaconv.hira2kata(str(character_1))
-        try:
-            character.title()
-        except:
-            pass
+
+        character.title()
         conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
         c.execute('SELECT * FROM character WHERE 名前=?', (character,))
