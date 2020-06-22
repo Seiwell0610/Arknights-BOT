@@ -125,5 +125,15 @@ class Member(commands.Cog):
             d=conn.delete(what)
             await ctx.send(d)
 
+    @commands.command()
+    async def rdel(self, ctx, what):
+        if ctx.author.id in admin_list:
+            conn=r.connect()
+            mente=conn.set('maintenance',what)
+            if mente == True:
+                await ctx.send(f'メンテナンスモードを`{what}`に変更しました')
+            else:
+                await ctx.send('移行失敗')
+
 def setup(bot):
     bot.add_cog(Member(bot))
