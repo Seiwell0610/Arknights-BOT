@@ -3,6 +3,9 @@ import discord
 import datetime
 import r
 import os
+from cogs import admin_commands
+
+admin_list=admin_commands.admin_list
 
 main_guild_id=689263691669176426
 role_name="認証済み"
@@ -13,6 +16,13 @@ class Ninsyo(commands.Cog):
 
     @commands.command()
     async def agree(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         if ctx.guild.id!=main_guild_id:
             return
         c=0
