@@ -74,11 +74,11 @@ class Help(commands.Cog):
             if ctx.author.id in admin_list:
                 pages.append(discord.Embed(title="運営専用コマンド"))
 
-            pages[0].add_field(name=";about", value="このBOTの概要を表示します。")
-            pages[0].add_field(name=";help", value="コマンド一覧を表示しますた。")
-            pages[0].add_field(name=";help <コマンド>", value="`<コマンド>`で指定したコマンドの詳細を表示します。")
+            pages[0].add_field(name=";about", value="このBOTの概要を表示します。", inline=False)
+            pages[0].add_field(name=";help", value="コマンド一覧を表示しますた。", inline=False)
+            pages[0].add_field(name=";help <コマンド>", value="`<コマンド>`で指定したコマンドの詳細を表示します。", inline=False)
 
-            pages[1].add_field(name=";s <キャラクター名>", value="キャラクターの基本的なスペック(情報)を表示します、")
+            pages[1].add_field(name=";s <キャラクター名>", value="キャラクターの基本的なスペック(情報)を表示します、", inline=False)
 
             #ページ
 
