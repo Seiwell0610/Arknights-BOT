@@ -1,7 +1,10 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
+from cogs import admin_commands
+import r
 
+admin_list=admin_commands.admin_list
 
 class Help(commands.Cog):
     def __init__(self, bot):
@@ -9,6 +12,13 @@ class Help(commands.Cog):
 
     @commands.command(aliases=['info'])
     async def about(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         invite = "https://discord.com/api/oauth2/authorize?client_id=688553944661754054&permissions=1614146624&scope=bot"
         url = "https://discord.gg/25yrUVp"
         timestamp = datetime.utcfromtimestamp(int(self.bot.user.created_at.timestamp()))
@@ -25,6 +35,13 @@ class Help(commands.Cog):
 
     @commands.group()
     async def help(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title="コマンド一覧", description=None, color=discord.Color.blue())
             embed.add_field(name="基本コマンド", value="`;about`, `;help <コマンド名>`, `;s <キャラクター名>`, `;skill <キャラクター名>`\n`;u <キャラクター名>`, `;tag <キャラクター名>`", inline=False)
