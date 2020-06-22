@@ -2,6 +2,10 @@ import discord
 from discord.ext import commands
 import libneko
 import sqlite3
+from cogs import admin_commands
+import r
+
+admin_list=admin_commands.admin_list
 
 def default_buttons():
     from libneko.pag.reactionbuttons import (
@@ -29,6 +33,13 @@ class Character_Search(commands.Cog):
 
     @commands.command(name="s")
     async def _s(self, ctx, character=None):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
@@ -97,6 +108,13 @@ class Character_Search(commands.Cog):
 
     @commands.command(name="u")
     async def _u(self, ctx, character=None):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
@@ -149,6 +167,13 @@ class Character_Search(commands.Cog):
 
     @commands.command(name="tag")
     async def _tag(self, ctx, character=None):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
@@ -186,6 +211,13 @@ class Character_Search(commands.Cog):
 
     @commands.command(name="skill")
     async def _skill(self, ctx, character=None):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.orange())
