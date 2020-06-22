@@ -79,6 +79,7 @@ class Help(commands.Cog):
                 pages[4].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
                 pages[4].add_field(name=";get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
                 pages[4].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
+                
             pages[0].add_field(name=";about", value="このBOTの概要を表示します。", inline=False)
             pages[0].add_field(name=";help", value="コマンド一覧を表示しますた。", inline=False)
             pages[0].add_field(name=";help <コマンド>", value="`<コマンド>`で指定したコマンドの詳細を表示します。", inline=False)
@@ -96,6 +97,11 @@ class Help(commands.Cog):
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=20)
             nav.start()
             await ctx.send(nav)
+            
+    @help.group()
+    async def mainte(self, ctx)
+        embed=discord.Embed(title="`;meinte <モード>`のヘルプ", description="0：通常モード\n1：グローバルチャット以外停止\n2：グローバルチャットを含め停止\n3：グローバルチャットのみ停止", color=discord.Color.blue())
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
