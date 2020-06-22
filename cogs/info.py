@@ -3,8 +3,29 @@ from discord.ext import commands
 from datetime import datetime
 from cogs import admin_commands
 import r
+import libneko
 
 admin_list=admin_commands.admin_list
+
+def default_buttons():
+    from libneko.pag.reactionbuttons import (
+        first_page,
+        back_10_pages,
+        previous_page,
+        next_page,
+        forward_10_pages,
+        last_page
+    )
+
+    return (
+        first_page(),
+        back_10_pages(),
+        previous_page(),
+        next_page(),
+        forward_10_pages(),
+        last_page()
+    )
+buttons = default_buttons()
 
 class Help(commands.Cog):
     def __init__(self, bot):
@@ -43,127 +64,29 @@ class Help(commands.Cog):
                 return await ctx.send("現在、メンテナンス中です")
 
         if ctx.invoked_subcommand is None:
-            embed = discord.Embed(title="コマンド一覧", description=None, color=discord.Color.blue())
-            embed.add_field(name="基本コマンド", value="`;about`, `;help <コマンド名>`, `;s <キャラクター名>`, `;skill <キャラクター名>`\n`;u <キャラクター名>`, `;tag <キャラクター名>`", inline=False)
-            embed.add_field(name="補助コマンド", value="`;add_emoji`, `;cleanup`", inline=False)
-            embed.add_field(name="グローバルチャット", value="`;add_global`, `;del_global`", inline=False)
-            embed.add_field(name="一部のサーバー限定", value="`;通知`", inline=False)
-            embed.add_field(name="運営専用コマンド", value="`;admin_list`, `;global_chat`, `;all_guilds`, `;get_user <ユーザーID>`,\n`;news <タイトル> <本文> <チャンネルID>`", inline=False)
-            await ctx.send(embed=embed)
 
-    @help.command(name="about")
-    async def _about(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
-                return
-        embed = discord.Embed(title="`;about`のヘルプ；",
-                              description="このBOTの概要を表示されます。", color=discord.Color.blue())
-        embed.add_field(name="必要な権限", value="なし")
-        await ctx.send(embed=embed)
+            pages = [(discord.Embed(title="基本コマンド")),
+                     (discord.Embed(title="キャラクター検索")),
+                     (discord.Embed(title="グローバルチャット")),
+                     (discord.Embed(title="補助コマンド"))
+                     ]
 
-    @help.command()
-    async def s(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
-                return
-        embed = discord.Embed(title="`;s`のヘルプ；", description="`;s <キャラクター名>`と送信すると、`<キャラクター名>`の基本的な情報が表示\nされます。", color=discord.Color.blue())
-        embed.add_field(name="必要な権限", value="なし")
-        await ctx.send(embed=embed)
+            if ctx.author.id in admin_list:
+                pages.append(discord.Embed(title="運営専用コマンド"))
 
-    @help.command()
-    async def skill(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
-                return
-        embed = discord.Embed(title="`;skill`のヘルプ；", description="`;skill <キャラクター名>`と送信すると、`<キャラクター名>`の特性や、素質・スキルが見れます。",
-                              color=discord.Color.blue())
-        embed.add_field(name="必要な権限", value="なし")
-        await ctx.send(embed=embed)
+            pages[0].add_field(name=";about", value="このBOTの概要を表示します。")
+            pages[0].add_field(name=";help", value="コマンド一覧を表示しますた。")
+            pages[0].add_field(name=";help <コマンド>", value="`<コマンド>`で指定したコマンドの詳細を表示します。")
 
-    @help.command()
-    async def u(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
-                return
-        embed = discord.Embed(title="`;u`のヘルプ；", description="`;u <キャラクター名>`と送信すると、`<キャラクター名>`の基本的な情報が表示\nされます。"
-                                                             "ただし、未実装キャラなため変更がある場合があります。", color=discord.Color.blue())
-        embed.add_field(name="必要な権限", value="なし")
-        await ctx.send(embed=embed)
+            pages[1].add_field(name=";s <キャラクター名>", value="キャラクターの基本的なスペック(情報)を表示します、")
 
-    @help.command()
-    async def tag(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
-                return
-        embed = discord.Embed(title="`;tag`のヘルプ；", description="`;tag <キャラクター名>`と送信すると、`<キャラクター名>`の募集タグが表示されます。", color=discord.Color.blue())
-        embed.add_field(name="必要な権限", value="なし")
-        await ctx.send(embed=embed)
+            #ページ
 
-    @help.command()
-    async def add_global(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
-                return
-        embed = discord.Embed(title="`;add_global`のヘルプ；", description="グローバルチャットに登録します。", color=discord.Color.blue())
-        embed.add_field(name="必要な権限", value="サーバー管理")
-        await ctx.send(embed=embed)
+            nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=20)
+            nav.start()
+            await ctx.send(nav)
 
-    @help.command()
-    async def del_global(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
-                return
-        embed = discord.Embed(title="`;del_global`のヘルプ；", description="グローバルチャットの登録を解除します。", color=discord.Color.blue())
-        embed.add_field(name="必要な権限", value="サーバー管理")
-        await ctx.send(embed=embed)
 
-    @help.command()
-    async def add_emoji(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
-                return
-        embed = discord.Embed(title="`;add_emoji`のヘルプ；",
-                              description="カスタム絵文字にしたい画像を一緒に`;add_emoji <名前にしたい名前>`と送信\nするとカスタム絵文字を追加できます。", color=discord.Color.blue())
-        embed.add_field(name="必要な権限", value="絵文字の管理")
-        await ctx.send(embed=embed)
-
-    @help.command()
-    async def cleanup(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
-                return
-        embed = discord.Embed(title="`;cleanup`のヘルプ；",
-                              description="全てのメッセージを削除します。",
-                              color=discord.Color.blue())
-        embed.add_field(name="必要な権限", value="サーバー管理")
-        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Help(bot))
