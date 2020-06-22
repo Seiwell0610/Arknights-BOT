@@ -4,6 +4,10 @@ import sqlite3
 import random
 import re
 import datetime
+from cogs import admin_commands
+import r
+
+admin_list=admin_commands.admin_list
 
 ng_content = ["@everyone","@here"]
 GLOBAL_WEBHOOK_NAME = "Arknights-webhook"#グローバルチャットのウェブフック名
@@ -16,6 +20,12 @@ class arknights_global(commands.Cog):
     async def picture(self, ctx, what=None):
         if ctx.author.bot:
             return
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
 
         conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
@@ -42,7 +52,13 @@ class arknights_global(commands.Cog):
 
         if message.author.bot:
             return
-        
+        if message.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp > 1:
+                return await message.channel.send("現在、メンテナンス中です")
+     
         date = datetime.datetime.now()
         filename = f"{date.year}{date.month}{date.day}-{date.hour}{date.minute}{date.second}" 
         #画像保存名(基本)を｢年月日-時分秒｣とする。
