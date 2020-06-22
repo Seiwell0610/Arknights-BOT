@@ -74,6 +74,11 @@ class Help(commands.Cog):
             if ctx.author.id in admin_list:
                 pages.append(discord.Embed(title="運営専用コマンド", color=discord.Color.blue()))
 
+                pages[4].add_field(name=";admin_list", value="Adminに登録されているIDを表示します。", inline=False)
+                pages[4].add_field(name=";;global_chat", value="登録されているグローバルチャットを表示します。", inline=False)
+                pages[4].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
+                pages[4].add_field(name="get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
+
             pages[0].add_field(name=";about", value="このBOTの概要を表示します。", inline=False)
             pages[0].add_field(name=";help", value="コマンド一覧を表示しますた。", inline=False)
             pages[0].add_field(name=";help <コマンド>", value="`<コマンド>`で指定したコマンドの詳細を表示します。", inline=False)
@@ -87,11 +92,6 @@ class Help(commands.Cog):
 
             pages[3].add_field(name=";add_emoji <絵文字名>", value="画像と一緒に`<重文字名>`で指定した名前で、カスタム絵文字を追加します。", inline=False)
             pages[3].add_field(name=";cleanup", value="全てのメッセージを削除します。\n※全て削除できない場合があります。", inline=False)
-
-            pages[4].add_field(name=";admin_list", value="Adminに登録されているIDを表示します。", inline=False)
-            pages[4].add_field(name=";;global_chat", value="登録されているグローバルチャットを表示します。", inline=False)
-            pages[4].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
-            pages[4].add_field(name="get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
 
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=20)
             nav.start()
