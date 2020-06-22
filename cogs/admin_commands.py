@@ -128,10 +128,10 @@ class Member(commands.Cog):
     @commands.command(name="メンテだよいえーい")
     async def mentos(self, ctx, what=None):
         if ctx.author.id in admin_list:
+            conn=r.connect()
             if what==None:
                 p=conn.set('maintenance','0')
                 return await ctx.send('通常モードに移行')
-            conn=r.connect()
             mente=conn.set('maintenance',what)
             if mente == True:
                 await ctx.send(f'メンテナンスモードを`{what}`に変更しました')
