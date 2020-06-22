@@ -3,6 +3,10 @@ import sqlite3
 from PIL import Image
 import io
 from discord.ext import commands
+from cogs import admin_commands
+import r
+
+admin_list=admin_commands.admin_list
 
 class Member(commands.Cog):
     def __init__(self, bot):
@@ -10,6 +14,13 @@ class Member(commands.Cog):
 
     @commands.command(name="add_emoji", aliases=["addemoji", "aemoji"])
     async def _add_emoji(self, ctx, *, triger):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         img = ctx.ctx.attachments[0]
         resize = False
         if len(await img.read()) >= 25600:
@@ -30,12 +41,26 @@ class Member(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_guild=True)
     async def cleanup(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         await ctx.channel.purge()
         embed = discord.Embed(title="メッセージの削除完了", description="すべてのメッセージを正常に削除しました。", color=discord.Color.blue())
         await ctx.channel.send(embed=embed)
 
     @commands.command()
     async def 通知(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         role = discord.utils.get(ctx.guild.roles, name='メンションOK')
         if ctx.author.bot:
             return
@@ -57,8 +82,9 @@ class Member(commands.Cog):
 
     @commands.command()
     async def youtube(self, ctx, url):
-        channel = self.bot.get_channel(714589443373269042)
-        await channel.send(url)
+        if ctx.author.id in admin_list:
+            channel = self.bot.get_channel(714589443373269042)
+            await channel.send(url)
 
 def setup(bot):
     bot.add_cog(Member(bot))
