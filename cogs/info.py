@@ -65,14 +65,14 @@ class Help(commands.Cog):
 
         if ctx.invoked_subcommand is None:
 
-            pages = [(discord.Embed(title="基本コマンド")),
-                     (discord.Embed(title="キャラクター検索")),
-                     (discord.Embed(title="グローバルチャット")),
-                     (discord.Embed(title="補助コマンド"))
+            pages = [(discord.Embed(title="基本コマンド", color=discord.Color.blue())),
+                     (discord.Embed(title="キャラクター検索", color=discord.Color.blue())),
+                     (discord.Embed(title="グローバルチャット", color=discord.Color.blue())),
+                     (discord.Embed(title="補助コマンド", color=discord.Color.blue()))
                      ]
 
             if ctx.author.id in admin_list:
-                pages.append(discord.Embed(title="運営専用コマンド"))
+                pages.append(discord.Embed(title="運営専用コマンド", color=discord.Color.blue()))
 
             pages[0].add_field(name=";about", value="このBOTの概要を表示します。", inline=False)
             pages[0].add_field(name=";help", value="コマンド一覧を表示しますた。", inline=False)
@@ -85,7 +85,7 @@ class Help(commands.Cog):
             pages[2].add_field(name=";add_global", value="グローバルチャットに登録します。", inline=False)
             pages[2].add_field(name=";del_global", value="グローバルチャットの登録を解除します。", inline=False)
 
-            pages[3].add_field(name=";add_emoji <絵文字名>", value="画像と一緒に`<重文字名>で指定した名前で、カスタム絵文字を追加します。`", inline=False)
+            pages[3].add_field(name=";add_emoji <絵文字名>", value="画像と一緒に`<重文字名>`で指定した名前で、カスタム絵文字を追加します。", inline=False)
             pages[3].add_field(name=";cleanup", value="全てのメッセージを削除します。\n※全て削除できない場合があります。", inline=False)
 
             pages[4].add_field(name=";admin_list", value="Adminに登録されているIDを表示します。", inline=False)
