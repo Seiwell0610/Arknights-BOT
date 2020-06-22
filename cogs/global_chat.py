@@ -2,6 +2,8 @@ import discord
 import dropbox
 import sqlite3
 from discord.ext import commands
+from cogs import admin_commands
+import r
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
 dbx = dropbox.Dropbox(dbxtoken)
@@ -15,6 +17,13 @@ class Member(commands.Cog):
     @commands.command(name="add_global")
     @commands.has_permissions(manage_guild=True)
     async def _add_global(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         channel = self.bot.get_channel(698520936374075453)
         ch_id = ctx.channel.id
         ch_name = ctx.channel.name
@@ -42,6 +51,13 @@ class Member(commands.Cog):
     @commands.command(name="del_global")
     @commands.has_permissions(manage_guild=True)
     async def _del_global(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return await ctx.send("現在、メンテナンス中です")
+
         channel = self.bot.get_channel(698520936374075453)
         ch_id = ctx.channel.id
         ch_name = ctx.channel.name
