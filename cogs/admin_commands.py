@@ -130,6 +130,9 @@ class Member(commands.Cog):
         if ctx.author.id in admin_list:
             conn=r.connect()
             if what==None:
+                p=conn.get('maintenance')
+                return await ctx.send(f'メンテナンス数値：`{p}`')
+            if what=="reset":
                 p=conn.set('maintenance','0')
                 return await ctx.send('通常モードに移行')
             mente=conn.set('maintenance',what)
