@@ -5,6 +5,8 @@ from discord.ext import commands
 from cogs import admin_commands
 import r
 
+admin_list=admin_commands.admin_list
+
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
