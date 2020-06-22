@@ -99,7 +99,7 @@ class Help(commands.Cog):
             await ctx.send(nav)
             
     @help.command(name="mainte")
-    async def _mainte(self, ctx)
+    async def _mainte(self, ctx):
         embed=discord.Embed(title="`;meinte <モード>`のヘルプ", description="0：通常モード\n1：グローバルチャット以外停止\n2：グローバルチャットを含め停止\n3：グローバルチャットのみ停止", color=discord.Color.blue())
         await ctx.send(embed=embed)
 
