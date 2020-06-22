@@ -53,6 +53,12 @@ class Help(commands.Cog):
 
     @help.command(name="about")
     async def _about(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return
         embed = discord.Embed(title="`;about`のヘルプ；",
                               description="このBOTの概要を表示されます。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="なし")
@@ -60,12 +66,24 @@ class Help(commands.Cog):
 
     @help.command()
     async def s(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return
         embed = discord.Embed(title="`;s`のヘルプ；", description="`;s <キャラクター名>`と送信すると、`<キャラクター名>`の基本的な情報が表示\nされます。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="なし")
         await ctx.send(embed=embed)
 
     @help.command()
     async def skill(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return
         embed = discord.Embed(title="`;skill`のヘルプ；", description="`;skill <キャラクター名>`と送信すると、`<キャラクター名>`の特性や、素質・スキルが見れます。",
                               color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="なし")
@@ -73,6 +91,12 @@ class Help(commands.Cog):
 
     @help.command()
     async def u(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return
         embed = discord.Embed(title="`;u`のヘルプ；", description="`;u <キャラクター名>`と送信すると、`<キャラクター名>`の基本的な情報が表示\nされます。"
                                                              "ただし、未実装キャラなため変更がある場合があります。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="なし")
@@ -80,24 +104,48 @@ class Help(commands.Cog):
 
     @help.command()
     async def tag(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return
         embed = discord.Embed(title="`;tag`のヘルプ；", description="`;tag <キャラクター名>`と送信すると、`<キャラクター名>`の募集タグが表示されます。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="なし")
         await ctx.send(embed=embed)
 
     @help.command()
     async def add_global(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return
         embed = discord.Embed(title="`;add_global`のヘルプ；", description="グローバルチャットに登録します。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="サーバー管理")
         await ctx.send(embed=embed)
 
     @help.command()
     async def del_global(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return
         embed = discord.Embed(title="`;del_global`のヘルプ；", description="グローバルチャットの登録を解除します。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="サーバー管理")
         await ctx.send(embed=embed)
 
     @help.command()
     async def add_emoji(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return
         embed = discord.Embed(title="`;add_emoji`のヘルプ；",
                               description="カスタム絵文字にしたい画像を一緒に`;add_emoji <名前にしたい名前>`と送信\nするとカスタム絵文字を追加できます。", color=discord.Color.blue())
         embed.add_field(name="必要な権限", value="絵文字の管理")
@@ -105,6 +153,12 @@ class Help(commands.Cog):
 
     @help.command()
     async def cleanup(self, ctx):
+        if ctx.author.id not in admin_list:
+            conn=r.connect()
+            pp=conn.get("maintenance")
+            pp=int(pp)
+            if pp != 0:
+                return
         embed = discord.Embed(title="`;cleanup`のヘルプ；",
                               description="全てのメッセージを削除します。",
                               color=discord.Color.blue())
