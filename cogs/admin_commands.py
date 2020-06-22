@@ -125,8 +125,8 @@ class Member(commands.Cog):
             d=conn.delete(what)
             await ctx.send(d)
 
-    @commands.command(name='メンテだよいえーい')
-    async def _test(self, ctx, what=None):
+    @commands.command(name="メンテだよいえーい")
+    async def mentos(self, ctx, what=None):
         if ctx.author.id in admin_list:
             if what==None:
                 p=conn.set('maintenance','0')
