@@ -20,7 +20,8 @@ class Ninsyo(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         if ctx.guild.id!=main_guild_id:
