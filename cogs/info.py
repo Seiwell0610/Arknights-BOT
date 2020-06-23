@@ -37,7 +37,8 @@ class Help(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         invite = "https://discord.com/api/oauth2/authorize?client_id=688553944661754054&permissions=1614146624&scope=bot"
@@ -60,7 +61,8 @@ class Help(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         if ctx.invoked_subcommand is None:
