@@ -53,14 +53,7 @@ class arknights_global(commands.Cog):
 
         if message.author.bot:
             return
-        if message.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            q = ['0','1']
-            if pp not in q:
-                return await message.channel.send("現在、メンテナンス中です")
-     
+        
         date = datetime.datetime.now()
         filename = f"{date.year}{date.month}{date.day}-{date.hour}{date.minute}{date.second}" 
         #画像保存名(基本)を｢年月日-時分秒｣とする。
@@ -77,6 +70,14 @@ class arknights_global(commands.Cog):
             if message.content.startswith(";" or ";add_global"):
                 return
             #発言時、頭に｢;｣がついていたらpass
+            if message.author.id not in admin_list:
+                conn=r.connect()
+                pp=conn.get("maintenance")
+                pp=int(pp)
+                q = ['0','1']
+                if pp not in q:
+                    return await message.channel.send("現在、メンテナンス中です")
+     
 
             if message.content in ng_content:
                 return await message.delete()
