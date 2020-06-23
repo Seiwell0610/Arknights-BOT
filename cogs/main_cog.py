@@ -18,7 +18,8 @@ class Member(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         img = ctx.ctx.attachments[0]
@@ -45,7 +46,8 @@ class Member(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         await ctx.channel.purge()
@@ -58,7 +60,8 @@ class Member(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         role = discord.utils.get(ctx.guild.roles, name='メンションOK')
