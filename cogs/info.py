@@ -83,12 +83,12 @@ class Help(commands.Cog):
                 pages[4].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
                 
             pages[0].add_field(name=";about", value="このBOTの概要を表示します。", inline=False)
-            pages[0].add_field(name=";help", value="コマンド一覧を表示しますた。", inline=False)
+            pages[0].add_field(name=";help", value="コマンド一覧を表示します。", inline=False)
             pages[0].add_field(name=";help <コマンド>", value="`<コマンド>`で指定したコマンドの詳細を表示します。", inline=False)
 
             pages[1].add_field(name=";s <キャラクター名>", value="`<キャラクター名>`の基本的なスペック(情報)を表示します、", inline=False)
             pages[1].add_field(name=";skill <キャラクター名>", value="`<キャラクター名>`の特性・素質・スキルを表示します。", inline=False)
-            pages[1].add_field(name=";tag <キャラクター名>", value="`<キャラクター名>`の基本的なスペック(情報)を表示します。", inline=False)
+            pages[1].add_field(name=";tag <キャラクター名>", value="`<キャラクター名>`の募集タグを表示します。", inline=False)
 
             pages[2].add_field(name=";add_global", value="グローバルチャットに登録します。", inline=False)
             pages[2].add_field(name=";del_global", value="グローバルチャットの登録を解除します。", inline=False)
