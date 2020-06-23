@@ -34,10 +34,11 @@ class Character_Search(commands.Cog):
     @commands.command(name="s")
     async def _s(self, ctx, character=None):
         if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            pp=int(pp)
-            if pp != 0:
+            conn = r.connect()
+            pp = conn.get("maintenance")
+            pp = int(pp)
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         channel = self.bot.get_channel(714615013968576572)
@@ -112,7 +113,8 @@ class Character_Search(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         channel = self.bot.get_channel(714615013968576572)
@@ -171,7 +173,8 @@ class Character_Search(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         channel = self.bot.get_channel(714615013968576572)
@@ -215,7 +218,8 @@ class Character_Search(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         channel = self.bot.get_channel(714615013968576572)
