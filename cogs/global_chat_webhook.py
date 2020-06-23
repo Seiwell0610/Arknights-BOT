@@ -24,7 +24,8 @@ class arknights_global(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp != 0:
+            q = ['0','3']
+            if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
         conn = sqlite3.connect("all_data_arknights_main.db")
@@ -56,7 +57,8 @@ class arknights_global(commands.Cog):
             conn=r.connect()
             pp=conn.get("maintenance")
             pp=int(pp)
-            if pp > 1:
+            q = ['0','1']
+            if pp not in q:
                 return await message.channel.send("現在、メンテナンス中です")
      
         date = datetime.datetime.now()
