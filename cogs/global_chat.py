@@ -22,7 +22,6 @@ class Member(commands.Cog):
         if ctx.author.id not in admin_list:
             conn=r.connect()
             pp=conn.get("maintenance")
-            pp=int(pp)
             q = ['0','1']
             if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
@@ -57,7 +56,6 @@ class Member(commands.Cog):
         if ctx.author.id not in admin_list:
             conn=r.connect()
             pp=conn.get("maintenance")
-            pp=int(pp)
             q = ['0','3']
             if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
