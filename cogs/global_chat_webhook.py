@@ -23,7 +23,6 @@ class arknights_global(commands.Cog):
         if ctx.author.id not in admin_list:
             conn=r.connect()
             pp=conn.get("maintenance")
-            pp=int(pp)
             q = ['0','1']
             if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
@@ -73,7 +72,6 @@ class arknights_global(commands.Cog):
             if message.author.id not in admin_list:
                 conn=r.connect()
                 pp=conn.get("maintenance")
-                pp=int(pp)
                 q = ['0','1']
                 if pp not in q:
                     return await message.channel.send("現在、メンテナンス中です")
