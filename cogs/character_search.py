@@ -256,11 +256,16 @@ class Character_Search(commands.Cog):
             quality = data[3].split("/")
             skill_name = data[4].split("/")
             skill = data[5].split("/")
+            base_skill_name = data[6].split("/")
+            base_skill_conditions = data[7].split("/")
+            base_skill_target = data[8].split("/")
+            base_skill_effect = data[9].split("/")
 
             pages = [
                 (discord.Embed(title=f"{character}", color=discord.Color.orange())),
                 (discord.Embed(title=f"{character}(素質)", color=discord.Color.orange())),
-                (discord.Embed(title=f"{character}(スキル)", color=discord.Color.orange()))
+                (discord.Embed(title=f"{character}(スキル)", color=discord.Color.orange())),
+                (discord.Embed(title=f"{character}(基地スキル)", color=discord.Color.orange()))
                  ]
 
             pages[0].add_field(name=f"特性", value=f"{data[1]}\n", inline=False)
@@ -270,6 +275,12 @@ class Character_Search(commands.Cog):
 
             for count in range(int(len(skill_name))):
                 pages[2].add_field(name=f"{skill_name[count]}", value=f"{skill[count]}", inline=False)
+
+            for count in range(int(len(base_skill_name))):
+                pages[3].add_field(name=f"{base_skill_name[count]}")
+                pages[3].add_field(name=f"{base_skill_conditions[count]}")
+                pages[3].add_field(name=f"{base_skill_target[count]}")
+                pages[3].add_field(name=f"{base_skill_effect[count]}")
 
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
             nav.start()
