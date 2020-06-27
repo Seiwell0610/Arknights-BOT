@@ -8,7 +8,9 @@ from cogs import global_chat_webhook
 import asyncio
 
 GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
-GLOBAL_CH_ID = global_chat_webhook.GLOBAL_CH_ID
+arknights_global = global_chat_webhook.arknights_global()
+GLOBAL_CH_ID = arknights_global.GLOBAL_CH_ID
+
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
 dbx = dropbox.Dropbox(dbxtoken)
