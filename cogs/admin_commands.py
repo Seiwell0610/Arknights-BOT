@@ -4,6 +4,10 @@ from discord.ext import commands
 import r
 import os
 import dropbox
+from cogs import global_chat_webhook
+
+GLOBAL_WEBHOOK_NAME = global_chat_webhook.GLOBAL_WEBHOOK_NAME
+global_channels = global_chat_webhook.global_channels
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
 dbx = dropbox.Dropbox(dbxtoken)
@@ -141,5 +145,17 @@ class Member(commands.Cog):
             else:
                 await ctx.send('移行失敗')
 
+    @commands.command()
+    async def webhook_reset(self, ctx):
+        if ctx.author.id in admin_list:
+            conn = r.connect()
+            pp = conn.get("maintenance")
+            q = ['2','3']
+            if pp not in q:
+                return await ctx.send("現在、仕様できません")
+            for channel in global_channels:
+                ch_webhooks = await channel.webhooks()
+                webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
+                
 def setup(bot):
     bot.add_cog(Member(bot))
