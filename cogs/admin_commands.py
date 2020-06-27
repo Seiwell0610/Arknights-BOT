@@ -5,6 +5,7 @@ import r
 import os
 import dropbox
 from cogs import global_chat_webhook
+import asyncio
 
 GLOBAL_WEBHOOK_NAME = global_chat_webhook.GLOBAL_WEBHOOK_NAME
 global_channels = global_chat_webhook.global_channels
@@ -156,6 +157,10 @@ class Member(commands.Cog):
             for channel in global_channels:
                 ch_webhooks = await channel.webhooks()
                 webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
+                await webhook.delete()
+                await asyncio.sleep(2)
+                await channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
+            await ctx.send('完了')
                 
 def setup(bot):
     bot.add_cog(Member(bot))
