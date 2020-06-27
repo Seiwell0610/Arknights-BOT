@@ -277,9 +277,9 @@ class Character_Search(commands.Cog):
                 pages[2].add_field(name=f"{skill_name[count]}", value=f"{skill[count]}", inline=False)
 
             for count in range(int(len(base_skill_name))):
-                pages[3].add_field(name=f"{base_skill_name[count]}", value=f"{base_skill_effect[count]}")
-                pages[3].add_field(name=f"習得条件", value=f"{base_skill_conditions[count]}")
-                pages[3].add_field(name=f"効果対象", value=f"{base_skill_target[count]}")
+                pages[3].add_field(name=f"{base_skill_name[count]}", value=f"{base_skill_effect[count]}", inline=False)
+                pages[3].add_field(name=f"習得条件", value=f"{base_skill_conditions[count]}", inline=False)
+                pages[3].add_field(name=f"効果対象", value=f"{base_skill_target[count]}", inline=False)
 
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
             nav.start()
