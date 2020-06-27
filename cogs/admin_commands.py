@@ -8,7 +8,7 @@ from cogs import global_chat_webhook
 import asyncio
 
 GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
-global_channels = global_chat_webhook.global_channels
+GLOBAL_CH_ID = global_chat_webhook.GLOBAL_CH_ID
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
 dbx = dropbox.Dropbox(dbxtoken)
@@ -154,6 +154,8 @@ class Member(commands.Cog):
             q = ['2','3']
             if pp not in q:
                 return await ctx.send("現在、使用できません")
+            channels = self.bot.get_all_channels()
+            global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
             for channel in global_channels:
                 ch_webhooks = await channel.webhooks()
                 webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
