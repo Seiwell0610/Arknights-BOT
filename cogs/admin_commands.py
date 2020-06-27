@@ -8,9 +8,6 @@ from cogs import global_chat_webhook
 import asyncio
 
 GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
-arknights_global = global_chat_webhook.arknights_global()
-GLOBAL_CH_ID = arknights_global.GLOBAL_CH_ID
-
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
 dbx = dropbox.Dropbox(dbxtoken)
@@ -156,6 +153,9 @@ class Member(commands.Cog):
             q = ['2','3']
             if pp not in q:
                 return await ctx.send("現在、使用できません")
+            GLOBAL_CH_ID = []
+            for row in c.execute("SELECT * FROM global_chat"):
+                GLOBAL_CH_ID.append(row[0])
             channels = self.bot.get_all_channels()
             global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
             for channel in global_channels:
