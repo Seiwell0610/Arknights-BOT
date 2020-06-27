@@ -7,7 +7,7 @@ import dropbox
 from cogs import global_chat_webhook
 import asyncio
 
-GLOBAL_WEBHOOK_NAME = global_chat_webhook.GLOBAL_WEBHOOK_NAME
+GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
 global_channels = global_chat_webhook.global_channels
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
@@ -153,7 +153,7 @@ class Member(commands.Cog):
             pp = conn.get("maintenance")
             q = ['2','3']
             if pp not in q:
-                return await ctx.send("現在、仕様できません")
+                return await ctx.send("現在、使用できません")
             for channel in global_channels:
                 ch_webhooks = await channel.webhooks()
                 webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
