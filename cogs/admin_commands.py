@@ -158,13 +158,18 @@ class Member(commands.Cog):
                 GLOBAL_CH_ID.append(row[0])
             channels = self.bot.get_all_channels()
             global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
+            chm=len(global_channels)
+            m=0
+            msg = await ctx.send(f'webhook更新中({m}/{chm})')
             for channel in global_channels:
                 ch_webhooks = await channel.webhooks()
                 webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
                 await webhook.delete()
                 await asyncio.sleep(2)
                 await channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
-            await ctx.send('完了')
+                m+=1
+                await msg.edit(content=f'webhook更新中({m}/{chm})')
+            await msg.edit(content=f'webhook更新完了({m}/{chm})')
                 
 def setup(bot):
     bot.add_cog(Member(bot))
