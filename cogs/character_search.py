@@ -5,7 +5,9 @@ import sqlite3
 from cogs import admin_commands
 import r
 
-admin_list=admin_commands.admin_list
+print("character_searchの読み込み完了")
+
+admin_list = admin_commands.admin_list
 
 def default_buttons():
     from libneko.pag.reactionbuttons import (

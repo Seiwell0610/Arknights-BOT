@@ -5,11 +5,14 @@ import textwrap
 import contextlib
 import json
 import glob
+from cogs import admin_commands
 
 from discord.ext import commands
 from discord import NotFound, Embed,  Forbidden
 
-admin_list = [343956207754805251,459936557432963103]
+print("evalの読み込み完了")
+
+admin_list = admin_commands.admin_list
 
 def cleanup_code(content):
     if content.startswith('```') and content.endswith('```'):

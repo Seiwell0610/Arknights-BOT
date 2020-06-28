@@ -7,6 +7,8 @@ import dropbox
 from cogs import global_chat_webhook
 import asyncio
 
+print("admin_commandsの読み込み完了")
+
 GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"

@@ -5,6 +5,8 @@ from discord.ext import commands
 from cogs import admin_commands
 import r
 
+print("global_chatの読み込み完了")
+
 admin_list=admin_commands.admin_list
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
