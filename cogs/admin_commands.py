@@ -174,7 +174,7 @@ class Member(commands.Cog):
             await msg.edit(content=f'webhook更新完了({m}/{chm})')
 
     @commands.command()
-    async def get_guild(self, ctx, guild_id:int=None):
+    async def get_server(self, ctx, guild_id:int=None):
         if ctx.author.id in admin_list:    
             if guild_id == None:
                 guild_id = ctx.guild.id
