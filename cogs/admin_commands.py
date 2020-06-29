@@ -172,6 +172,28 @@ class Member(commands.Cog):
                 m+=1
                 await msg.edit(content=f'webhook更新中({m}/{chm})')
             await msg.edit(content=f'webhook更新完了({m}/{chm})')
-                
+
+    @commands.command()
+    async def get_guild(self, ctx, guild_id:int=None):
+        if ctx.author.id in admin_list:    
+            if guild_id == None:
+                guild_id = ctx.guild.id
+            guild = self.bot.get_guild(guild_id)
+            embed = discord.Embed(title="該当サーバー情報",description=None)
+            embed.add_field(name="サーバー名",value=f'`{guild.name}`')
+            embed.add_field(name="現オーナー名",value=f'`{guild.owner}`')
+            embed.add_field(name="作成日",value=f'`{guild.created_at}`')
+            embed.add_field(name="サーバーID",value=f'`{guild.id}`')
+            member_count = sum(1 for member in guild.members if not member.bot) 
+            bot_count = sum(1 for member in guild.members if member.bot) 
+            all_count = (member_count) + (bot_count)
+            embed.add_field(name="総人数",value=f'`{all_count}`',inline=False)
+            embed.add_field(name="ユーザ数",value=f'`{member_count}`',inline=False)
+            embed.add_field(name="BOT数",value=f'`{bot_count}`',inline=False)
+            embed.add_field(name="テキストチャンネル数",value=f'`{len(guild.text_channels)}`',inline=False)
+            embed.add_field(name="ボイスチャンネル数",value=f'`{len(guild.voice_channels)}`',inline=False)
+            embed.set_thumbnail(url=guild.icon_url)
+            await ctx.send(embed=embed)   
+      
 def setup(bot):
     bot.add_cog(Member(bot))
