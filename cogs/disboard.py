@@ -26,6 +26,13 @@ class Disboard(commands.Cog):
                     await asyncio.sleep(1)
                     m += 1
                 await msg.edit(content=f"<@{mn}>さん\nBumpができるようになりました。")
+
+        if message.content.startswith('youtube'):
+            if message.author.id == 159985870458322944:
+                say = message.content 
+                url = say.strip('youtube ')
+                channel = self.bot.get_channel(714589443373269042)
+                await channel.send(url)
             
 def setup(bot):
     bot.add_cog(Disboard(bot))
