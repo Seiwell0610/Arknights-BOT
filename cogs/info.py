@@ -79,6 +79,7 @@ class Help(commands.Cog):
                 pages[4].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
                 pages[4].add_field(name=";get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
                 pages[4].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
+                pages[4].add_field(name=";webhook_reset", value="グローバルチャットに登録しているチャンネルのwebhookをリセットします。\nメンテナンスモードに移行してからしようして下さい。", inline=False)
                 
             pages[0].add_field(name=";about", value="このBOTの概要を表示します。", inline=False)
             pages[0].add_field(name=";help", value="コマンド一覧を表示します。", inline=False)
