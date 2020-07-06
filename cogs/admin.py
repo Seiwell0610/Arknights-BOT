@@ -25,7 +25,6 @@ conn = sqlite3.connect("all_data_arknights_main.db")
 c = conn.cursor()
 for row in c.execute("SELECT * FROM admin_list"):
     admin_list.append(row[0])
-print(admin_list)
 
 def cleanup_code(content):
     if content.startswith('```') and content.endswith('```'):
