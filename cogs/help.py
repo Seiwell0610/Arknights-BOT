@@ -33,8 +33,8 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group()
-    async def help(self, ctx):
+    @commands.group(name="help")
+    async def _help(self, ctx):
         if ctx.author.id not in admin_list:
             conn=r.connect()
             pp=conn.get("maintenance")
