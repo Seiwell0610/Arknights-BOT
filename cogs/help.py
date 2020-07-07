@@ -33,14 +33,8 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group(name="help")
-    async def _help(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            q = ['0','3']
-            if pp not in q:
-                return await ctx.send("現在、メンテナンス中です")
+    @commands.group()
+    async def help(self, ctx):
 
         if ctx.invoked_subcommand is None:
 
