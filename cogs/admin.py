@@ -5,7 +5,6 @@ from discord.ext import commands
 import sqlite3
 import asyncio
 import io
-import r
 import traceback
 import textwrap
 import contextlib
