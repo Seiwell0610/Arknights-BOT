@@ -56,12 +56,12 @@ class Help(commands.Cog):
             if ctx.author.id in admin_list:
                 pages.append(discord.Embed(title="運営専用コマンド", color=discord.Color.blue()))
 
-                pages[4].add_field(name=";admin_list", value="Adminに登録されているIDを表示します。", inline=False)
-                pages[4].add_field(name=";;global_chat", value="登録されているグローバルチャットを表示します。", inline=False)
-                pages[4].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
-                pages[4].add_field(name=";get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
-                pages[4].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
-                pages[4].add_field(name=";webhook_reset", value="グローバルチャットに登録しているチャンネルのwebhookをリセットします。\nメンテナンスモードに移行してからしようして下さい。", inline=False)
+                pages[5].add_field(name=";admin_list", value="Adminに登録されているIDを表示します。", inline=False)
+                pages[5].add_field(name=";;global_chat", value="登録されているグローバルチャットを表示します。", inline=False)
+                pages[5].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
+                pages[5].add_field(name=";get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
+                pages[5].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
+                pages[5].add_field(name=";webhook_reset", value="グローバルチャットに登録しているチャンネルのwebhookをリセットします。\nメンテナンスモードに移行してからしようして下さい。", inline=False)
                 
             pages[0].set_thumbnail(url=self.bot.user.avatar_url)
             pages[0].add_field(name="導入サーバー数", value=f"`{len(self.bot.guilds)}`")
