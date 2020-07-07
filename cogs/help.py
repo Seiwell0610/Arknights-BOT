@@ -32,7 +32,7 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.group()
     async def help(self, ctx):
         if ctx.author.id not in admin_list:
             conn=r.connect()
@@ -43,6 +43,8 @@ class Help(commands.Cog):
 
         if ctx.invoked_subcommand is None:
 
+            invite = "https://discord.com/api/oauth2/authorize?client_id=688553944661754054&permissions=1614146624&scope=bot"
+            url = "https://discord.gg/25yrUVp"
             pages = [(discord.Embed(title="このBOTのヘルプ:", description=f">>> ```アークナイツに関する情報を表示したり、\n他にも様々な機能を提供します。```[このBOTの招待はこちら](<{invite}>)\n[「ドクター達の集いの場」サーバーはこちら](<{url}>)", timestamp=timestamp, color=0x009193)),
                      (discord.Embed(title="基本コマンド", color=discord.Color.blue())),
                      (discord.Embed(title="キャラクター検索", color=discord.Color.blue())),
@@ -60,8 +62,6 @@ class Help(commands.Cog):
                 pages[4].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
                 pages[4].add_field(name=";webhook_reset", value="グローバルチャットに登録しているチャンネルのwebhookをリセットします。\nメンテナンスモードに移行してからしようして下さい。", inline=False)
                 
-            invite = "https://discord.com/api/oauth2/authorize?client_id=688553944661754054&permissions=1614146624&scope=bot"
-            url = "https://discord.gg/25yrUVp"
             pages[0].set_thumbnail(url=self.bot.user.avatar_url)
             pages[0].add_field(name="導入サーバー数", value=f"`{len(self.bot.guilds)}`")
             pages[0].add_field(name='\u200b', value='\u200b')
