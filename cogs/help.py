@@ -40,6 +40,7 @@ class Help(commands.Cog):
 
             invite = "https://discord.com/api/oauth2/authorize?client_id=688553944661754054&permissions=1614146624&scope=bot"
             url = "https://discord.gg/25yrUVp"
+            timestamp = datetime.utcfromtimestamp(int(self.bot.user.created_at.timestamp()))
             pages = [(discord.Embed(title="このBOTのヘルプ:", description=f">>> ```アークナイツに関する情報を表示したり、\n他にも様々な機能を提供します。```[このBOTの招待はこちら](<{invite}>)\n[「ドクター達の集いの場」サーバーはこちら](<{url}>)", timestamp=timestamp, color=discord.Color.blue())),
                      (discord.Embed(title="基本コマンド", color=discord.Color.blue())),
                      (discord.Embed(title="キャラクター検索", color=discord.Color.blue())),
