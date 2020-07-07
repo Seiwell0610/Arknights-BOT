@@ -5,6 +5,8 @@ from cogs import admin_commands
 import r
 import libneko
 
+print("helpの読み込み完了")
+
 admin_list=admin_commands.admin_list
 
 def default_buttons():
@@ -42,7 +44,7 @@ class Help(commands.Cog):
 
         if ctx.invoked_subcommand is None:
 
-            pages = [(embed = discord.Embed(title="このBOTのヘルプ:", description=f">>> ```アークナイツに関する情報を表示したり、\n他にも様々な機能を提供します。```[このBOTの招待はこちら](<{invite}>)\n[「ドクター達の集いの場」サーバーはこちら](<{url}>)", timestamp=timestamp, color=0x009193))
+            pages = [(embed = discord.Embed(title="このBOTのヘルプ:", description=f">>> ```アークナイツに関する情報を表示したり、\n他にも様々な機能を提供します。```[このBOTの招待はこちら](<{invite}>)\n[「ドクター達の集いの場」サーバーはこちら](<{url}>)", timestamp=timestamp, color=0x009193)),
                      (discord.Embed(title="基本コマンド", color=discord.Color.blue())),
                      (discord.Embed(title="キャラクター検索", color=discord.Color.blue())),
                      (discord.Embed(title="グローバルチャット", color=discord.Color.blue())),
