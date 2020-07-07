@@ -1,6 +1,7 @@
 from discord import NotFound, Embed, Forbidden
 import discord
 from discord.ext import commands
+import r
 
 import sqlite3
 import asyncio
