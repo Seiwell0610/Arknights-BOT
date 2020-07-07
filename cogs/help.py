@@ -3,6 +3,7 @@ from discord.ext import commands
 from datetime import datetime
 import libneko
 from cogs import admin
+import r
 
 print("helpの読み込み完了")
 
