@@ -5,6 +5,8 @@ import datetime
 import r
 from cogs import admin
 
+print("limitedの読み込み完了")
+
 main_guild_id = 689263691669176426
 role_name="認証済み"
 admin_list = admin.admin_list

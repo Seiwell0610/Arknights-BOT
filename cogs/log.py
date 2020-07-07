@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+print("logの読み込み完了")
+
 main_guild_id = 689263691669176426
 
 class log(commands.Cog):
