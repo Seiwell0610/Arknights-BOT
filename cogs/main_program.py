@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import libneko
 import sqlite3
-from cogs import admin_commands
+from cogs import admin
 import r
 
 print("main_programの読み込み完了")
