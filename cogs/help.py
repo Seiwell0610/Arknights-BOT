@@ -36,6 +36,13 @@ class Help(commands.Cog):
     @commands.group()
     async def help(self, ctx):
 
+        if ctx.author.id not in admin_list:
+            conn = r.connect()
+            pp = conn.get("maintenance")
+            q = ['0', '3']
+            if pp not in q:
+                return await ctx.send(discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。", color=discord.Color.dark_red()))
+
         if ctx.invoked_subcommand is None:
 
             invite = "https://discord.com/api/oauth2/authorize?client_id=688553944661754054&permissions=1614146624&scope=bot"
@@ -48,14 +55,15 @@ class Help(commands.Cog):
                      ]
 
             if ctx.author.id in admin_list:
+                pages_count = len(pages)
                 pages.append(discord.Embed(title="運営専用コマンド", color=discord.Color.blue()))
 
-                pages[5].add_field(name=";admin_list", value="Adminに登録されているIDを表示します。", inline=False)
-                pages[5].add_field(name=";global_chat", value="登録されているグローバルチャットを表示します。", inline=False)
-                pages[5].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
-                pages[5].add_field(name=";get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
-                pages[5].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
-                pages[5].add_field(name=";webhook_reset", value="グローバルチャットに登録しているチャンネルのwebhookをリセットします。\nメンテナンスモードに移行してからしようして下さい。", inline=False)
+                pages[pages_count].add_field(name=";admin_list", value="Adminに登録されているIDを表示します。", inline=False)
+                pages[pages_count].add_field(name=";global_chat", value="登録されているグローバルチャットを表示します。", inline=False)
+                pages[pages_count].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
+                pages[pages_count].add_field(name=";get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
+                pages[pages_count].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
+                pages[pages_count].add_field(name=";webhook_reset", value="グローバルチャットに登録しているチャンネルのwebhookをリセットします。\nメンテナンスモードに移行してからしようして下さい。", inline=False)
                 
             pages[0].set_thumbnail(url=self.bot.user.avatar_url)
             pages[0].add_field(name="導入サーバー数", value=f"`{len(self.bot.guilds)}`")
