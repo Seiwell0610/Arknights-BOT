@@ -62,6 +62,7 @@ class Help(commands.Cog):
                 pages[pages_count].add_field(name=";global_chat", value="登録されているグローバルチャットを表示します。", inline=False)
                 pages[pages_count].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
                 pages[pages_count].add_field(name=";get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
+                pages[pages_count].add_field(name=";get_guild <サーバーID>", value="`<サーバーID>`で指定したサーバーの概要を表示します。", inline=False)
                 pages[pages_count].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
                 pages[pages_count].add_field(name=";webhook_reset", value="グローバルチャットに登録しているチャンネルのwebhookをリセットします。\nメンテナンスモードに移行してからしようして下さい。", inline=False)
                 

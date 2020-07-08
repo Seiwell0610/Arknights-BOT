@@ -201,7 +201,7 @@ class Admin(commands.Cog):
 
     #サーバー情報表示コマンド
     @commands.command()
-    async def get_server(self, ctx, guild_id: int = None):
+    async def get_guild(self, ctx, guild_id: int = None):
         if ctx.author.id in admin_list:
             if guild_id == None:
                 guild_id = ctx.guild.id
