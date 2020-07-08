@@ -127,28 +127,69 @@ class Admin(commands.Cog):
     @commands.command()
     async def webhook_reset(self, ctx):
         if ctx.author.id in admin_list:
+            # ---メンテモード確認---
             conn = r.connect()
             pp = conn.get("maintenance")
-            q = ['2', '3']
+            q = ['2','3']
             if pp not in q:
                 return await ctx.send("現在、使用できません")
+            # -------------------
+
+            # ---embedの生成---
+            embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
             GLOBAL_CH_ID = []
             for row in c.execute("SELECT * FROM global_chat"):
                 GLOBAL_CH_ID.append(row[0])
             channels = self.bot.get_all_channels()
             global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
-            chm = len(global_channels)
-            m = 0
-            msg = await ctx.send(f'webhook更新中({m}/{chm})')
+            chm=len(global_channels)
+            embed.add_field(name=f"webhook更新中", value=f"0/{chm}")
+            ky = conn.keys()
+            ky = [k for k in ky if k != 'maintenance']
+            kys = len(ky)
+            embed.add_field(name=f"redis key削除中", value=f"0/{kys}")
+            msg = await ctx.send(embed=embed)
+            # -------------------
+
+            # ---webhookの再生成---
+            m=0
             for channel in global_channels:
                 ch_webhooks = await channel.webhooks()
                 webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
                 await webhook.delete()
                 await asyncio.sleep(2)
                 await channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
-                m += 1
-                await msg.edit(content=f'webhook更新中({m}/{chm})')
-            await msg.edit(content=f'webhook更新完了({m}/{chm})')
+                m+=1
+                embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
+                embed.add_field(name=f"webhook更新中", value=f"{m}/{chm}")
+                embed.add_field(name=f"redis key削除中", value=f"0/{kys}")
+                await msg.edit(embed=embed)
+            embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
+            embed.add_field(name=f"webhook更新完了", value=f"{m}/{chm}")
+            embed.add_field(name=f"redis key削除中", value=f"0/{kys} \n miss key:[]")
+            await msg.edit(embed=embed)
+            # -------------------
+
+            # ---redis key再設定---
+            n = 0
+            msk = []
+            for k in ky:
+                kye = conn.delete(k)
+                if kye == 1:
+                    n+=1
+                    embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
+                    embed.add_field(name=f"webhook更新完了", value=f"{m}/{chm}")
+                    embed.add_field(name=f"redis key削除中", value=f"{n}/{kys}")
+                    await msg.edit(embed=embed)
+                else:
+                    msk.append(k)
+            embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
+            embed.add_field(name=f"webhook更新完了", value=f"{m}/{chm}")
+            embed.add_field(name=f"redis key削除完了", value=f"{n}/{kys} \n miss key:{msk}")
+            await msg.edit(embed=embed)
+            # -------------------
+            return
+            #車止め
 
     #admin表示コマンド
     @commands.command()
