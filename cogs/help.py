@@ -36,14 +36,6 @@ class Help(commands.Cog):
     @commands.group()
     async def help(self, ctx):
 
-        if ctx.author.id not in admin_list:
-            conn = r.connect()
-            pp = conn.get("maintenance")
-            q = ['0','3']
-            if pp not in q:
-                embed = discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。", color=discord.Color.dark_red())
-                return await ctx.send(embed=embed)
-
         if ctx.invoked_subcommand is None:
 
             invite = "https://discord.com/api/oauth2/authorize?client_id=688553944661754054&permissions=1614146624&scope=bot"
@@ -59,7 +51,7 @@ class Help(commands.Cog):
                 pages.append(discord.Embed(title="運営専用コマンド", color=discord.Color.blue()))
 
                 pages[5].add_field(name=";admin_list", value="Adminに登録されているIDを表示します。", inline=False)
-                pages[5].add_field(name=";;global_chat", value="登録されているグローバルチャットを表示します。", inline=False)
+                pages[5].add_field(name=";global_chat", value="登録されているグローバルチャットを表示します。", inline=False)
                 pages[5].add_field(name=";all_guilds", value="このBOTが参加しているGuildを表示します。", inline=False)
                 pages[5].add_field(name=";get_user <ユーザーID>", value="`<ユーザーID>`で指定したユーザーの概要を表示します。", inline=False)
                 pages[5].add_field(name=";db_update", value="データベースを最新のものに更新します。", inline=False)
@@ -73,9 +65,8 @@ class Help(commands.Cog):
             pages[0].add_field(name='\u200b', value='\u200b')
             pages[0].add_field(name="応答速度", value=f"`{self.bot.ws.latency * 1000:.0f}ms`")
             pages[0].set_footer(text="このBOTの作成日")
-                
-            pages[1].add_field(name=";about", value="このBOTの概要を表示します。", inline=False)
-            pages[1].add_field(name=";help", value="コマンド一覧を表示します。", inline=False)
+
+            pages[1].add_field(name=";help", value="BOTの概要とコマンド一覧を表示します。", inline=False)
             pages[1].add_field(name=";help <コマンド>", value="`<コマンド>`で指定したコマンドの詳細を表示します。", inline=False)
 
             pages[2].add_field(name=";s <キャラクター名>", value="`<キャラクター名>`の基本的なスペック(情報)を表示します、", inline=False)
