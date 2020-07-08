@@ -1,82 +1,72 @@
-import re
-import discord
+from discord import Embed
 from discord.ext import commands
+import re
+
+regex_discord_message_url = (
+    'https://(ptb.|canary.)?discord(app)?.com/channels/'
+    '(?P<guild>[0-9]{18})/(?P<channel>[0-9]{18})/(?P<message>[0-9]{18})'
+)
 
 
-class Url(commands.Cog):
+class url(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if re.findall("https?://discordapp.com/channels/[0-9]+/[0-9]+/[0-9]+", message.content):
-            for message_url in re.findall("https?://discordapp.com/channels/[0-9]+/[0-9]+/[0-9]+", message.content):
-                global messagess
-                messagess = ""
-                while True:
-                    if not messagess:
-                        messagess = message_url
-                    if "@me" in messagess:
-                        await message.channel.send(embed=discord.Embed(description=f"Hey,{message.author.mention}\nI can't chase private channel...", colour=discord.Color.dark_red()))
-                        break
+        if message.author.bot:
+            return
+        await dispand(message)
 
-                    messages = messagess.split('/')
-                    channels = self.bot.get_channel(int(messages[5]))
-                    servers = self.bot.get_guild(int(messages[4]))
-                    if not servers:
-                        await message.channel.send(embed=discord.Embed(description=f"Hey,{message.author.mention}\nI can't chase that message...\nI haven't join to that server...", colour=discord.Color.dark_red()))
-                        break
-                    try:
-                        if "\n" in messages[6]:
-                            message_id = messages[6].split('\n')[0]
-                        elif messages[6].split():
-                            message_id = messages[6].split()[0]
-                        else:
-                            message_id = messages[6]
-                        msg = await channels.fetch_message(int(message_id))
-                        link1 = re.findall("https?://discordapp.com/channels/[0-9]+/[0-9]+/[0-9]+", msg.content)
-                        link2 = re.findall("https?://canary.discordapp.com/channels/[0-9]+/[0-9]+/[0-9]+", msg.content)
-                        if link1:
-                            messagess = f"{link1[0]}"
-                        elif link2:
-                            messagess = f"{link2[0]}"
-                        else:
-                            author = msg.author
-                            content = msg.content
-                            guild_name = msg.guild.name
-                            channel_name = msg.channel.name
 
-                            if msg.embeds and msg.embeds[0]:
-                                await message.channel.send(embed=msg.embeds[0])
-                                break
+async def dispand(message):
+    messages = await extract_messsages(message)
+    for m in messages:
+        if message.content:
+            await message.channel.send(embed=compose_embed(m))
+        for embed in m.embeds:
+            await message.channel.send(embed=embed)
 
-                            if any([True for s in ['.jpg', '.png', '.jpeg', '.tif', '.tiff', '.bmp', '.gif', '.mp4'] if s in content]):
-                                embed = discord.Embed(description=f"`Guild: [{guild_name}] | Channel: [{channel_name}]`", timestamp=msg.created_at)
-                                embed.set_image(url=content)
 
-                            elif msg.attachments and content:
-                                embed = discord.Embed(description=f"`Guild: [{guild_name}] | Channel: [{channel_name}]`\n" + content, timestamp=msg.created_at)
-                                embed.set_image(url=msg.attachments[0].url)
-                            elif msg.attachments:
-                                embed = discord.Embed(description=f"`Guild: [{guild_name}] | Channel: [{channel_name}]`", timestamp=msg.created_at)
-                                embed.set_image(url=msg.attachments[0].url)
-                            else:
-                                embed = discord.Embed(description=f"`Guild: [{guild_name}] | Channel: [{channel_name}]`\n" + content, timestamp=msg.created_at)
+async def extract_messsages(message):
+    messages = []
+    for ids in re.finditer(regex_discord_message_url, message.content):
+        if message.guild.id != int(ids['guild']):
+            return
+        fetched_message = await fetch_message_from_id(
+            guild=message.guild,
+            channel_id=int(ids['channel']),
+            message_id=int(ids['message']),
+        )
+        messages.append(fetched_message)
+    return messages
 
-                            embed.set_author(name=f"メッセージの内容", url=f"https://discordapp.com/channels/{msg.guild.id}/{msg.channel.id}/{msg.id}", icon_url=msg.guild.icon_url)
-                            embed.set_footer(text=f"送信元: [{author}]", icon_url=author.avatar_url)
-                            await message.delete()
-                            await message.channel.send(embed=embed)
-                            break
 
-                    except discord.errors.Forbidden:
-                        await message.author.send(embed=discord.Embed(description=f"Hey,{message.author.mention}\nI can't that channel message...\nI think I don't have permission to chase that message...", colour=discord.Color.dark_red()))
-                        break
+async def fetch_message_from_id(guild, channel_id, message_id):
+    channel = guild.get_channel(channel_id)
+    message = await channel.fetch_message(message_id)
+    return message
 
-                    except discord.errors.NotFound:
-                        await message.author.send(embed=discord.Embed(description=f"Hey,{message.author.mention}\nI can't that channel message...\nI think This message does not existed...", colour=discord.Color.dark_red()))
-                        break
+
+def compose_embed(message):
+    embed = Embed(
+        description=message.content,
+        timestamp=message.created_at,
+    )
+    embed.set_author(
+        name=message.author.display_name,
+        icon_url=message.author.avatar_url,
+    )
+    embed.set_footer(
+        text=message.channel.name,
+        icon_url=message.guild.icon_url,
+    )
+    if message.attachments and message.attachments[0].proxy_url:
+        embed.set_image(
+            url=message.attachments[0].proxy_url
+        )
+    return embed
 
 
 def setup(bot):
-    bot.add_cog(Url(bot))
+    bot.add_cog(url(bot))
