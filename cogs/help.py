@@ -37,11 +37,12 @@ class Help(commands.Cog):
     async def help(self, ctx):
 
         if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
+            conn = r.connect()
+            pp = conn.get("maintenance")
             q = ['0','3']
             if pp not in q:
-                return await ctx.send(discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。", color=discord.Color.dark_red()))
+                embed = discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。", color=discord.Color.dark_red())
+                return await ctx.send(embed=embed)
 
         if ctx.invoked_subcommand is None:
 
