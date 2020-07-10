@@ -243,7 +243,7 @@ class Admin(commands.Cog):
                 for count in range(len(global_chat)):
                     pages.append(discord.Embed(title="登録されているチャンネル", color=discord.Color.blue()))
                     channel = self.bot.get_channel(int(global_chat[count]))
-                    pages[count].add_field(name="CHANNEL", value=f"{channel.GuildChannel.name}", inline=False)
+                    pages[count].add_field(name="CHANNEL", value=f"{channel.name}", inline=False)
                     pages[count].add_field(name="CHANNEL ID", value=f"{global_chat[count]}", inline=False)
 
                 nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
