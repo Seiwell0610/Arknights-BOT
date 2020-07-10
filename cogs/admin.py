@@ -218,10 +218,9 @@ class Admin(commands.Cog):
             pages = []
             for count in range(len(admin_list)):
                 pages.append(discord.Embed(title="現在の管理者情報", color=discord.Color.blue()))
-                pages[count].add_field(name="ユーザーID", value=f"{admin_list[count]}")
                 user = self.bot.get_user(int(admin_list[count]))
-                pages[count].add_field(name="ユーザー名", value=f"{user.name}#{user.discriminator}")
-
+                pages[count].add_field(name="ユーザー名", value=f"{user.name}#{user.discriminator}", inline=False)
+                pages[count].add_field(name="ユーザーID", value=f"{admin_list[count]}", inline=False)
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
             nav.start()
             await ctx.send(nav)
