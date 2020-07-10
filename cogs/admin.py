@@ -261,9 +261,31 @@ class Admin(commands.Cog):
     @commands.command()
     async def all_guilds(self, ctx):
         if ctx.author.id in admin_list:
+            pages = []
+            count = 0
             guilds = self.bot.guilds
-            for guild in guilds:
-                await ctx.send(guild.name)
+            for guild_id in guilds:
+                guild = self.bot.get_guild(guild_id.id)
+                pages.append(discord.Embed(title="該当サーバー情報", description=None))
+                pages[count].add_field(name="サーバー名", value=f'`{guild.name}`')
+                pages[count].add_field(name="現オーナー名", value=f'`{guild.owner}`')
+                pages[count].add_field(name="作成日", value=f'`{guild.created_at}`')
+                pages[count].add_field(name="サーバーID", value=f'`{guild.id}`')
+                member_count = sum(1 for member in guild.members if not member.bot)
+                bot_count = sum(1 for member in guild.members if member.bot)
+                all_count = (member_count) + (bot_count)
+                pages[count].add_field(name="総人数", value=f'`{all_count}`', inline=False)
+                pages[count].add_field(name="ユーザ数", value=f'`{member_count}`', inline=False)
+                pages[count].add_field(name="BOT数", value=f'`{bot_count}`', inline=False)
+                pages[count].add_field(name="テキストチャンネル数", value=f'`{len(guild.text_channels)}`', inline=False)
+                pages[count].add_field(name="ボイスチャンネル数", value=f'`{len(guild.voice_channels)}`', inline=False)
+                pages[count].set_thumbnail(url=guild.icon_url)
+                count += 1
+            nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
+            nav.start()
+            await ctx.send(nav)
+
+
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
