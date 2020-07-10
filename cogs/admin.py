@@ -238,12 +238,12 @@ class Admin(commands.Cog):
                 conn = sqlite3.connect("all_data_arknights_main.db")
                 c = conn.cursor()
                 for data in c.execute('SELECT * FROM global_chat'):
-                    global_chat.append(data[0])
+                    global_chat.append(int(data[0]))
 
                 for count in range(len(global_chat)):
                     pages.append(discord.Embed(title="登録されているチャンネル", color=discord.Color.blue()))
-                    channel = await self.bot.fetch_channel(int(global_chat[count]))
-                    pages[count].add_field(name="CHANNEL", value=f"{channel}", inline=False)
+                    channel = self.bot.get_channel(int(global_chat[count]))
+                    pages[count].add_field(name="CHANNEL", value=f"{channel.GuildChannel.name}", inline=False)
                     pages[count].add_field(name="CHANNEL ID", value=f"{global_chat[count]}", inline=False)
 
                 nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
