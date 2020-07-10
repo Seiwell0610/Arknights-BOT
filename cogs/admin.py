@@ -219,7 +219,7 @@ class Admin(commands.Cog):
             for count in range(len(admin_list)):
                 pages.append(discord.Embed(title="現在の管理者情報", color=discord.Color.blue()))
                 user = self.bot.get_user(int(admin_list[count]))
-                pages[count].add_field(name="ユーザー名", value=f"{user.name}#{user.discriminator}", inline=False)
+                pages[count].add_field(name="ユーザー名", value=f"{user.name} #{user.discriminator}", inline=False)
                 pages[count].add_field(name="ユーザーID", value=f"{admin_list[count]}", inline=False)
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
             nav.start()
@@ -232,10 +232,22 @@ class Admin(commands.Cog):
     @commands.command()
     async def global_chat(self, ctx):
         if ctx.author.id in admin_list:
+            pages = []
+            global_chat = []
             conn = sqlite3.connect("all_data_arknights_main.db")
             c = conn.cursor()
             for data in c.execute('SELECT * FROM global_chat'):
-                await ctx.send(data)
+                global_chat.append(data[0])
+
+            for count in range(len(global_chat)):
+                pages.append(discord.Embed(title="登録されているチャンネル", color=discord.Color.blue()))
+                channel = self.bot.channel(global_chat[count])
+                pages[count].add_field(name="CHANNEL", value=f"{channel.name}", inline=False)
+                pages[count].add_field(name="CHANNEL ID", value=f"{channel.id}", inline=False)
+
+            nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
+            nav.start()
+            await ctx.send(nav)
 
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
