@@ -42,6 +42,26 @@ def mention_to_user_id(mention):
         user_id = user_id.strip("!")
     return int(user_id)
 
+def default_buttons():
+    from libneko.pag.reactionbuttons import (
+        first_page,
+        back_10_pages,
+        previous_page,
+        next_page,
+        forward_10_pages,
+        last_page
+    )
+
+    return (
+        first_page(),
+        back_10_pages(),
+        previous_page(),
+        next_page(),
+        forward_10_pages(),
+        last_page()
+    )
+buttons = default_buttons()
+
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -195,9 +215,17 @@ class Admin(commands.Cog):
     @commands.command()
     async def admin_list(self, ctx):
         if ctx.author.id in admin_list:
-            admin_list_1 = ",".join(map(str, admin_list))
-            embed = discord.Embed(title="現在の管理者情報", description=f"{admin_list_1}", color=discord.Color.blue())
-            await ctx.send(embed=embed)
+            pages = []
+            for count in range(len(admin_list)):
+                pages.append(discord.Embed(title="現在の管理者情報", color=discord.Color.blue()))
+                pages[count].add_field(name="ユーザーID", value=f"{admin_list[count]}")
+                user = self.bot.get_user(int(admin_list[count]))
+                pages[count].add_field(name="ユーザー名", value=f"{user.name}#{user.discriminator}")
+
+            nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
+            nav.start()
+            await ctx.send(nav)
+
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
