@@ -243,7 +243,7 @@ class Admin(commands.Cog):
                 for count in range(len(global_chat)):
                     pages.append(discord.Embed(title="登録されているチャンネル", color=discord.Color.blue()))
                     channel = self.bot.get_channel(int(global_chat[count]))
-                    pages[count].add_field(name="CHANNEL", value=f"{channel.name}", inline=False)
+                    pages[count].add_field(name="CHANNEL", value=f"{channel}", inline=False)
                     pages[count].add_field(name="CHANNEL ID", value=f"{channel.id}", inline=False)
 
                 nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
@@ -253,7 +253,7 @@ class Admin(commands.Cog):
 
             except:
                 print("エラー情報\n" + traceback.format_exc())
-                
+
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
