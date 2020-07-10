@@ -40,7 +40,9 @@ class main_program(commands.Cog):
             pp = conn.get("maintenance")
             q = ['0','3']
             if pp not in q:
-                return await ctx.send("現在、メンテナンス中です")
+                embed = discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。",
+                                      color=discord.Color.dark_red())
+                return await ctx.send(embed=embed)
 
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
@@ -115,7 +117,9 @@ class main_program(commands.Cog):
             pp=conn.get("maintenance")
             q = ['0','3']
             if pp not in q:
-                return await ctx.send("現在、メンテナンス中です")
+                embed = discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。",
+                                      color=discord.Color.dark_red())
+                return await ctx.send(embed=embed)
 
         channel = self.bot.get_channel(714615013968576572)
         """コマンドログを送信"""
