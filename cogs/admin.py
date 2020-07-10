@@ -241,7 +241,7 @@ class Admin(commands.Cog):
 
             for count in range(len(global_chat)):
                 pages.append(discord.Embed(title="登録されているチャンネル", color=discord.Color.blue()))
-                channel = self.bot.channel(global_chat[count])
+                channel = self.bot.get_channel(global_chat[count])
                 pages[count].add_field(name="CHANNEL", value=f"{channel.name}", inline=False)
                 pages[count].add_field(name="CHANNEL ID", value=f"{channel.id}", inline=False)
 
