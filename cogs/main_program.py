@@ -9,6 +9,9 @@ print("main_programの読み込み完了")
 
 admin_list = admin.admin_list
 
+conn = sqlite3.connect("all_data_arknights_main.db")
+c = conn.cursor()
+
 def default_buttons():
     from libneko.pag.reactionbuttons import (
         first_page,
@@ -38,29 +41,11 @@ class main_program(commands.Cog):
         if ctx.author.id not in admin_list:
             conn = r.connect()
             pp = conn.get("maintenance")
-            q = ['0','3']
+            q = ['0', '3']
             if pp not in q:
                 embed = discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。",
                                       color=discord.Color.dark_red())
                 return await ctx.send(embed=embed)
-
-        channel = self.bot.get_channel(714615013968576572)
-        """コマンドログを送信"""
-        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.green())
-        embed.set_thumbnail(url=ctx.author.avatar_url_as(format="png"))
-        embed.add_field(name="実行コマンド", value=";s", inline=True)
-        embed.add_field(name='\u200b', value='\u200b')
-        embed.add_field(name="検索キャラクター", value=f"{character}", inline=True)
-        embed.add_field(name="ユーザー名", value=f"{ctx.author.name}", inline=True)
-        embed.add_field(name='\u200b', value='\u200b')
-        embed.add_field(name="ユーザーID", value=f"{ctx.author.id}", inline=True)
-        embed.add_field(name="サーバー名", value=f"{ctx.guild.name}", inline=True)
-        embed.add_field(name='\u200b', value='\u200b')
-        embed.add_field(name="サーバーID", value=f"{ctx.guild.id}", inline=True)
-        embed.add_field(name="チャンネル", value=f"{ctx.channel.name}", inline=True)
-        embed.add_field(name='\u200b', value='\u200b')
-        embed.add_field(name="チャンネルID", value=f"{ctx.channel.id}", inline=True)
-        await channel.send(embed=embed)
 
         if character is None:
             embed = discord.Embed(title="エラー", description="キャラクター名を指定して下さい。",
@@ -68,8 +53,7 @@ class main_program(commands.Cog):
             return await ctx.send(embed=embed)
 
         character.title()
-        conn = sqlite3.connect("all_data_arknights_main.db")
-        c = conn.cursor()
+
         c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()
 
@@ -113,33 +97,15 @@ class main_program(commands.Cog):
     @commands.command(name="skill")
     async def _skill(self, ctx, character=None):
         if ctx.author.id not in admin_list:
-            conn=r.connect()
-            pp=conn.get("maintenance")
-            q = ['0','3']
+            conn = r.connect()
+            pp = conn.get("maintenance")
+            q = ['0', '3']
             if pp not in q:
                 embed = discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。",
                                       color=discord.Color.dark_red())
                 return await ctx.send(embed=embed)
 
-        channel = self.bot.get_channel(714615013968576572)
-        """コマンドログを送信"""
-        embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.orange())
-        embed.set_thumbnail(url=ctx.author.avatar_url_as(format="png"))
-        embed.add_field(name="実行コマンド", value=";skill", inline=True)
-        embed.add_field(name='\u200b', value='\u200b')
-        embed.add_field(name="検索キャラクター", value=f"{character}", inline=True)
-        embed.add_field(name="ユーザー名", value=f"{ctx.author.name}", inline=True)
-        embed.add_field(name='\u200b', value='\u200b')
-        embed.add_field(name="ユーザーID", value=f"{ctx.author.id}", inline=True)
-        embed.add_field(name="サーバー名", value=f"{ctx.guild.name}", inline=True)
-        embed.add_field(name='\u200b', value='\u200b')
-        embed.add_field(name="サーバーID", value=f"{ctx.guild.id}", inline=True)
-        embed.add_field(name="チャンネル", value=f"{ctx.channel.name}", inline=True)
-        embed.add_field(name='\u200b', value='\u200b')
-        embed.add_field(name="チャンネルID", value=f"{ctx.channel.id}", inline=True)
-        await channel.send(embed=embed)
-        conn = sqlite3.connect("all_data_arknights_main.db")
-        c = conn.cursor()
+
         c.execute('SELECT * FROM character_skill WHERE 名前=?', (character,))
         data = c.fetchone()
 
