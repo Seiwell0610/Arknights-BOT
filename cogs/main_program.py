@@ -153,15 +153,6 @@ class main_program(commands.Cog):
 
         else:
 
-            quality_name = data[2].split("/")
-            quality = data[3].split("/")
-            skill_name = data[4].split("/")
-            skill = data[5].split("/")
-            base_skill_name = data[6].split("/")
-            base_skill_conditions = data[7].split("/")
-            base_skill_target = data[8].split("/")
-            base_skill_effect = data[9].split("/")
-
             pages = [
                 (discord.Embed(title=f"{character}", color=discord.Color.orange())),
                 (discord.Embed(title=f"{character}(素質)", color=discord.Color.orange())),
@@ -171,16 +162,16 @@ class main_program(commands.Cog):
 
             pages[0].add_field(name=f"特性", value=f"{data[1]}\n", inline=False)
 
-            for count in range(int(len(quality_name))):
-                pages[1].add_field(name=f"{quality_name[count]}", value=f"{quality[count]}\n", inline=False)
+            for count in range(int(len(list_split(2, db_data=data)))):
+                pages[1].add_field(name=f"{list_split(2, db_data=data)[count]}", value=f"{list_split(3, db_data=data)[count]}\n", inline=False)
 
-            for count in range(int(len(skill_name))):
-                pages[2].add_field(name=f"{skill_name[count]}", value=f"{skill[count]}", inline=False)
+            for count in range(int(len(list_split(4, db_data=data)))):
+                pages[2].add_field(name=f"{list_split(4, db_data=data)[count]}", value=f"{list_split(5, db_data=data)[count]}", inline=False)
 
-            for count in range(int(len(base_skill_name))):
-                pages[3].add_field(name=f"{base_skill_name[count]}", value=f"{base_skill_effect[count]}", inline=False)
-                pages[3].add_field(name=f"習得条件", value=f"{base_skill_conditions[count]}", inline=True)
-                pages[3].add_field(name=f"効果対象", value=f"{base_skill_target[count]}", inline=True)
+            for count in range(int(len(list_split(6, db_data=data)))):
+                pages[3].add_field(name=f"{list_split(6, db_data=data)[count]}", value=f"{list_split(9, db_data=data)[count]}", inline=False)
+                pages[3].add_field(name=f"習得条件", value=f"{list_split(7, db_data=data)[count]}", inline=True)
+                pages[3].add_field(name=f"効果対象", value=f"{8[count]}", inline=True)
 
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
             nav.start()
