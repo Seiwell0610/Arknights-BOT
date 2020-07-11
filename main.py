@@ -61,6 +61,18 @@ class MyBot(commands.Bot):
         if isinstance(error1, (commands.CommandNotFound, commands.CommandInvokeError)):
             return
 
+    async def on_command(self, ctx):
+        ch = self.bot.get_channel(714615013968576572)
+        url = ctx.author.avatar_url_as(format=None, static_format='png', size=1024)
+        embed = discord.Embed(title="コマンドログ", description="", color=0x00fa9a)
+        embed.add_field(name="コマンド実行者", value=f"{ctx.author.name}(ID:{ctx.author.id})", inline=False)
+        embed.add_field(name="実行したコマンド", value=f"{ctx.command.name}")
+        embed.add_field(name="サーバー", value=f"{ctx.guild.name}(ID:{ctx.guild.id})")
+        embed.add_field(name="実行文", value=f"{ctx.message.content}")
+        embed.set_thumbnail(url=url)
+        embed.timestamp = ctx.message.created_at
+        await ch.send(embed=embed)
+
 if __name__ == '__main__':
     try:
         print("Logged in as")
