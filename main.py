@@ -24,8 +24,8 @@ async def run():
         await bot.logout()
 
 class MyBot(commands.Bot):
-    def __init__(self):
-        super().__init__(command_prefix=commands.when_mentioned_or(prefix), loop=loop)
+    def __init__(self, command_prefix):
+        super().__init__(command_prefix, loop=loop)
         self.remove_command('help')
 
     async def on_ready(self):
@@ -36,13 +36,13 @@ class MyBot(commands.Bot):
                 self.reload_extension(f"cogs.{extension}")
 
 
-        await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
+        await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
 
     async def on_guild_join(self, _):
-        await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
+        await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
 
     async def on_guild_remove(self, _):
-        await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
+        await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
 
     async def on_command_error(self, ctx, error1):
         if isinstance(error1, (commands.CommandNotFound, commands.CommandInvokeError)):
