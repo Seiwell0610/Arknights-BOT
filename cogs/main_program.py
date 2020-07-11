@@ -9,6 +9,13 @@ print("main_programの読み込み完了")
 
 admin_list = admin.admin_list
 
+#データベース読み込み
+conn = sqlite3.connect("all_data_arknights_main.db")
+c = conn.cursor()
+
+def list_split(count, db_data):
+        return db_data[count].split("/")
+
 def default_buttons():
     from libneko.pag.reactionbuttons import (
         first_page,
@@ -38,7 +45,7 @@ class main_program(commands.Cog):
         if ctx.author.id not in admin_list:
             conn = r.connect()
             pp = conn.get("maintenance")
-            q = ['0','3']
+            q = ['0', '3']
             if pp not in q:
                 embed = discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。",
                                       color=discord.Color.dark_red())
@@ -68,8 +75,6 @@ class main_program(commands.Cog):
             return await ctx.send(embed=embed)
 
         character.title()
-        conn = sqlite3.connect("all_data_arknights_main.db")
-        c = conn.cursor()
         c.execute('SELECT * FROM character WHERE 名前=?', (character,))
         data = c.fetchone()
 
@@ -79,13 +84,13 @@ class main_program(commands.Cog):
             return await ctx.send(embed=embed)
 
         else:
-            promotion = data[3].split("/")
-            hp = data[4].split("/")  # HP
-            attack = data[5].split("/")  # 攻撃力
-            defense = data[6].split("/")  # 防御力
-            magic_defense = data[7].split("/")  # 術耐性
-            cost = data[9].split("/")  # 配置コスト
-            block = data[10].split("/")  # ブロック数
+            promotion = list_split(3, db_data=data)
+            hp = list_split(4, db_data=data)
+            attack = list_split(5, db_data=data)
+            defense = list_split(6, db_data=data)
+            magic_defense = list_split(7, db_data=data)
+            cost = list_split(8, db_data=data)
+            block = list_split(9, db_data=data)
 
             pages = []
 
@@ -122,6 +127,7 @@ class main_program(commands.Cog):
                 return await ctx.send(embed=embed)
 
         channel = self.bot.get_channel(714615013968576572)
+
         """コマンドログを送信"""
         embed = discord.Embed(title="コマンド実行ログ", color=discord.Color.orange())
         embed.set_thumbnail(url=ctx.author.avatar_url_as(format="png"))
@@ -138,8 +144,8 @@ class main_program(commands.Cog):
         embed.add_field(name='\u200b', value='\u200b')
         embed.add_field(name="チャンネルID", value=f"{ctx.channel.id}", inline=True)
         await channel.send(embed=embed)
-        conn = sqlite3.connect("all_data_arknights_main.db")
-        c = conn.cursor()
+
+        #データベース読み込み
         c.execute('SELECT * FROM character_skill WHERE 名前=?', (character,))
         data = c.fetchone()
 
