@@ -52,7 +52,8 @@ class Help(commands.Cog):
             pages = [(discord.Embed(title="このBOTのヘルプ:", description=f">>> ```アークナイツに関する情報を表示したり、\n他にも様々な機能を提供します。```[このBOTの招待はこちら](<{invite}>)\n[「ドクター達の集いの場」サーバーはこちら](<{url}>)", timestamp=timestamp, color=0x009193)),
                      (discord.Embed(title="基本コマンド", color=discord.Color.blue())),
                      (discord.Embed(title="キャラクター検索", color=discord.Color.blue())),
-                     (discord.Embed(title="グローバルチャット", color=discord.Color.blue()))
+                     (discord.Embed(title="グローバルチャット", color=discord.Color.blue())),
+                     (discord.Embed(title="補助コマンド", color=discord.Color.blue()))
                      ]
 
             if ctx.author.id in admin_list:
@@ -84,6 +85,8 @@ class Help(commands.Cog):
 
             pages[3].add_field(name=";add_global", value="グローバルチャットに登録します。", inline=False)
             pages[3].add_field(name=";del_global", value="グローバルチャットの登録を解除します。", inline=False)
+
+            pages[4].add_field(name=";purge <メッセージ数>", value="指定されたメッセージの数だけ削除します。", inline=False)
 
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=20)
             nav.start()
