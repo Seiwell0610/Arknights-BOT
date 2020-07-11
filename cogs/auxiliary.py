@@ -19,6 +19,5 @@ class auciliary(commands.Cog):
             embed = discord.Embed(title="メーセージの削除失敗", description="メッセージの削除に失敗しました。", color=discord.Color.dark_red())
             await ctx.send(embed=embed)
 
-
 def setup(bot):
     bot.add_cog(auciliary(bot))
