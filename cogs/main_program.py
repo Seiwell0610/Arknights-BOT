@@ -84,27 +84,19 @@ class main_program(commands.Cog):
             return await ctx.send(embed=embed)
 
         else:
-            promotion = list_split(3, db_data=data)
-            hp = list_split(4, db_data=data)
-            attack = list_split(5, db_data=data)
-            defense = list_split(6, db_data=data)
-            magic_defense = list_split(7, db_data=data)
-            cost = list_split(8, db_data=data)
-            block = list_split(9, db_data=data)
-
             pages = []
 
-            for count in range(int(len(promotion))):
-                pages.append(discord.Embed(title=f"{data[0]}({promotion[count]})", color=0x0096ff))
+            for count in range(int(len(list_split(3, db_data=data)))):
+                pages.append(discord.Embed(title=f"{data[0]}({list_split(3, db_data=data)[count]})", color=0x0096ff))
                 pages[count].add_field(name="職業", value=f"{data[1]}")
                 pages[count].add_field(name="レア度", value=f"{data[2]}")
-                pages[count].add_field(name="HP(信頼度)", value=f"{hp[count]}")
-                pages[count].add_field(name="攻撃力(信頼度)", value=f"{attack[count]}")
-                pages[count].add_field(name="防御力(信頼度)", value=f"{defense[count]}")
-                pages[count].add_field(name="術耐性", value=f"{magic_defense[count]}")
+                pages[count].add_field(name="HP(信頼度)", value=f"{list_split(4, db_data=data)[count]}")
+                pages[count].add_field(name="攻撃力(信頼度)", value=f"{list_split(5, db_data=data)[count]}")
+                pages[count].add_field(name="防御力(信頼度)", value=f"{list_split(6, db_data=data)[count]}")
+                pages[count].add_field(name="術耐性", value=f"{list_split(7, db_data=data)[count]}")
                 pages[count].add_field(name="再配置速度", value=f"{data[8]}")
-                pages[count].add_field(name="配置コスト", value=f"{cost[count]}")
-                pages[count].add_field(name="ブロック数", value=f"{block[count]}")
+                pages[count].add_field(name="配置コスト", value=f"{list_split(8, db_data=data)[count]}")
+                pages[count].add_field(name="ブロック数", value=f"{list_split(9, db_data=data)[count]}")
                 pages[count].add_field(name="攻撃速度", value=f"{data[11]}")
                 pages[count].add_field(name="募集タグ", value=f"{data[12]}")
                 pages[count].add_field(name="リンク", value=f"[詳細はこちら](<{data[13]}>)", inline=True)
