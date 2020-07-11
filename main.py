@@ -59,7 +59,7 @@ if __name__ == '__main__':
         main_task = loop.create_task(run())
         loop.run_until_complete(main_task)
         loop.close()
-        bot = MyBot()
+        bot = MyBot(command_prefix=prefix)
 
         @bot.event
         async def on_command(ctx):
