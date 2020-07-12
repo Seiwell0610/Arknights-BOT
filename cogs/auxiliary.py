@@ -43,9 +43,9 @@ class auciliary(commands.Cog):
             #送信
             embed = discord.Embed(title=str(titl.content),description=str(dis.content),color=0x009193)
             await self.bot.get_channel(731664672222347295).send(embed=embed)
-            em3 = discord.Embed(description="バグの報告ありがとうございました。\n以下の内容で報告いたしました。",color=0x009193)
-            em3.add_field(name="タイトル", value=f"{titl.content}")
-            em3.add_field(name="内容", value=f"{dis.content}")
+            em3 = discord.Embed(title="バグの報告ありがとうございました。", description="以下の内容で報告いたしました。",color=0x009193)
+            em3.add_field(name="タイトル", value=f"{titl.content}", inline=False)
+            em3.add_field(name="内容", value=f"{dis.content}", inline=False)
             await message.channel.send(embed=em3)
 
         except asyncio.TimeoutError:
