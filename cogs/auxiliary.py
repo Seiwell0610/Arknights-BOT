@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import asyncio
 
 print("auxiliaryの読み込み完了")
 
