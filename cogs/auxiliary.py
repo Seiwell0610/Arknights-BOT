@@ -42,20 +42,20 @@ class auciliary(commands.Cog):
             return m.content and m.author == message.author    
         try:
             dis = await self.bot.wait_for("message",timeout=30.0, check=check2)
-
-            #送信
-            await m2.delete()
-            embed = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
-            embed.add_field(name=f"{titl.content}", value=f"{dis.content}")
-            await self.bot.get_channel(731664672222347295).send(embed=embed)
-            em3 = discord.Embed(title="バグの報告ありがとうございました。", description="以下の内容で報告いたしました。",color=0x009193)
-            em3.add_field(name="タイトル", value=f"{titl.content}", inline=False)
-            em3.add_field(name="内容", value=f"{dis.content}", inline=False)
-            await message.channel.send(embed=em3)
-
         except asyncio.TimeoutError:
             await m2.delete()
             return await message.channel.send('タイムアウトしました。')
+
+        #送信
+        await m2.delete()
+        embed = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
+        embed.add_field(name=f"{titl.content}", value=f"{dis.content}")
+        await self.bot.get_channel(731664672222347295).send(embed=embed)
+        em3 = discord.Embed(title="バグの報告ありがとうございました。", description="以下の内容で報告いたしました。",color=0x009193)
+        em3.add_field(name="タイトル", value=f"{titl.content}", inline=False)
+        em3.add_field(name="内容", value=f"{dis.content}", inline=False)
+        await message.channel.send(embed=em3)
+        return
 
 def setup(bot):
     bot.add_cog(auciliary(bot))
