@@ -24,23 +24,27 @@ class auciliary(commands.Cog):
     async def report(self, message):
         #title
         em1 = discord.Embed(description="タイトルを入力してください",color=0x009193)
-        await message.channel.send(embed=em1)
+        m1 = await message.channel.send(embed=em1)
         def check1(m):
             return m.content and m.author == message.author    
         try:
             titl = await self.bot.wait_for("message",timeout=30.0, check=check1)
 
         except asyncio.TimeoutError:
+            await m1.delete()
             return await message.channel.send('タイムアウトしました。')
 
         #description
+        await m1.delete()
         em2 = discord.Embed(description="報告内容を入力してください",color=0x009193)
-        await message.channel.send(embed=em2)
+        m2 = await message.channel.send(embed=em2)
         def check2(m):
             return m.content and m.author == message.author    
         try:
             dis = await self.bot.wait_for("message",timeout=30.0, check=check2)
+
             #送信
+            await m2.delete()
             embed = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
             embed.add_field(name=f"{titl.content}", value=f"{dis.content}")
             await self.bot.get_channel(731664672222347295).send(embed=embed)
@@ -50,6 +54,7 @@ class auciliary(commands.Cog):
             await message.channel.send(embed=em3)
 
         except asyncio.TimeoutError:
+            await m2.delete()
             return await message.channel.send('タイムアウトしました。')
 
 def setup(bot):
