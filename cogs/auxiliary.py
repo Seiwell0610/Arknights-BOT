@@ -35,7 +35,6 @@ class auciliary(commands.Cog):
             return await message.channel.send('タイムアウトしました。')
 
         #description
-        await m.content.delete()
         await m1.delete()
         em2 = discord.Embed(description="報告内容を入力してください",color=0x009193)
         m2 = await message.channel.send(embed=em2)
@@ -48,7 +47,6 @@ class auciliary(commands.Cog):
             return await message.channel.send('タイムアウトしました。')
 
         #送信
-        await m.content.delete()
         await m2.delete()
         embed = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
         embed.add_field(name=f"{titl.content}", value=f"{dis.content}")
