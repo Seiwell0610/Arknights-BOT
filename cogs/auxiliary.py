@@ -41,7 +41,8 @@ class auciliary(commands.Cog):
         try:
             dis = await self.bot.wait_for("message",timeout=30.0, check=check2)
             #送信
-            embed = discord.Embed(title=str(titl.content),description=str(dis.content),color=0x009193)
+            embed = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
+            embed.add_field(name=f"{titl.content}", value=f"{dis.content}")
             await self.bot.get_channel(731664672222347295).send(embed=embed)
             em3 = discord.Embed(title="バグの報告ありがとうございました。", description="以下の内容で報告いたしました。",color=0x009193)
             em3.add_field(name="タイトル", value=f"{titl.content}", inline=False)
