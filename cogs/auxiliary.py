@@ -37,7 +37,7 @@ class auxiliary(commands.Cog):
         else:
             if titl.content != None:
                 title = titl.content
-                await title.delete()
+                await titl.delete()
 
         #description
         em2 = discord.Embed(description="報告内容を入力してください",color=0x009193)
