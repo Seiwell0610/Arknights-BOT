@@ -53,11 +53,12 @@ class auxiliary(commands.Cog):
                 em3.add_field(name=f"{titl.content}", value=f"{dis.content}")
                 ch = self.bot.get_channel(731664672222347295)
                 await ch.send(embed=em3)
-        
+                print('バグレポートチャンネル')
                 em4 = discord.Embed(title="バグの報告ありがとうございました。", description="以下の内容で報告いたしました。",color=0x009193)
                 em4.add_field(name="タイトル", value=f"{titl.content}", inline=False)
                 em4.add_field(name="内容", value=f"{dis.content}", inline=False)
                 await message.channel.send(embed=em4)
+                print('送信チャンス')
                 return
 
 def setup(bot):
