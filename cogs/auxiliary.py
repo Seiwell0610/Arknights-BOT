@@ -34,7 +34,6 @@ class auxiliary(commands.Cog):
             return await message.channel.send('タイムアウトしました。')
 
         else:
-            print(titl.content)
             #description
             em2 = discord.Embed(description="報告内容を入力してください",color=0x009193)
             await message.channel.send(embed=em2)
@@ -47,6 +46,7 @@ class auxiliary(commands.Cog):
                return await message.channel.send('タイムアウトしました。')
 
             else:
+                print(titl.content)
                 print(dis.content)
                 #送信
                 em3 = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
