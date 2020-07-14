@@ -51,17 +51,17 @@ class auxiliary(commands.Cog):
 
         else:
             if dis.content != None:
-                dis = dis.content
+                disc = dis.content
                 await dis.delete()
         
         #送信
         em4 = discord.Embed(title="**バグの報告ありがとうございました**", description="以下の内容で報告いたしました",color=0x009193)
         em4.add_field(name="タイトル", value=f"`{title}`", inline=False)
-        em4.add_field(name="内容", value=f"`{dis}`", inline=False)
+        em4.add_field(name="内容", value=f"`{disc}`", inline=False)
         await m1.edit(embed=em4)
 
         em3 = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
-        em3.add_field(name=f"**{title}**", value=f"`{dis}`")
+        em3.add_field(name=f"**{title}**", value=f"`{disc}`")
         ch = self.bot.get_channel(int(731664672222347295))
         await ch.send(embed=em3)
 
