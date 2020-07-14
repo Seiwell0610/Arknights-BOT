@@ -51,6 +51,7 @@ class auxiliary(commands.Cog):
         else:
             if dis.content != None:
                 dis = dis.content
+        print(title+','+dis)
         #送信
         em4 = discord.Embed(title="バグの報告ありがとうございました。", description="以下の内容で報告いたしました。",color=0x009193)
         em4.add_field(name="タイトル", value=f"{title}", inline=False)
