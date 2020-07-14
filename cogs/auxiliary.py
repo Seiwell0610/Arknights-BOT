@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import asyncio
+import datetime
 
 print("auxiliaryの読み込み完了")
 
