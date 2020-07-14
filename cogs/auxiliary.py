@@ -27,7 +27,7 @@ class auxiliary(commands.Cog):
         em1 = discord.Embed(description="タイトルを入力してください",color=0x009193)
         await ctx.send(embed=em1)
         def check1(m):
-            return m.content and m.author == message.author    
+            return m.content and m.author == ctx.author
         try:
             titl = await self.bot.wait_for("message",timeout=30.0, check=check1)
 
@@ -42,7 +42,7 @@ class auxiliary(commands.Cog):
         em2 = discord.Embed(description="報告内容を入力してください",color=0x009193)
         await ctx.send(embed=em2)
         def check2(m):
-            return m.content and m.author == message.author    
+            return m.content and m.author == ctx.author    
         try:
             dis = await self.bot.wait_for("message",timeout=30.0, check=check2)           
         except asyncio.TimeoutError:
