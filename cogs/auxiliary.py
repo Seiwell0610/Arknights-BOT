@@ -4,7 +4,7 @@ import asyncio
 
 print("auxiliaryの読み込み完了")
 
-class auciliary(commands.Cog):
+class auxiliary(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -24,7 +24,7 @@ class auciliary(commands.Cog):
     async def report(self, message):
         #title
         em1 = discord.Embed(description="タイトルを入力してください",color=0x009193)
-        m1 = await message.channel.send(embed=em1)
+        await message.channel.send(embed=em1)
         def check1(m):
             return m.content and m.author == message.author    
         try:
@@ -35,23 +35,26 @@ class auciliary(commands.Cog):
 
         #description
         em2 = discord.Embed(description="報告内容を入力してください",color=0x009193)
-        m2 = await message.channel.send(embed=em2)
+        await message.channel.send(embed=em2)
         def check2(m):
             return m.content and m.author == message.author    
         try:
             dis = await self.bot.wait_for("message",timeout=30.0, check=check2)
+            
         except asyncio.TimeoutError:
             return await message.channel.send('タイムアウトしました。')
 
         #送信
-        embed = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
-        embed.add_field(name=f"{titl.content}", value=f"{dis.content}")
-        await self.bot.get_channel(731664672222347295).send(embed=embed)
-        em3 = discord.Embed(title="バグの報告ありがとうございました。", description="以下の内容で報告いたしました。",color=0x009193)
-        em3.add_field(name="タイトル", value=f"{titl.content}", inline=False)
-        em3.add_field(name="内容", value=f"{dis.content}", inline=False)
-        await message.channel.send(embed=em3)
+        em3 = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
+        em3.add_field(name=f"{titl.content}", value=f"{dis.content}")
+        ch = self.bot.get_channel(731664672222347295)
+        await ch.send(embed=em3)
+        
+        em4 = discord.Embed(title="バグの報告ありがとうございました。", description="以下の内容で報告いたしました。",color=0x009193)
+        em4.add_field(name="タイトル", value=f"{titl.content}", inline=False)
+        em4.add_field(name="内容", value=f"{dis.content}", inline=False)
+        await message.channel.send(embed=em4)
         return
 
 def setup(bot):
-    bot.add_cog(auciliary(bot))
+    bot.add_cog(auxiliary(bot))
