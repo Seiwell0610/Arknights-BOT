@@ -154,5 +154,36 @@ class main_program(commands.Cog):
             nav.start()
             await ctx.send(nav)
 
+    @commands.command()
+    async def stage(self, ctx, stage_number=None):
+        if ctx.author.id not in admin_list:
+            conn = r.connect()
+            pp = conn.get("maintenance")
+            q = ['0', '3']
+            if pp not in q:
+                embed = discord.Embed(title="メンテナンス中", description="現在、メンテナンス中のため使用できません。\nメンテナンスが終わるまでお待ちください。",
+                                      color=discord.Color.dark_red())
+                return await ctx.send(embed=embed)
+
+        c.execute('SELECT * FROM stage WHERE 名前=?', (stage_number,))
+        data = c.fetchone()
+
+        if stage_number is None:
+            embed = discord.Embed(title="エラー", description="ステージを指定してください。\n例えば：`;stage 1-1`",
+                                  color=discord.Color.dark_red())
+            return await ctx.send(embed=embed)
+
+        while data is None:
+            embed = discord.Embed(title="エラー", description="存在しないステージまたは、指定のステージのデータがありません。",
+                                  color=discord.Color.dark_red())
+            return await ctx.send(embed=embed)
+
+        else:
+            embed = discord.Embed(title=f"{data[1]}/{data[0]}", color=discord.Color.green())
+            embed.set_image(url=data[3])
+            await ctx.send(embed=embed)
+
+
+
 def setup(bot):
     bot.add_cog(main_program(bot))
