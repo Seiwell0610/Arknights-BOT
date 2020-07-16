@@ -165,7 +165,7 @@ class main_program(commands.Cog):
                                       color=discord.Color.dark_red())
                 return await ctx.send(embed=embed)
 
-        c.execute('SELECT * FROM stage WHERE 名前=?', (stage_number,))
+        c.execute('SELECT * FROM stage WHERE ステージ番号=?', (stage_number,))
         data = c.fetchone()
 
         if stage_number is None:
