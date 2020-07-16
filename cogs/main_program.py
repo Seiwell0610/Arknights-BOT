@@ -180,7 +180,7 @@ class main_program(commands.Cog):
 
         else:
             embed = discord.Embed(title=f"{data[1]}/{data[0]}", color=discord.Color.green())
-            embed.set_image(url=data[3])
+            embed.set_image(url=data[2])
             await ctx.send(embed=embed)
 
 
