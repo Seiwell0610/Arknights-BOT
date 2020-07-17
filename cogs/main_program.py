@@ -182,7 +182,7 @@ class main_program(commands.Cog):
             try:
                 em1 = discord.Embed(title=f"{data[1]}/{data[0]}", color=discord.Color.green())
                 em1.set_image(url=data[2])
-                await ctx.send(embed=embed)
+                await ctx.send(embed=em1)
 
             except:
                 em2 = discord.Embed(title=f"{data[1]}/{data[0]}", description=f"{data[2]}", color=discord.Color.green())
