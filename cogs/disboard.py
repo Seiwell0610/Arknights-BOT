@@ -14,7 +14,7 @@ class Disboard(commands.Cog):
         if message.content == "!d bump":
             self.mi = message.author.id
         if message.author.id == 302050872383242240:
-            if "表示順をアップ" in message.embeds[0].description:
+            if "表示順をアップしたよ" in message.embeds[0].description:
                 mn = self.mi
                 msg = await message.channel.send(f"<@{mn}>さんBumpを確認しました。\n2時間後に通知します。")
                 await asyncio.sleep(10)
