@@ -37,13 +37,13 @@ class MyBot(commands.Bot):
                 self.reload_extension(f"cogs.{extension}")
 
 
-        await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
+        await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
 
     async def on_guild_join(self, _):
-        await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
+        await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
 
     async def on_guild_remove(self, _):
-        await self.change_presence(activity=discord.Game(name=f"{prefix}about | {len(self.guilds)}guilds"))
+        await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
 
     async def on_command_error(self, ctx, error1):
         if isinstance(error1, (commands.CommandNotFound, commands.CommandInvokeError)):
