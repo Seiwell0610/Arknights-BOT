@@ -15,7 +15,7 @@ class Disboard(commands.Cog):
     async def on_message(self, message):
         dib = conn.get('disboard')
         if message.content == "!d bump":
-            dib = int(dib)
+            dib = str(dib)
             if dib == 'none':
                 dib = conn.set('disboard',message.author.id)
                 ch = conn.set('channel',message.channel.id)
