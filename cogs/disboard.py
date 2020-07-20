@@ -2,6 +2,7 @@ import r
 from discord.ext import commands,tasks
 import asyncio
 import datetime
+import traceback
 
 print("disboardの読み込み完了")
 conn=r.connect()
@@ -43,16 +44,20 @@ class Disboard(commands.Cog):
 
     @tasks.loop(seconds=10)
     async def disb(self):
-        now = datetime.datetime.now().strftime('%H%M')
-        time = conn.get('timer')
-        time = int(time)
-        now = int(now)
-        if now == time:
-            dib = conn.get('disboard')
-            ch = conn.get('channel')
-            ch = self.bot.get_channel(int(ch))
-            await ch.send(f'<@{dib}>さん\n Bump出来るようになりました')
-            dib = conn.set('disboard','none')
+        try:
+            now = datetime.datetime.now().strftime('%H%M')
+            time = conn.get('timer')
+            time = int(time)
+            now = int(now)
+            if now == time:
+                dib = conn.get('disboard')
+                ch = conn.get('channel')
+                ch = self.bot.get_channel(int(ch))
+                await ch.send(f'<@{dib}>さん\n Bump出来るようになりました')
+                dib = conn.set('disboard','none')
+        except Exception as error:
+            print("エラー情報\n" + traceback.format_exc())
+
 
 def setup(bot):
     bot.add_cog(Disboard(bot))
