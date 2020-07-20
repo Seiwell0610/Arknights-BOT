@@ -47,7 +47,6 @@ class Disboard(commands.Cog):
         time = conn.get('timer')
         time = int(time)
         now = int(now)
-        print(now)
         if now == time:
             dib = conn.get('disboard')
             ch = conn.get('channel')
