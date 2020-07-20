@@ -45,8 +45,8 @@ class Disboard(commands.Cog):
     async def disb(self):
         now = datetime.datetime.now().strftime('%H%M')
         time = conn.get('timer')
-        time = str(time)
-        now = str(now)
+        time = int(time)
+        now = int(now)
         print(now)
         if now >= time:
             dib = conn.get('disboard')
