@@ -44,7 +44,9 @@ class Disboard(commands.Cog):
     async def disb(self,ctx):
         now = datetime.datetime.now().strftime('%H%M')
         time = conn.get('timer')
-        if now == time:
+        time = int(time)
+        now = int(now)
+        if now >= time:
             dib = conn.get('disboard')
             ch = conn.get('channel')
             ch = self.bot.get_channel(int(ch))
