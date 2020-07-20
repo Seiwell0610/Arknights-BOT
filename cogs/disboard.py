@@ -1,38 +1,54 @@
-
-from discord.ext import commands
+import r
+from discord.ext import commands,tasks
 import asyncio
+import datetime
 
 print("disboardの読み込み完了")
+conn=r.connect()
 
 class Disboard(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.mi = 0
+        self.disb.start()
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        dib = conn.get('disboard')
         if message.content == "!d bump":
-            self.mi = message.author.id
+            if dib == 'none':
+                dib = conn.set('disboard',message.author.id)
+                ch = conn.set('channel',message.channel.id)
+            else:
+                return
         if message.author.id == 302050872383242240:
             if "表示順をアップしたよ" in message.embeds[0].description:
-                mn = self.mi
-                msg = await message.channel.send(f"<@{mn}>さんBumpを確認しました。\n2時間後に通知します。")
-                await asyncio.sleep(10)
-                m = 0
-                while m < 7201:
-                    b = 7200
-                    s = b - m
-                    await msg.edit(content=f"あと{s}秒後にBumpできます。")
-                    await asyncio.sleep(1)
-                    m += 1
-                await msg.edit(content=f"<@{mn}>さん\nBumpができるようになりました。")
-
+                now = datetime.datetime.now()
+                how = now.hour
+                miw = now.minute
+                if how <= 21:
+                    how += 2
+                else:
+                    how += -22
+                await message.channel.send(f"<@{dib}>さんBumpを確認しました。\n2時間後({how}:{miw})に通知します。")
+                time = f'{how}{miw}'
+                time = conn.set('timer',time)
+                
         if message.content.startswith('youtube'):
             if message.author.id == 159985870458322944:
                 say = message.content
                 url = say.strip('youtube ')
                 channel = self.bot.get_channel(714589443373269042)
                 await channel.send(url)
+
+    @tasks.loop(seconds=5.0)
+    async def disb(self,ctx):
+        now = datetime.datetime.now().strftime('%H%M')
+        time = conn.get('timer')
+        if now == time:
+            dib = conn.get('disboard')
+            ch = conn.get('channel')
+            ch = self.bot.get_channel(int(ch))
+            await ch.send(f'<@{dib}>さん\n Bump出来るようになりました')
 
 def setup(bot):
     bot.add_cog(Disboard(bot))
