@@ -49,6 +49,7 @@ class Disboard(commands.Cog):
             ch = conn.get('channel')
             ch = self.bot.get_channel(int(ch))
             await ch.send(f'<@{dib}>さん\n Bump出来るようになりました')
+            dib = conn.set('disboard','none')
 
 def setup(bot):
     bot.add_cog(Disboard(bot))
