@@ -15,6 +15,7 @@ class Disboard(commands.Cog):
     async def on_message(self, message):
         dib = conn.get('disboard')
         if message.content == "!d bump":
+            dib = int(dib)
             if dib == 'none':
                 dib = conn.set('disboard',message.author.id)
                 ch = conn.set('channel',message.channel.id)
@@ -44,8 +45,8 @@ class Disboard(commands.Cog):
     async def disb(self,ctx):
         now = datetime.datetime.now().strftime('%H%M')
         time = conn.get('timer')
-        time = int(time)
-        now = int(now)
+        time = str(time)
+        now = str(now)
         if now >= time:
             dib = conn.get('disboard')
             ch = conn.get('channel')
