@@ -165,7 +165,8 @@ class Admin(commands.Cog):
             chm=len(global_channels)
             embed.add_field(name=f"webhook更新中", value=f"0/{chm}")
             ky = conn.keys()
-            ky = [k for k in ky if k != 'maintenance']
+            noy = ['maintenance','disboard','timer']
+            ky = [k for k in ky if k not in noy]
             kys = len(ky)
             embed.add_field(name=f"redis key削除中", value=f"0/{kys}")
             msg = await ctx.send(embed=embed)
