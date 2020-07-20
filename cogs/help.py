@@ -82,10 +82,12 @@ class Help(commands.Cog):
 
             pages[2].add_field(name=";s <キャラクター名>", value="`<キャラクター名>`の基本的なスペック(情報)を表示します、", inline=False)
             pages[2].add_field(name=";skill <キャラクター名>", value="`<キャラクター名>`の特性・素質・スキルを表示します。", inline=False)
+            pages[2].add_field(name=";stage <ステージ番号>", value="指定されたステージの画像を表示します。", inline=False)
 
             pages[3].add_field(name=";add_global", value="グローバルチャットに登録します。", inline=False)
             pages[3].add_field(name=";del_global", value="グローバルチャットの登録を解除します。", inline=False)
 
+            pages[4].add_field(name=";report", value="バグや意見があった場合に、運営に報告ができます。", inline=False)
             pages[4].add_field(name=";purge <メッセージ数>", value="指定されたメッセージの数だけ削除します。", inline=False)
 
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=20)
