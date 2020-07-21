@@ -331,10 +331,19 @@ class Admin(commands.Cog):
 
     #rkey
     @commands.command()
-    async def rkey(self, ctx):
+    async def rkey(self, ctx, what=None):
         if ctx.author.id in admin_list:
             conn = r.connect()
             ky = conn.keys()
+            if what != None:
+                k = conn.exists(what)
+                if k == 0:
+                    embed = discord.Embed(title="**Key Error**", description=f'`{what}`は登録されていません')
+                else:
+                    ky = conn.get(what)
+                    embed = discord.Embed(title="**Radis-Key**", description=None)
+                    embed.add_field(name=f'key:`{what}`', value=f'value:`{ky}`')
+                return await ctx.send(embed=embed)
             if ky == None:
                 des = "None"
             else:
