@@ -55,6 +55,7 @@ class Disboard(commands.Cog):
                 ch = self.bot.get_channel(int(ch))
                 await ch.send(f'<@{dib}>さん\n Bump出来るようになりました')
                 dib = conn.set('disboard','none')
+                time = conn.set('timer','0')
         except Exception as error:
             print("エラー情報\n" + traceback.format_exc())
 
