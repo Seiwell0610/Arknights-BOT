@@ -42,7 +42,7 @@ class Disboard(commands.Cog):
                 channel = self.bot.get_channel(714589443373269042)
                 await channel.send(url)
 
-    @tasks.loop(seconds=10)
+    @tasks.loop(seconds=60.0)
     async def disb(self):
         try:
             now = datetime.datetime.now().strftime('%H%M')
