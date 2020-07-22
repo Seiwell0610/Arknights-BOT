@@ -14,6 +14,8 @@ class Disboard(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.guild.id != '689263691669176426':
+            return
         dib = conn.get('disboard')
         if message.content == "!d bump":
             dib = str(dib)
