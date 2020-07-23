@@ -97,6 +97,8 @@ class Help(commands.Cog):
             pages[4].add_field(name=";queue[;q , ;playlist]", value="キューの一覧を確認できます。", inline=False)
             pages[4].add_field(name=";now_playing[;np, ;current, ;currentsong, ;playing]", value="現在再生している音楽を確認できます。", inline=False)
             pages[4].add_field(name=";volume[;vol]", value="ボリュームを調整できます。", inline=False)
+            pages[4].set_footer(text="提供：T-taku#9065")
+
 
             pages[5].add_field(name=";report", value="バグや意見があった場合に、運営に報告ができます。", inline=False)
             pages[5].add_field(name=";purge <メッセージ数>", value="指定されたメッセージの数だけ削除します。", inline=False)
