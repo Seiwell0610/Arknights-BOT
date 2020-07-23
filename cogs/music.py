@@ -13,6 +13,8 @@ from pytube import YouTube
 from pytube import Playlist
 import discord as d
 
+print("musicの読み込み完了")
+
 color=0x2BD1BB
 
 ytdlopts = {
