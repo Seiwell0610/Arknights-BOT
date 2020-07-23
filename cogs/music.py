@@ -75,7 +75,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         if 'entries' in data:
             # take first item from a playlist
             data = data['entries'][0]
-        embed = d.Embed(title="キュー追加 - 音楽機能", description=f"**[{data['title']}]({data['webpage_url']})**をキューに追加しました。", color=color)
+        embed = d.Embed(title="キュー追加", description=f"**[{data['title']}]({data['webpage_url']})**をキューに追加しました。", color=color)
         embed.set_thumbnail(url=data['thumbnail'])
         await ctx.send(embed=embed, delete_after=15)
 
@@ -143,7 +143,7 @@ class MusicPlayer:
                 try:
                     source = await YTDLSource.regather_stream(source, loop=self.bot.loop)
                 except Exception as e:
-                    embed = d.Embed(title="エラー - 音楽機能", description="音楽を再生中エラーが発生しました。", color=color)
+                    embed = d.Embed(title="エラー", description="音楽を再生中エラーが発生しました。", color=color)
                     await self._channel.send(embed=embed)
                     continue
 
@@ -151,7 +151,7 @@ class MusicPlayer:
             self.current = source
 
             self._guild.voice_client.play(source, after=lambda _: self.bot.loop.call_soon_threadsafe(self.next.set))
-            embed = d.Embed(title="再生開始 - 音楽機能", description=f'**{source.title}** \n**追加した人**: {source.requester}', color=color)
+            embed = d.Embed(title="再生開始", description=f'**{source.title}** \n**追加した人**: {source.requester}', color=color)
             self.np = await self._channel.send(embed=embed)
             await self.next.wait()
 
@@ -198,7 +198,7 @@ class Music(commands.Cog):
             except discord.HTTPException:
                 pass
         elif isinstance(error, InvalidVoiceChannel):
-            embed = d.Embed(title="エラー - 音楽機能", description='ボイスチャンネルに接続できませんでした。\nあなたがボイスチャンネルに入っているか確認してください。\nまた、TakuTukirouはそのボイスチャンネルに接続できますか?', color=color)
+            embed = d.Embed(title="エラー", description='ボイスチャンネルに接続できませんでした。\nあなたがボイスチャンネルに入っているか確認してください。\nまた、TakuTukirouはそのボイスチャンネルに接続できますか?', color=color)
             return await ctx.send(embed=embed)
 
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
@@ -228,7 +228,7 @@ class Music(commands.Cog):
             try:
                 channel = ctx.author.voice.channel
             except AttributeError:
-                embed = d.Embed(title="エラー - 音楽機能", description='参加できるボイスチャンネルがありません。有効なボイスチャンネルを指定するか、ボイスチャンネルに参加してください。', color=color)
+                embed = d.Embed(title="エラー", description='参加できるボイスチャンネルがありません。有効なボイスチャンネルを指定するか、ボイスチャンネルに参加してください。', color=color)
                 return await ctx.send(embed=embed)
 
         vc = ctx.voice_client
@@ -239,16 +239,16 @@ class Music(commands.Cog):
             try:
                 await vc.move_to(channel)
             except asyncio.TimeoutError:
-                embed = d.Embed(title="エラー - 音楽機能", description=f'{channel}への接続は、タイムアウトしました。', color=color)
+                embed = d.Embed(title="エラー", description=f'{channel}への接続は、タイムアウトしました。', color=color)
                 raise await ctx.send(embed=embed)
         else:
             try:
                 await channel.connect()
             except asyncio.TimeoutError:
-                embed = d.Embed(title="エラー - 音楽機能", description=f'{channel}への接続は、タイムアウトしました。', color=color)
+                embed = d.Embed(title="エラー", description=f'{channel}への接続は、タイムアウトしました。', color=color)
                 raise await ctx.send(embed=embed)
 
-        embed = d.Embed(title="接続完了 - 音楽機能", description=f'{channel}へ接続しました。', color=color)
+        embed = d.Embed(title="接続完了", description=f'{channel}へ接続しました。', color=color)
         return await ctx.send(embed=embed)
 
     @commands.command(name='play', aliases=['sing'])
@@ -293,13 +293,13 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if not vc or not vc.is_playing():
-            embed = d.Embed(title="エラー - 音楽機能", description='現在VCに接続していません!', color=color)
+            embed = d.Embed(title="エラー", description='現在VCに接続していません!', color=color)
             return await ctx.send(embed=embed)
         elif vc.is_paused():
             return
 
         vc.pause()
-        embed = d.Embed(title="一時停止 - 音楽機能", description='曲を一時停止しました。再度流すには、`tb:resume`を実行してください。', color=color)
+        embed = d.Embed(title="一時停止", description='曲を一時停止しました。再度流すには、`tb:resume`を実行してください。', color=color)
         await ctx.send(embed=embed)
 
     @commands.command(name='resume')
@@ -308,13 +308,13 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
-            embed = d.Embed(title="エラー - 音楽機能", description='現在VCに接続していません!', color=color)
+            embed = d.Embed(title="エラー", description='現在VCに接続していません!', color=color)
             return await ctx.send(embed=embed)
         elif not vc.is_paused():
             return
 
         vc.resume()
-        embed = d.Embed(title="再生再開 - 音楽機能", description='音楽の再生を再開しました。', color=color)
+        embed = d.Embed(title="再生再開", description='音楽の再生を再開しました。', color=color)
 
     @commands.command(name='skip')
     async def skip_(self, ctx):
@@ -322,14 +322,14 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
-            embed = d.Embed(title="エラー - 音楽機能", description='現在VCに接続していません!', color=color)
+            embed = d.Embed(title="エラー", description='現在VCに接続していません!', color=color)
             return await ctx.send(embed=embed)
         if vc.is_paused():
             pass
         elif not vc.is_playing():
             return
         vc.stop()
-        embed = d.Embed(title="スキップ - 音楽機能", description='曲をスキップしました。', color=color)
+        embed = d.Embed(title="スキップ", description='曲をスキップしました。', color=color)
         await ctx.send(embed=embed)
 
     @commands.command(name='queue', aliases=['q', 'playlist'])
@@ -338,12 +338,12 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
-            embed = d.Embed(title="エラー - 音楽機能", description='現在VCに接続していません!', color=color)
+            embed = d.Embed(title="エラー", description='現在VCに接続していません!', color=color)
             return await ctx.send(embed=embed)
 
         player = self.get_player(ctx)
         if player.queue.empty():
-            embed = d.Embed(title="エラー - 音楽機能", description='キューに音楽は存在しません。', color=color)
+            embed = d.Embed(title="エラー", description='キューに音楽は存在しません。', color=color)
             return await ctx.send(embed=embed)
 
         # Grab up to 5 entries from the queue...
@@ -359,14 +359,14 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
-            embed = d.Embed(title="エラー - 音楽機能", description='現在VCに接続していません!', color=color)
+            embed = d.Embed(title="エラー", description='現在VCに接続していません!', color=color)
             return await ctx.send(embed=embed)
 
         player = self.get_player(ctx)
         if not player.current:
-            embed = d.Embed(title="エラー - 音楽機能", description='現在VCに接続していません!', color=color)
+            embed = d.Embed(title="エラー", description='現在VCに接続していません!', color=color)
             return await ctx.send(embed=embed)
-        embed = d.Embed(title="再生中の曲 - 音楽機能", description=f'現在再生中:**{vc.source.title}**\nリクエストしたユーザー:{vc.source.requester}', color=color)
+        embed = d.Embed(title="再生中の曲", description=f'現在再生中:**{vc.source.title}**\nリクエストしたユーザー:{vc.source.requester}', color=color)
         player.np=await ctx.send(embed=embed)
 
     @commands.command(name='volume', aliases=['vol'])
@@ -380,11 +380,11 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
-            embed = d.Embed(title="エラー - 音楽機能", description='現在VCに接続していません!', color=color)
+            embed = d.Embed(title="エラー", description='現在VCに接続していません!', color=color)
             return await ctx.send(embed=embed)
 
         if not 0 < vol < 101:
-            embed = d.Embed(title="エラー - 音楽機能", description='音量は、`1`から`100`の間で設定してください。', color=color)
+            embed = d.Embed(title="エラー", description='音量は、`1`から`100`の間で設定してください。', color=color)
             return await ctx.send(embed=embed)
 
         player = self.get_player(ctx)
@@ -393,7 +393,7 @@ class Music(commands.Cog):
             vc.source.volume = vol / 100
 
         player.volume = vol / 100
-        embed = d.Embed(title="音量変更 - 音楽機能", description=f'ボリュームを{vol}%にしました。', color=color)
+        embed = d.Embed(title="音量変更", description=f'ボリュームを{vol}%にしました。', color=color)
         await ctx.send(embed=embed)
 
     @commands.command(name='stop')
@@ -405,7 +405,7 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
-            embed = d.Embed(title="エラー - 音楽機能", description='現在VCに接続していません!', color=color)
+            embed = d.Embed(title="エラー", description='現在VCに接続していません!', color=color)
             return await ctx.send(embed=embed)
 
         await self.cleanup(ctx.guild)
