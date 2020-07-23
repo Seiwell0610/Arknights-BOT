@@ -4,4 +4,4 @@ dropbox
 libneko
 redis==3.3.11
 youtube_dl
-pytube
+pytube3
