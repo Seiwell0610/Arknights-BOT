@@ -3,4 +3,5 @@ Pillow
 dropbox
 libneko
 redis==3.3.11
-jaconv
+youtube_dl
+pytube
