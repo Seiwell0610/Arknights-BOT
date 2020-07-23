@@ -53,6 +53,7 @@ class Help(commands.Cog):
                      (discord.Embed(title="基本コマンド", color=discord.Color.blue())),
                      (discord.Embed(title="キャラクター検索", color=discord.Color.blue())),
                      (discord.Embed(title="グローバルチャット", color=discord.Color.blue())),
+                     (discord.Embed(title="音楽", color=discord.Color.blue())),
                      (discord.Embed(title="補助コマンド", color=discord.Color.blue()))
                      ]
 
@@ -87,8 +88,18 @@ class Help(commands.Cog):
             pages[3].add_field(name=";add_global", value="グローバルチャットに登録します。", inline=False)
             pages[3].add_field(name=";del_global", value="グローバルチャットの登録を解除します。", inline=False)
 
-            pages[4].add_field(name=";report", value="バグや意見があった場合に、運営に報告ができます。", inline=False)
-            pages[4].add_field(name=";purge <メッセージ数>", value="指定されたメッセージの数だけ削除します。", inline=False)
+            pages[4].add_field(name=";connect[;join]", value="自分が接続しているボイスチャットに接続します。", inline=False)
+            pages[4].add_field(name=";play <再生したい曲>", value="<再生したい曲>で指定された音楽を再生します。\n<再生したい曲>はURLまたは曲名で指定できます。また、YouTubeのみ対応しています。", inline=False)
+            pages[4].add_field(name=";stop", value="音楽の再生を停止＆ボイスチャットから切断します。", inline=False)
+            pages[4].add_field(name=";pause", value="再生している音楽を一時停止します。", inline=False)
+            pages[4].add_field(name=";resume", value="一時停止している音楽を再開します。", inline=False)
+            pages[4].add_field(name=";skip", value="再生している音楽をスキップします。", inline=False)
+            pages[4].add_field(name=";queue[;q , ;playlist]", value="キューの一覧を確認できます。", inline=False)
+            pages[4].add_field(name=";now_playing[;np, ;current, ;currentsong, ;playing]", value="現在再生している音楽を確認できます。", inline=False)
+            pages[4].add_field(name=";volume[;vol]", value="ボリュームを調整できます。", inline=False)
+
+            pages[5].add_field(name=";report", value="バグや意見があった場合に、運営に報告ができます。", inline=False)
+            pages[5].add_field(name=";purge <メッセージ数>", value="指定されたメッセージの数だけ削除します。", inline=False)
 
             nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=20)
             nav.start()
