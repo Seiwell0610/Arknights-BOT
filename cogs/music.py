@@ -69,7 +69,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
     async def create_source(cls, ctx, search: str, *, loop, download=False):
         loop = loop or asyncio.get_event_loop()
         if "list" in search:
-            return await ctx.send("プレイリストには、対応していません....個別で曲を追加することができます。")
+            return await ctx.send("プレイリストには、対応していません。個別で曲を追加することができます。")
         to_run = partial(ytdl.extract_info, url=search, download=download)
         data = await loop.run_in_executor(None, to_run)
         if 'entries' in data:
@@ -198,7 +198,7 @@ class Music(commands.Cog):
             except discord.HTTPException:
                 pass
         elif isinstance(error, InvalidVoiceChannel):
-            embed = d.Embed(title="エラー", description='ボイスチャンネルに接続できませんでした。\nあなたがボイスチャンネルに入っているか確認してください。\nまた、TakuTukirouはそのボイスチャンネルに接続できますか?', color=color)
+            embed = d.Embed(title="エラー", description='ボイスチャンネルに接続できませんでした。\nあなたがボイスチャンネルに入っているか確認してください。\nまたは、ボイスチャンネルの権限をご確認ください。', color=color)
             return await ctx.send(embed=embed)
 
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
@@ -299,7 +299,7 @@ class Music(commands.Cog):
             return
 
         vc.pause()
-        embed = d.Embed(title="一時停止", description='曲を一時停止しました。再度流すには、`tb:resume`を実行してください。', color=color)
+        embed = d.Embed(title="一時停止", description='曲を一時停止しました。再度流すには、`;resume`を実行してください。', color=color)
         await ctx.send(embed=embed)
 
     @commands.command(name='resume')
