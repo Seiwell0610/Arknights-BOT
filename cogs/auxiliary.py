@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import datetime
+import sqlite3
 
 print("auxiliaryの読み込み完了")
 
@@ -20,6 +21,18 @@ class auxiliary(commands.Cog):
         except:
             embed = discord.Embed(title="メーセージの削除失敗", description="メッセージの削除に失敗しました。", color=discord.Color.dark_red())
             await ctx.send(embed=embed)
+
+    @commands.command()
+    async def url(self, ctx, status):
+        guild = ctx.guild.id
+        conn = sqlite3.connect('all_data_arknights_main.db')
+        c = conn.cursor()
+        c.execute('SELECT * FROM url WHERE guild_id=?', (guild,))
+        data = c.fetchone()
+        if data[1] == 1:
+            c.execute('update url set status = ? where guild_id = ?', (0, guild))
+            return
+        c.execute('update url set status = ? where guild_id = ?', (1, guild))
     
     @commands.command()
     async def report(self, ctx):
