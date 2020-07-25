@@ -33,6 +33,8 @@ class auxiliary(commands.Cog):
             c.execute('update url set status = ? where guild_id = ?', (0, guild))
             return
         c.execute('update url set status = ? where guild_id = ?', (1, guild))
+        conn.commit()
+        conn.close()
     
     @commands.command()
     async def report(self, ctx):
