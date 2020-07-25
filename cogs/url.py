@@ -1,6 +1,7 @@
 from discord import Embed
 from discord.ext import commands
 import re
+import sqlite3
 
 print("urlの読み込み完了")
 
@@ -17,6 +18,13 @@ class url(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot:
+            return
+        guild = message.guild.id
+        conn = sqlite3.connect('all_data_arknights_main.db')
+        c = conn.cursor()
+        c.execute('SELECT * FROM url WHERE guild_id=?', (guild,))
+        data = c.fetchone()
+        if data[1] == 0:
             return
         await dispand(message)
 
