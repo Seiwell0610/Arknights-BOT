@@ -18,7 +18,10 @@ class Twitter(commands.Cog):
     async def twitter(self, ctx, id=None):
         if id == None:
             id = 'ArknightsStaff'
-        
+        tl = api.user_timeline(id=id,count=1)
+        for t in tl:
+            embed = discord.Embed(title=f"**{t.user.name}**",description=t.text)                 
+        await ch.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Twitter(bot))
