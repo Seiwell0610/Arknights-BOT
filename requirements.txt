@@ -5,3 +5,4 @@ libneko
 redis==3.3.11
 youtube_dl
 pytube3
+tweepy
