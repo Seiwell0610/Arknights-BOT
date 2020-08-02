@@ -11,13 +11,13 @@ class log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        channel = self.bot.get_channel(696206234168328192)
+        channel = self.bot.get_channel(739388391468302386)
         embed = discord.Embed(title="参加", description=f"`{guild}`に参加しました。", color=discord.Color.blue())
         await channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        channel = self.bot.get_channel(696206234168328192)
+        channel = self.bot.get_channel(739388391468302386)
         embed = discord.Embed(title="脱退", description=f"`{guild}`に脱退しました。", color=discord.Color.dark_red())
         await channel.send(embed=embed)
 
