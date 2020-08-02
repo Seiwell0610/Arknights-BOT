@@ -11,8 +11,7 @@ api = tw.api
 class Twitter(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.twap.start()
-
+        
     #検索
     @commands.command()
     async def twitter(self, ctx, id=None):
