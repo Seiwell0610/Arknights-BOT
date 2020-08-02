@@ -34,7 +34,7 @@ class global_chat(commands.Cog):
             if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
-        channel = self.bot.get_channel(698520936374075453)
+        channel = self.bot.get_channel(739387932061859911)
         ch_id = ctx.channel.id
         ch_name = ctx.channel.name
         guild = ctx.guild.name
@@ -68,7 +68,7 @@ class global_chat(commands.Cog):
             if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
 
-        channel = self.bot.get_channel(698520936374075453)
+        channel = self.bot.get_channel(739387932061859911)
         ch_id = ctx.channel.id
         ch_name = ctx.channel.name
         guild = ctx.guild.name
