@@ -14,10 +14,10 @@ class Twitter(commands.Cog):
         
     #検索
     @commands.command()
-    async def twitter(self, ctx, id=None):
-        if id == None:
-            id = 'ArknightsStaff'
-        tl = api.user_timeline(id=id,count=1)
+    async def twitter(self, ctx, ids=None):
+        if ids == None:
+            ids = 'ArknightsStaff'
+        tl = api.user_timeline(id=ids,count=1)
         for t in tl:
             embed = discord.Embed(title=f"**{t.user.name}**",description=t.text)                 
         await ch.send(embed=embed)
