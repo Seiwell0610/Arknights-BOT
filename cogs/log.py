@@ -23,7 +23,7 @@ class log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
-        ch = self.bot.get_channel(714615013968576572)
+        ch = self.bot.get_channel(739386396812378124)
         url = ctx.author.avatar_url_as(format=None, static_format='png', size=1024)
         embed = discord.Embed(title="コマンド実行ログ", description="", color=0x00fa9a)
         embed.add_field(name="実行コマンド", value=f"{ctx.command.name}")
