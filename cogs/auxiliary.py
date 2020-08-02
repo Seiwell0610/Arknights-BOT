@@ -77,7 +77,7 @@ class auxiliary(commands.Cog):
 
         em3 = discord.Embed(title=f"**{ctx.author}からのバグレポート**", color=0x009193)
         em3.add_field(name=f"**{title}**", value=f"`{disc}`")
-        ch = self.bot.get_channel(int(731664672222347295))
+        ch = self.bot.get_channel(int(739094432967688262))
         await ch.send(embed=em3)
 
         return
