@@ -42,8 +42,7 @@ class global_chat(commands.Cog):
 
         conn = sqlite3.connect('all_data_arknights_main.db')
         c = conn.cursor()
-        c.execute("CREATE TABLE IF NOT EXISTS global_chat(id integer PRIMARY KEY, name text NOT NULL)")
-        c.execute("insert into global_chat values(?,?)", (ch_id, ch_name))
+        c.execute("insert into global_chat values(?,?)", (guild_id, ch_id))
         conn.commit()
         conn.close()
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットに登録しました。")
@@ -76,7 +75,7 @@ class global_chat(commands.Cog):
 
         conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
-        c.execute('DELETE FROM global_chat WHERE id = ?', (ch_id,))
+        c.execute('DELETE FROM global_chat WHERE channel_id = ?', (ch_id))
         conn.commit()
         conn.close()
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットの登録を解除しました。")
@@ -105,7 +104,7 @@ class global_chat(commands.Cog):
         c = conn.cursor()
         GLOBAL_CH_ID = []
         for row in c.execute("SELECT * FROM global_chat"):
-            GLOBAL_CH_ID.append(row[0])
+            GLOBAL_CH_ID.append(row[1])
 
         if message.channel.id in GLOBAL_CH_ID:
             # 発言チャンネルidがGLOBAL_CH_IDに入っていたら反応
