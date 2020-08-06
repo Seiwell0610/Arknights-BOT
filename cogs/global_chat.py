@@ -7,6 +7,7 @@ import datetime
 import dropbox
 from cogs import admin
 import r
+import asyncio
 
 print("global_chatの読み込み完了")
 
@@ -168,6 +169,7 @@ class global_chat(commands.Cog):
                         # 送信チャンネルが発言チャンネルと同じならreturn
 
                         if message.content:
+                            await asyncio.sleep(1)
                             await webhook.send(content=message.content, username=message.author.name,
                                                avatar_url=message.author.avatar_url_as(format=kakutyo))
 
@@ -185,6 +187,7 @@ class global_chat(commands.Cog):
                             elif ".mp3" in p.filename:
                                 filenames = f"{dcount}.mp3"
 
+                            await asyncio.sleep(1)
                             await webhook.send(file=discord.File(filenames), username=message.author.name,
                                                avatar_url=message.author.avatar_url_as(format=kakutyo))
 
@@ -192,9 +195,9 @@ class global_chat(commands.Cog):
                         if channel.id == message.channel.id:
                             await message.delete()
 
+                        await asyncio.sleep(1)
                         await webhook.send(content=message.content, username=message.author.name,
                                            avatar_url=message.author.avatar_url_as(format=kakutyo))
-
 
 def setup(bot):
     bot.add_cog(global_chat(bot))
