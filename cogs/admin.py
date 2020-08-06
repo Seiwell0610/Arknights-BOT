@@ -235,17 +235,20 @@ class Admin(commands.Cog):
         if ctx.author.id in admin_list:
             try:
                 pages = []
-                global_chat = []
+                guild_id = []
+                channel_id = []
                 conn = sqlite3.connect("all_data_arknights_main.db")
                 c = conn.cursor()
                 for data in c.execute('SELECT * FROM global_chat'):
-                    global_chat.append(int(data[0]))
+                    guild_id.append(int(data[0]))
+                    channel_id.append(int(data[1]))
 
-                for count in range(len(global_chat)):
+                for count in range(len(guild_id)):
                     pages.append(discord.Embed(title="登録されているチャンネル", color=discord.Color.blue()))
-                    channel = self.bot.get_channel(int(global_chat[count]))
+                    channel = self.bot.get_channel(int(channel_id[count]))
+                    pages[count].add_field(name="GUILD ID", value=f"{guild_id[count]}")
                     pages[count].add_field(name="CHANNEL", value=f"{channel}", inline=False)
-                    pages[count].add_field(name="CHANNEL ID", value=f"{global_chat[count]}", inline=False)
+                    pages[count].add_field(name="CHANNEL ID", value=f"{channel_id[count]}", inline=False)
 
                 nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
                 nav.start()
