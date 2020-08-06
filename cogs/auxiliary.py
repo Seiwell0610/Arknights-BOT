@@ -25,16 +25,20 @@ class auxiliary(commands.Cog):
     @commands.command()
     async def url(self, ctx, status):
         guild = ctx.guild.id
-        conn = sqlite3.connect('all_data_arknights_main.db')
+        conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
-        c.execute('SELECT * FROM url WHERE guild_id=?', (guild,))
-        data = c.fetchone()
-        if data[1] == 1:
-            c.execute('update url set status = ? where guild_id = ?', (0, guild))
-            return
-        c.execute('update url set status = ? where guild_id = ?', (1, guild))
-        conn.commit()
-        conn.close()
+        if status == "on":
+            c.execute("update settings set url_setting = 1 where guild_id = ?", (guild, ))
+            conn.commit()
+            conn.close()
+        elif status == "off":
+            c.execute("update settings set url_setting = 0 where guild_id = ?", (guild, ))
+            conn.commit()
+            conn.close()
+
+        else:
+            await ctx.send(f"{ctx.author.mention}-> エラーが発生しました。")
+
     
     @commands.command()
     async def report(self, ctx):
