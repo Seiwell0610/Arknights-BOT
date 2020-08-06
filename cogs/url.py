@@ -22,7 +22,7 @@ class url(commands.Cog):
         guild = message.guild.id
         conn = sqlite3.connect('all_data_arknights_main.db')
         c = conn.cursor()
-        c.execute('SELECT * FROM url WHERE guild_id=?', (guild,))
+        c.execute('SELECT url_setting FROM setting WHERE guild_id=?', (guild,))
         data = c.fetchone()
         if data[1] == 0:
             return
