@@ -104,8 +104,8 @@ class global_chat(commands.Cog):
         conn = sqlite3.connect("all_data_arknights_main.db")
         c = conn.cursor()
         GLOBAL_CH_ID = []
-        for row in c.execute("SELECT * FROM global_chat"):
-            GLOBAL_CH_ID.append(row[1])
+        for row in c.execute("SELECT channel_id FROM global_chat"):
+            GLOBAL_CH_ID.append(row)
 
         if message.channel.id in GLOBAL_CH_ID:
             # 発言チャンネルidがGLOBAL_CH_IDに入っていたら反応
@@ -169,7 +169,6 @@ class global_chat(commands.Cog):
                         # 送信チャンネルが発言チャンネルと同じならreturn
 
                         if message.content:
-                            await asyncio.sleep(1)
                             await webhook.send(content=message.content, username=message.author.name,
                                                avatar_url=message.author.avatar_url_as(format=kakutyo))
 
@@ -187,7 +186,6 @@ class global_chat(commands.Cog):
                             elif ".mp3" in p.filename:
                                 filenames = f"{dcount}.mp3"
 
-                            await asyncio.sleep(1)
                             await webhook.send(file=discord.File(filenames), username=message.author.name,
                                                avatar_url=message.author.avatar_url_as(format=kakutyo))
 
@@ -195,7 +193,6 @@ class global_chat(commands.Cog):
                         if channel.id == message.channel.id:
                             await message.delete()
 
-                        await asyncio.sleep(1)
                         await webhook.send(content=message.content, username=message.author.name,
                                            avatar_url=message.author.avatar_url_as(format=kakutyo))
 
