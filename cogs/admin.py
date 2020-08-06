@@ -159,7 +159,7 @@ class Admin(commands.Cog):
             embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
             GLOBAL_CH_ID = []
             for row in c.execute("SELECT * FROM global_chat"):
-                GLOBAL_CH_ID.append(row[0])
+                GLOBAL_CH_ID.append(row[1])
             channels = self.bot.get_all_channels()
             global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
             chm=len(global_channels)
