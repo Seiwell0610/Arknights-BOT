@@ -1,4 +1,5 @@
-from discord.ext import commands,tasks
+from discord.ext import commands, tasks
+import discord
 import asyncio
 import traceback
 import tw
@@ -15,6 +16,7 @@ class Twitter(commands.Cog):
     #検索
     @commands.command()
     async def twitter(self, ctx, ids=None):
+        ch = self.bot.get_channel(690016246296608805)
         if ids == None:
             ids = 'ArknightsStaff'
         tl = api.user_timeline(id=ids,count=1)
