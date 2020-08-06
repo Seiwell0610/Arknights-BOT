@@ -1,7 +1,7 @@
 discord.py[voice]>=1.3.4
 Pillow
 dropbox
-libneko
+libneko>=0.24.9
 redis==3.3.11
 youtube_dl
 pytube3
