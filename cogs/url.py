@@ -24,7 +24,7 @@ class url(commands.Cog):
         c = conn.cursor()
         c.execute('SELECT url_setting FROM setting WHERE guild_id=?', (guild,))
         data = c.fetchone()
-        if data[1] == 0:
+        if data[0] == 0:
             return
         await dispand(message)
 
