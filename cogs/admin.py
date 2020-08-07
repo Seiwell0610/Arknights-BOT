@@ -177,7 +177,8 @@ class Admin(commands.Cog):
             for channel in global_channels:
                 ch_webhooks = await channel.webhooks()
                 s = 0
-                while s < len(ch_webhooks):
+                print(ch_webhooks)
+                while str(s) < len(ch_webhooks):
                     webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
                     await webhook.delete()
                     s += 1
