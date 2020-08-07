@@ -177,9 +177,9 @@ class Admin(commands.Cog):
             for channel in global_channels:
                 ch_webhooks = await channel.webhooks()
                 for wf in ch_webhooks:
-                    webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
-                    print(f"{channel}:{webhook}")
-                    await webhook.delete()
+                    # webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
+                    print(f"{channel}:{wf}")
+                    await wf.delete()
                 await asyncio.sleep(1)
                 m+=1
                 embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
