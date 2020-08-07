@@ -180,8 +180,7 @@ class Admin(commands.Cog):
                 print(webhook)
                 for wf in webhook:
                     await wf.delete()
-                await asyncio.sleep(2)
-                await channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
+                await asyncio.sleep(1)
                 m+=1
                 embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
                 embed.add_field(name=f"webhook更新中", value=f"{m}/{chm}")
