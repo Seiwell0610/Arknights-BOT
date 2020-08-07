@@ -172,14 +172,14 @@ class Admin(commands.Cog):
             msg = await ctx.send(embed=embed)
             # -------------------
 
-            # ---webhookの再生成---
+            # ---webhookの削除---
             m=0
             for channel in global_channels:
                 ch_webhooks = await channel.webhooks()
-                webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
-                print(webhook)
-                for wf in webhook:
-                    await wf.delete()
+                for wf in ch_webhooks:
+                    webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
+                    print(webhook)
+                    await webhook.delete()
                 await asyncio.sleep(1)
                 m+=1
                 embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
