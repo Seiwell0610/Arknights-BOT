@@ -24,10 +24,10 @@ class url(commands.Cog):
         c = conn.cursor()
         c.execute('SELECT url_setting FROM setting WHERE guild_id=?', (guild,))
         data = c.fetchone()
-        if data[0] == 0:
+        if data[1] == 0:
             return
-        await dispand(message)
-
+        else:
+            await dispand(message)
 
 async def dispand(message):
     messages = await extract_messsages(message)
