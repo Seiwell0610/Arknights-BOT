@@ -1,13 +1,10 @@
 import discord
 from discord.ext import commands
 import sqlite3
-import random
-import re
 import datetime
 import dropbox
 from cogs import admin
 import r
-import asyncio
 
 print("global_chatの読み込み完了")
 
@@ -20,6 +17,8 @@ dbx.users_get_current_account()
 ng_content = ["@everyone", "@here"]
 GLOBAL_WEBHOOK_NAME = "Arknights-webhook"  # グローバルチャットのウェブフック名
 
+conn = sqlite3.connect('all_data_arknights_main.db')
+c = conn.cursor()
 
 class global_chat(commands.Cog):
     def __init__(self, bot):
@@ -29,8 +28,8 @@ class global_chat(commands.Cog):
     @commands.has_permissions(manage_guild=True)
     async def _add_global(self, ctx):
         if ctx.author.id not in admin_list:
-            conn = r.connect()
-            pp = conn.get("maintenance")
+            conn_r = r.connect()
+            pp = conn_r.get("maintenance")
             q = ['0', '1']
             if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
@@ -41,8 +40,7 @@ class global_chat(commands.Cog):
         guild = ctx.guild.name
         guild_id = ctx.guild.id
 
-        conn = sqlite3.connect('all_data_arknights_main.db')
-        c = conn.cursor()
+
         c.execute("insert into global_chat values(?,?)", (guild_id, ch_id))
         conn.commit()
         conn.close()
@@ -62,8 +60,8 @@ class global_chat(commands.Cog):
     @commands.has_permissions(manage_guild=True)
     async def _del_global(self, ctx):
         if ctx.author.id not in admin_list:
-            conn = r.connect()
-            pp = conn.get("maintenance")
+            conn_r = r.connect()
+            pp = conn_r.get("maintenance")
             q = ['0', '3']
             if pp not in q:
                 return await ctx.send("現在、メンテナンス中です")
@@ -74,8 +72,6 @@ class global_chat(commands.Cog):
         guild = ctx.guild.name
         guild_id = ctx.guild.id
 
-        conn = sqlite3.connect("all_data_arknights_main.db")
-        c = conn.cursor()
         c.execute('DELETE FROM global_chat WHERE channel_id = ?', (ch_id))
         conn.commit()
         conn.close()
@@ -101,8 +97,6 @@ class global_chat(commands.Cog):
         filename = f"{date.year}{date.month}{date.day}-{date.hour}{date.minute}{date.second}"
         # 画像保存名(基本)を｢年月日-時分秒｣とする。
 
-        conn = sqlite3.connect("all_data_arknights_main.db")
-        c = conn.cursor()
         GLOBAL_CH_ID = []
         for row in c.execute("SELECT channel_id FROM global_chat"):
             GLOBAL_CH_ID.append(row)
@@ -114,9 +108,10 @@ class global_chat(commands.Cog):
                 return
             # 発言時、頭に｢;｣がついていたらpass
             if message.author.id not in admin_list:
-                conn = r.connect()
-                pp = conn.get("maintenance")
+                conn_r = r.connect()
+                pp = conn_r.get("maintenance")
                 q = ['0', '1']
+
                 if pp not in q:
                     return await message.channel.send("現在、メンテナンス中です")
 
