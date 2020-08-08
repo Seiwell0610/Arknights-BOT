@@ -3,8 +3,13 @@ from discord.ext import commands
 import asyncio
 import datetime
 import sqlite3
+import dropbox
 
 print("auxiliaryの読み込み完了")
+
+dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
+dbx = dropbox.Dropbox(dbxtoken)
+dbx.users_get_current_account()
 
 class auxiliary(commands.Cog):
     def __init__(self, bot):
@@ -29,15 +34,20 @@ class auxiliary(commands.Cog):
         c = conn.cursor()
         if status == "on":
             c.execute("update settings set url_setting = 1 where guild_id = ?", (guild, ))
-            conn.commit()
-            conn.close()
+            await ctx.send(f"{ctx.author.mention}-> メッセージ展開機能をONにしました。")
         elif status == "off":
             c.execute("update settings set url_setting = 0 where guild_id = ?", (guild, ))
-            conn.commit()
-            conn.close()
+            await ctx.send(f"{ctx.author.mention}-> メッセージ展開機能をOFFにしました。")
 
         else:
             await ctx.send(f"{ctx.author.mention}-> エラーが発生しました。")
+
+        conn.commit() #変更を保存
+        conn.close() #クローズ
+
+        #DropBoxにデータベースをアップロード
+        with open("all_data_arknights_main.db", "rb") as fc:
+            dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
 
     
     @commands.command()
