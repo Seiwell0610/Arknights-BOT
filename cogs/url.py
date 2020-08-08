@@ -19,6 +19,13 @@ class url(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
+        guild = message.guild.id
+        conn = sqlite3.connect('all_data_arknights_main.db')
+        c = conn.cursor()
+        c.execute('SELECT url_setting FROM setting WHERE guild_id=?', (guild,))
+        data = c.fetchone()
+        if data[0] == 0:
+            return
         await dispand(message)
 
 async def dispand(message):
