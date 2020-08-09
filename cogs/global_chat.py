@@ -41,7 +41,7 @@ class global_chat(commands.Cog):
         guild_id = ctx.guild.id
 
 
-        c.execute("insert into global_chat values(?,?)", (guild_id, ch_id))
+        c.execute("insert into global_chat (guild_id, channel_id) values (?, ?)", (guild_id, ch_id, ))
         conn.commit()
         conn.close()
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットに登録しました。")
