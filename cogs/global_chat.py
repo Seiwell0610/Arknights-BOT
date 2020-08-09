@@ -72,7 +72,7 @@ class global_chat(commands.Cog):
         guild = ctx.guild.name
         guild_id = ctx.guild.id
 
-        c.execute('DELETE FROM global_chat WHERE channel_id = ?', (ch_id, ))
+        c.execute('DELETE FROM global_chat (channel_id) WHERE channel_id = ?', (ch_id, ))
         conn.commit()
         conn.close()
 
