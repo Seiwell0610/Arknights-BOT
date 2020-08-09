@@ -72,9 +72,10 @@ class global_chat(commands.Cog):
         guild = ctx.guild.name
         guild_id = ctx.guild.id
 
-        c.execute('DELETE FROM global_chat WHERE channel_id = ?', (ch_id))
+        c.execute('DELETE FROM global_chat WHERE channel_id = ?', (ch_id, ))
         conn.commit()
         conn.close()
+
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットの登録を解除しました。")
 
         with open("all_data_arknights_main.db", "rb") as fc:
