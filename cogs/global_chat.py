@@ -27,12 +27,7 @@ class global_chat(commands.Cog):
     @commands.command(name="add_global")
     @commands.has_permissions(manage_guild=True)
     async def _add_global(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn_r = r.connect()
-            pp = conn_r.get("maintenance")
-            q = ['0', '1']
-            if pp not in q:
-                return await ctx.send("現在、メンテナンス中です")
+
 
         channel = self.bot.get_channel(739387932061859911)
         ch_id = ctx.channel.id
@@ -43,7 +38,6 @@ class global_chat(commands.Cog):
 
         c.execute("insert into global_chat (guild_id, channel_id) values (?, ?)", (guild_id, ch_id, ))
         conn.commit()
-        conn.close()
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットに登録しました。")
 
         with open("all_data_arknights_main.db", "rb") as fc:
@@ -59,22 +53,12 @@ class global_chat(commands.Cog):
     @commands.command(name="del_global")
     @commands.has_permissions(manage_guild=True)
     async def _del_global(self, ctx):
-        if ctx.author.id not in admin_list:
-            conn_r = r.connect()
-            pp = conn_r.get("maintenance")
-            q = ['0', '3']
-            if pp not in q:
-                return await ctx.send("現在、メンテナンス中です")
-
-        channel = self.bot.get_channel(739387932061859911)
-        ch_id = ctx.channel.id
-        ch_name = ctx.channel.name
-        guild = ctx.guild.name
-        guild_id = ctx.guild.id
-
-        c.execute('DELETE FROM global_chat (channel_id) WHERE channel_id = ?', (ch_id, ))
+        ch_id = int(ctx.channel.id)
+        print("コマンド実行")
+        c.execute('DELETE FROM global_chat WHERE channel_id = ?', (ch_id, ))
+        print("削除")
         conn.commit()
-        conn.close()
+        print("反映")
 
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットの登録を解除しました。")
 
@@ -82,10 +66,11 @@ class global_chat(commands.Cog):
             dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
 
         embed = discord.Embed(title="グローバルチャット[解除]", description=None, color=discord.Color.dark_red())
-        embed.add_field(name=f"GUILD", value=f"{guild}", inline=False)
-        embed.add_field(name="GUILD ID", value=f"{guild_id}", inline=False)
-        embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
-        embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=False)
+        embed.add_field(name=f"GUILD", value=f"{ctx.guild.name}", inline=False)
+        embed.add_field(name="GUILD ID", value=f"{ctx.guild.id}", inline=False)
+        embed.add_field(name="CHANNEL", value=f"{ctx.channel.name}", inline=False)
+        embed.add_field(name="CHANNEL ID", value=f"{ctx.channel.id}", inline=False)
+        channel = self.bot.get_channel(739387932061859911)
         await channel.send(embed=embed)
 
     @commands.Cog.listener()
@@ -100,7 +85,7 @@ class global_chat(commands.Cog):
 
         GLOBAL_CH_ID = []
         for row in c.execute("SELECT channel_id FROM global_chat"):
-            GLOBAL_CH_ID.append(row)
+            GLOBAL_CH_ID.append(row[0])
 
         if message.channel.id in GLOBAL_CH_ID:
             # 発言チャンネルidがGLOBAL_CH_IDに入っていたら反応
