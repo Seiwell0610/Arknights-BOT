@@ -130,14 +130,14 @@ class Admin(commands.Cog):
     @commands.command(name="mainte")
     async def mainte(self, ctx, what=None):
         if ctx.author.id in admin_list:
-            conn = r.connect()
+            conn_r = r.connect()
             if what == None:
-                p = conn.get('maintenance')
+                p = conn_r.get('maintenance')
                 return await ctx.send(f'現在のメンテナンスモード：`{p}`')
             if what == "reset":
-                p = conn.set('maintenance', '0')
+                p = conn_r.set('maintenance', '0')
                 return await ctx.send('通常モードに移行')
-            mente = conn.set('maintenance', what)
+            mente = conn_r.set('maintenance', what)
             if mente == True:
                 await ctx.send(f'メンテナンスモードを`{what}`に変更しました')
             else:
@@ -148,8 +148,8 @@ class Admin(commands.Cog):
     async def webhook_reset(self, ctx):
         if ctx.author.id in admin_list:
             # ---メンテモード確認---
-            conn = r.connect()
-            pp = conn.get("maintenance")
+            conn_r = r.connect()
+            pp = conn_r.get("maintenance")
             q = ['2','3']
             if pp not in q:
                 return await ctx.send("現在、使用できません")
@@ -164,7 +164,7 @@ class Admin(commands.Cog):
             global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
             chm=len(global_channels)
             embed.add_field(name=f"webhook更新中", value=f"0/{chm}")
-            ky = conn.keys()
+            ky = conn_r.keys()
             noy = ['maintenance','disboard','timer','channel']
             ky = [k for k in ky if k not in noy]
             kys = len(ky)
@@ -196,7 +196,7 @@ class Admin(commands.Cog):
             n = 0
             msk = []
             for k in ky:
-                kye = conn.delete(k)
+                kye = conn_r.delete(k)
                 if kye == 1:
                     n+=1
                     embed = discord.Embed(title=f"**提供メンテナンス項目**", description=None)
@@ -230,39 +230,34 @@ class Admin(commands.Cog):
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
-    #登録グローバルチャット表示コマンド
+    # 登録グローバルチャット表示コマンド
     @commands.command()
     async def global_chat(self, ctx):
         if ctx.author.id in admin_list:
-            try:
-                pages = []
-                guild_id = []
-                channel_id = []
-                conn = sqlite3.connect("all_data_arknights_main.db")
-                c = conn.cursor()
-                for data in c.execute('SELECT * FROM global_chat'):
-                    guild_id.append(int(data[0]))
-                    channel_id.append(int(data[1]))
+            pages = []
+            guild_id = []
+            channel_id = []
+            conn = sqlite3.connect("all_data_arknights_main.db")
+            c = conn.cursor()
+            for data in c.execute('SELECT * FROM global_chat'):
+                guild_id.append(int(data[0]))
+                channel_id.append(int(data[1]))
 
-                for count in range(len(guild_id)):
-                    pages.append(discord.Embed(title="登録されているチャンネル", color=discord.Color.blue()))
-                    channel = self.bot.get_channel(int(channel_id[count]))
-                    pages[count].add_field(name="GUILD ID", value=f"{guild_id[count]}")
-                    pages[count].add_field(name="CHANNEL", value=f"{channel}", inline=False)
-                    pages[count].add_field(name="CHANNEL ID", value=f"{channel_id[count]}", inline=False)
+            for count in range(len(guild_id)):
+                pages.append(discord.Embed(title="登録されているチャンネル", color=discord.Color.blue()))
+                channel = self.bot.get_channel(int(channel_id[count]))
+                pages[count].add_field(name="GUILD ID", value=f"{guild_id[count]}")
+                pages[count].add_field(name="CHANNEL", value=f"{channel}", inline=False)
+                pages[count].add_field(name="CHANNEL ID", value=f"{channel_id[count]}", inline=False)
 
-                nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
-                nav.start()
-                await ctx.send(nav)
-
-
-            except:
-                print("エラー情報\n" + traceback.format_exc())
+            nav = libneko.pag.navigator.EmbedNavigator(ctx, pages, buttons=default_buttons(), timeout=10)
+            nav.start()
+            await ctx.send(nav)
 
         else:
             await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
-    #参加サーバー表示コマンド
+    # 参加サーバー表示コマンド
     @commands.command()
     async def all_guilds(self, ctx):
         if ctx.author.id in admin_list:
@@ -337,14 +332,14 @@ class Admin(commands.Cog):
     @commands.command()
     async def rkey(self, ctx, what=None):
         if ctx.author.id in admin_list:
-            conn = r.connect()
-            ky = conn.keys()
+            conn_r = r.connect()
+            ky = conn_r.keys()
             if what != None:
-                k = conn.exists(what)
+                k = conn_r.exists(what)
                 if k == 0:
                     embed = discord.Embed(title="**Key Error**", description=f'`{what}`は登録されていません')
                 else:
-                    ky = conn.get(what)
+                    ky = conn_r.get(what)
                     embed = discord.Embed(title="**Radis-Key**", description=None)
                     embed.add_field(name=f'key:`{what}`', value=f'value:`{ky}`')
                 return await ctx.send(embed=embed)
@@ -354,7 +349,7 @@ class Admin(commands.Cog):
                 des = None
             embed = discord.Embed(title="Radis-Key", description=des)
             for i in ky:
-                vl = conn.get(i)
+                vl = conn_r.get(i)
                 embed.add_field(name=f'key:`{i}`', value=f'value:`{vl}`')
             await ctx.send(embed=embed)
 
@@ -364,8 +359,8 @@ class Admin(commands.Cog):
         if ctx.author.id in admin_list:
             if what == None:
                 return await ctx.send("削除Key指定エラー")
-            conn = r.connect()
-            d = conn.delete(what)
+            conn_r = r.connect()
+            d = conn_r.delete(what)
             await ctx.send(d)
 
 def setup(bot):
