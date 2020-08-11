@@ -27,14 +27,8 @@ class global_chat(commands.Cog):
     @commands.command(name="add_global")
     @commands.has_permissions(manage_guild=True)
     async def _add_global(self, ctx):
-
-
-        channel = self.bot.get_channel(739387932061859911)
-        ch_id = ctx.channel.id
-        ch_name = ctx.channel.name
-        guild = ctx.guild.name
-        guild_id = ctx.guild.id
-
+        ch_id = int(ctx.channel.id)
+        guild_id = int(ctx.guild.id)
 
         c.execute("insert into global_chat (guild_id, channel_id) values (?, ?)", (guild_id, ch_id, ))
         conn.commit()
@@ -44,21 +38,19 @@ class global_chat(commands.Cog):
             dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
 
         embed = discord.Embed(title="グローバルチャット[登録]", description=None, color=discord.Color.blue())
-        embed.add_field(name=f"GUILD", value=f"{guild}", inline=False)
-        embed.add_field(name="GUILD ID", value=f"{guild_id}", inline=False)
-        embed.add_field(name="CHANNEL", value=f"{ch_name}", inline=False)
-        embed.add_field(name="CHANNEL ID", value=f"{ch_id}", inline=False)
+        embed.add_field(name=f"GUILD", value=f"{ctx.guild.name}", inline=False)
+        embed.add_field(name="GUILD ID", value=f"{ctx.guild.id}", inline=False)
+        embed.add_field(name="CHANNEL", value=f"{ctx.channel.name}", inline=False)
+        embed.add_field(name="CHANNEL ID", value=f"{ctx.channel.id}", inline=False)
+        channel = self.bot.get_channel(739387932061859911)
         await channel.send(embed=embed)
 
     @commands.command(name="del_global")
     @commands.has_permissions(manage_guild=True)
     async def _del_global(self, ctx):
         ch_id = int(ctx.channel.id)
-        print("コマンド実行")
         c.execute('DELETE FROM global_chat WHERE channel_id = ?', (ch_id, ))
-        print("削除")
         conn.commit()
-        print("反映")
 
         await ctx.send(f"{ctx.author.mention}-> グローバルチャットの登録を解除しました。")
 
