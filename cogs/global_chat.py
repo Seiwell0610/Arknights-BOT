@@ -131,9 +131,12 @@ class global_chat(commands.Cog):
 
                     if webhook is None:
                         await channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
+                        # ウェブフックが無ければ作成後、処理は続ける
+                        ch_webhooks = await channel.webhooks()
+                        # channelのウェブフックを確認
+                        webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
+                        # ch_webhooksからGLOBAL_WEBHOOK_NAMEの物を取得            
                     
-                    # ウェブフックが無ければ作成後、処理は続ける
-
                     if message.attachments:
                         # 画像処理
                         if channel.id == message.channel.id:
