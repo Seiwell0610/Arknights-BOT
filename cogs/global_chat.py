@@ -130,8 +130,9 @@ class global_chat(commands.Cog):
                     # ch_webhooksからGLOBAL_WEBHOOK_NAMEの物を取得
 
                     if webhook is None:
-                        await channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
-                        continue
+                        if channel.id == message.channel.id:
+                            await channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
+                            continue
                     # ウェブフックが無ければ作成後、処理は続ける
 
                     if message.attachments:
