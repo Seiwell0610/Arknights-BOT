@@ -11,16 +11,17 @@ import textwrap
 import contextlib
 import dropbox
 import libneko
+from auth import dbx_auth
 
 print("adminの読み込み完了")
 
 GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
 
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
-dbx = dropbox.Dropbox(dbxtoken)
-dbx.users_get_current_account()
+# dropboxのapi認証
+dbx = dbx_auth.dbx
 
 admin_list = []
+# データべースからadmin情報をadmin_listに追加
 conn = sqlite3.connect("all_data_arknights_main.db")
 c = conn.cursor()
 for row in c.execute("SELECT * FROM admin_list"):
@@ -67,7 +68,7 @@ class Admin(commands.Cog):
         self.bot = bot
         self._last_result = None
 
-    #evalコマンド
+    # evalコマンド
     @commands.command(name='eval', pass_context=True, description="※運営専用コマンド")
     @commands.bot_has_permissions(read_messages=True, send_messages=True, embed_links=True, add_reactions=True,
                                   manage_messages=True, read_message_history=True)
@@ -111,13 +112,15 @@ class Admin(commands.Cog):
         except:
             return print("エラー情報\n" + traceback.format_exc())
 
-    #データベース更新コマンド
+    # データベース更新コマンド
     @commands.command()
     async def db_update(self, ctx):
         if ctx.author.id in admin_list:
             try:
                 with open("all_data_arknights_main.db", "wb") as f:
+                    # データベースをダウンロード
                     metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
+                    # ダウンロードしたデータべースを現存のデータベースに上書き
                     f.write(res.content)
                 await ctx.send(f"{ctx.author.mention}-> データベースの更新が完了しました。")
             except:
@@ -131,14 +134,14 @@ class Admin(commands.Cog):
     async def mainte(self, ctx, what=None):
         if ctx.author.id in admin_list:
             conn_r = r.connect()
-            if what == None:
+            if what is None:
                 p = conn_r.get('maintenance')
                 return await ctx.send(f'現在のメンテナンスモード：`{p}`')
             if what == "reset":
                 p = conn_r.set('maintenance', '0')
                 return await ctx.send('通常モードに移行')
             mente = conn_r.set('maintenance', what)
-            if mente == True:
+            if mente is True:
                 await ctx.send(f'メンテナンスモードを`{what}`に変更しました')
             else:
                 await ctx.send('移行失敗')
@@ -213,7 +216,7 @@ class Admin(commands.Cog):
             return
             #車止め
 
-    #admin表示コマンド
+    # admin表示コマンド
     @commands.command()
     async def admin_list(self, ctx):
         if ctx.author.id in admin_list:
