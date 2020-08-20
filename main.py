@@ -10,7 +10,7 @@ token = os.environ.get("TOKEN")
 prefix = ";"
 loop = asyncio.new_event_loop()
 
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
+dbxtoken = os.environ.get("dbxtoken")
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
 
