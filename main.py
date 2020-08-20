@@ -4,13 +4,10 @@ import dropbox
 import asyncio
 import traceback
 from discord.ext import commands
+import os
 
-with open('setting.json', mode='r', encoding='utf-8') as fh:
-    json_txt = fh.read()
-    json_txt = str(json_txt).replace("'", '"').replace('True', 'true').replace('False', 'false')
-    token = json.loads(json_txt)['token']
-    prefix = json.loads(json_txt)['prefix']
-loop = asyncio.new_event_loop()
+token = os.environ.get("TOKEN")
+prefix = ";"
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
 dbx = dropbox.Dropbox(dbxtoken)
