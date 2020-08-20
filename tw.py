@@ -1,4 +1,5 @@
 import tweepy
+import os
 
 #各種キー・トークン
 CONSUMER_KEY = os.environ.get("CONSUMER_KEY")
