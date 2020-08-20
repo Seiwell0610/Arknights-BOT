@@ -8,6 +8,7 @@ import os
 
 token = os.environ.get("TOKEN")
 prefix = ";"
+loop = asyncio.new_event_loop()
 
 dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
 dbx = dropbox.Dropbox(dbxtoken)
