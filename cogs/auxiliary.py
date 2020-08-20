@@ -4,6 +4,7 @@ import asyncio
 import datetime
 import sqlite3
 import dropbox
+import os
 
 print("auxiliaryの読み込み完了")
 
