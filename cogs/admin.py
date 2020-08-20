@@ -16,7 +16,7 @@ print("adminの読み込み完了")
 
 GLOBAL_WEBHOOK_NAME = "Arknights-webhook"
 
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAUSQMe2MDJyrmNyMWglSKGrfZKrrzGx_ruooafYposH3L"
+dbxtoken = os.environ.get("dbxtoken")
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
 
