@@ -4,6 +4,7 @@ import asyncio
 import traceback
 import tw
 import tweepy
+import os
 
 print("Twitterの読み込み完了")
 
