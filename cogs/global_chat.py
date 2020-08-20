@@ -5,6 +5,7 @@ import datetime
 import dropbox
 from cogs import admin
 import r
+import os
 
 print("global_chatの読み込み完了")
 
