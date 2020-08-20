@@ -11,6 +11,7 @@ import textwrap
 import contextlib
 import dropbox
 import libneko
+import os
 
 print("adminの読み込み完了")
 
