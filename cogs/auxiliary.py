@@ -7,7 +7,7 @@ import dropbox
 
 print("auxiliaryの読み込み完了")
 
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
+dbxtoken = os.environ.get("dbxtoken")
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
 
