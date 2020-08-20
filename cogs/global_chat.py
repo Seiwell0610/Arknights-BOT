@@ -10,7 +10,7 @@ print("global_chatの読み込み完了")
 
 admin_list = admin.admin_list
 
-dbxtoken = "_Qobiq7UxdAAAAAAAAAAVwmGwxNRDjQuXNSmgwP6N8dqq9umopY2xvaDsc1saAJJ"
+dbxtoken = os.environ.get("dbxtoken")
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
 
