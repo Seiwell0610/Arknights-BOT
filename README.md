@@ -3,6 +3,10 @@
 ***
 - 導入は[こちら](https://discord.com/api/oauth2/authorize?client_id=688553944661754054&permissions=540076096&scope=bot)  
 - サポートサーバーは[こちら](https://discord.gg/8CdHWEC)
+# 動作環境
+- python 3.8.5
+- discord 1.4.1
+- Heroku
 # このBOTで使用しているライブラリ  
 - discord
 - discord.ext
