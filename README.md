@@ -20,9 +20,9 @@
 - async_timeout
 - functools
 - youtube_dl
-- pytube[^1]
+- pytube  
+※インストールする際、pytubeとpytube3があります。ここで使用しているのは**pytube3**になるので注意してください。  
 - dropbox
 - libuneko
 - tweepy
-- tw　　
-[^1]: インストールする際、pytubeとpytube3があります。ここで使用しているのは**pytube3**になるので注意してください。
+- tw
