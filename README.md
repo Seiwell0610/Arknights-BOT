@@ -3,7 +3,6 @@
 ***
 - 導入は[こちら](https://discord.com/api/oauth2/authorize?client_id=688553944661754054&permissions=540076096&scope=bot)  
 - サポートサーバーは[こちら](https://discord.gg/8CdHWEC)
-***
 # このBOTで使用しているライブラリ  
 - discord
 - discord.ext
