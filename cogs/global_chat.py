@@ -143,9 +143,9 @@ class global_chat(commands.Cog):
                 if message.attachments:
                     # 画像処理
                     if channel.id == message.channel.id:
-                        await message.delete()
+                        continue
 
-                    # 送信チャンネルが発言チャンネルと同じならreturn
+                    # 送信チャンネルが発言チャンネルと同じなら次のループに
 
                     if message.content:
                         await webhook.send(content=message.content, username=message.author.name,
@@ -171,10 +171,14 @@ class global_chat(commands.Cog):
                 else:
                     if channel.id == message.channel.id:
                         continue
-        user = await self.bot.fetch_user(self_id)
-        await message.add_reaction('\U00002705')
-        await asyncio.sleep(1)
-        await message.remove_reaction('\U00002705',user)
+
+                    await webhook.send(content=message.content, username=message.author.name,
+                                       avatar_url=message.author.avatar_url_as(format=kakutyo))
+            
+            user = await self.bot.fetch_user(self_id)
+            await message.add_reaction('\U00002705')
+            await asyncio.sleep(1)
+            await message.remove_reaction('\U00002705',user)
 
 def setup(bot):
     bot.add_cog(global_chat(bot))
