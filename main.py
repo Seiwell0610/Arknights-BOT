@@ -6,7 +6,7 @@ from discord.ext import commands
 import os
 
 token = os.environ.get("TOKEN")
-prefix = "d;"
+prefix = ";"
 loop = asyncio.new_event_loop()
 
 dbxtoken = os.environ.get("dbxtoken")
