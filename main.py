@@ -1,4 +1,3 @@
-import json
 import discord
 import dropbox
 import asyncio
@@ -7,7 +6,7 @@ from discord.ext import commands
 import os
 
 token = os.environ.get("TOKEN")
-prefix = ";"
+prefix = "d;"
 loop = asyncio.new_event_loop()
 
 dbxtoken = os.environ.get("dbxtoken")

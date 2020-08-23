@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import sqlite3
+import asyncio
 import datetime
 import dropbox
 from cogs import admin
@@ -8,6 +9,8 @@ import r
 import os
 
 print("global_chatの読み込み完了")
+
+self_id=688553944661754054
 
 admin_list = admin.admin_list
 
@@ -97,81 +100,85 @@ class global_chat(commands.Cog):
             if message.content in ng_content:
                 return await message.delete()
 
+            channels = self.bot.get_all_channels()
+            # ボットの参加する全てのチャンネル取得
+            global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
+            # channelsからGLOBAL_CH_IDと合致する物をglobal_channelsに格納
+            au = message.author.avatar_url
+            if ".gif" in str(au):
+                kakutyo = "gif"
             else:
-                channels = self.bot.get_all_channels()
-                # ボットの参加する全てのチャンネル取得
-                global_channels = [ch for ch in channels if ch.id in GLOBAL_CH_ID]
-                # channelsからGLOBAL_CH_IDと合致する物をglobal_channelsに格納
-                au = message.author.avatar_url
-                if ".gif" in str(au):
-                    kakutyo = "gif"
-                else:
-                    kakutyo = "png"
+                kakutyo = "png"
+            if message.attachments:
+                dcount = 0  # dcountには数字
+                for p in message.attachments:
+                    dcount += 1
+                    if ".gif" in p.filename:
+                        await p.save(f"{dcount}.gif")
+                    elif ".jpg" in p.filename:
+                        await p.save(f"{dcount}.jpg")
+                    elif ".png" in p.filename:
+                        await p.save(f"{dcount}.png")
+                    elif ".mp4" in p.filename:
+                        await p.save(f"{dcount}.mp4")
+                    elif ".mp3" in p.filename:
+                        await p.save(f"{dcount}.mp3")
+
+            for channel in global_channels:
+                # global_channelsから一つずつ取得
+
+                ch_webhooks = await channel.webhooks()
+                # channelのウェブフックを確認
+                webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
+                # ch_webhooksからGLOBAL_WEBHOOK_NAMEの物を取得
+
+                if webhook is None:
+                    await channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
+                    # ウェブフックが無ければ作成後、処理は続ける
+                    ch_webhooks = await channel.webhooks()
+                    # channelのウェブフックを確認
+                    webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
+                    # ch_webhooksからGLOBAL_WEBHOOK_NAMEの物を取得            
+                
                 if message.attachments:
+                    # 画像処理
+                    if channel.id == message.channel.id:
+                        continue
+
+                    # 送信チャンネルが発言チャンネルと同じなら次のループに
+
+                    if message.content:
+                        await webhook.send(content=message.content, username=message.author.name,
+                                            avatar_url=message.author.avatar_url_as(format=kakutyo))
+
                     dcount = 0  # dcountには数字
                     for p in message.attachments:
                         dcount += 1
                         if ".gif" in p.filename:
-                            await p.save(f"{dcount}.gif")
+                            filenames = f"{dcount}.gif"
                         elif ".jpg" in p.filename:
-                            await p.save(f"{dcount}.jpg")
+                            filenames = f"{dcount}.jpg"
                         elif ".png" in p.filename:
-                            await p.save(f"{dcount}.png")
+                            filenames = f"{dcount}.png"
                         elif ".mp4" in p.filename:
-                            await p.save(f"{dcount}.mp4")
+                            filenames = f"{dcount}.mp4"
                         elif ".mp3" in p.filename:
-                            await p.save(f"{dcount}.mp3")
+                            filenames = f"{dcount}.mp3"
 
-                for channel in global_channels:
-                    # global_channelsから一つずつ取得
+                        await webhook.send(file=discord.File(filenames), username=message.author.name,
+                                            avatar_url=message.author.avatar_url_as(format=kakutyo))
 
-                    ch_webhooks = await channel.webhooks()
-                    # channelのウェブフックを確認
-                    webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
-                    # ch_webhooksからGLOBAL_WEBHOOK_NAMEの物を取得
+                else:
+                    if channel.id == message.channel.id:
+                        continue
 
-                    if webhook is None:
-                        await channel.create_webhook(name=GLOBAL_WEBHOOK_NAME)
-                        # ウェブフックが無ければ作成後、処理は続ける
-                        ch_webhooks = await channel.webhooks()
-                        # channelのウェブフックを確認
-                        webhook = discord.utils.get(ch_webhooks, name=GLOBAL_WEBHOOK_NAME)
-                        # ch_webhooksからGLOBAL_WEBHOOK_NAMEの物を取得            
-                    
-                    if message.attachments:
-                        # 画像処理
-                        if channel.id == message.channel.id:
-                            await message.delete()
-
-                        # 送信チャンネルが発言チャンネルと同じならreturn
-
-                        if message.content:
-                            await webhook.send(content=message.content, username=message.author.name,
-                                               avatar_url=message.author.avatar_url_as(format=kakutyo))
-
-                        dcount = 0  # dcountには数字
-                        for p in message.attachments:
-                            dcount += 1
-                            if ".gif" in p.filename:
-                                filenames = f"{dcount}.gif"
-                            elif ".jpg" in p.filename:
-                                filenames = f"{dcount}.jpg"
-                            elif ".png" in p.filename:
-                                filenames = f"{dcount}.png"
-                            elif ".mp4" in p.filename:
-                                filenames = f"{dcount}.mp4"
-                            elif ".mp3" in p.filename:
-                                filenames = f"{dcount}.mp3"
-
-                            await webhook.send(file=discord.File(filenames), username=message.author.name,
-                                               avatar_url=message.author.avatar_url_as(format=kakutyo))
-
-                    else:
-                        if channel.id == message.channel.id:
-                            await message.delete()
-
-                        await webhook.send(content=message.content, username=message.author.name,
-                                           avatar_url=message.author.avatar_url_as(format=kakutyo))
+                    await webhook.send(content=message.content, username=message.author.name,
+                                       avatar_url=message.author.avatar_url_as(format=kakutyo))
+            
+            user = await self.bot.fetch_user(self_id)
+            await message.add_reaction('\U00002705')
+            await asyncio.sleep(1)
+            await message.remove_reaction('\U00002705',user)
 
 def setup(bot):
     bot.add_cog(global_chat(bot))
