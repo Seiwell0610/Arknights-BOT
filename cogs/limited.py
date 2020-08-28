@@ -1,10 +1,7 @@
 import discord
 from discord.ext import commands
-from cogs import admin
 
 print("limitedの読み込み完了")
-
-admin_list = admin.admin_list
 
 class limited(commands.Cog):
     def __init__(self, bot):
