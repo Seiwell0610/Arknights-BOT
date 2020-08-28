@@ -18,8 +18,9 @@ class limited(commands.Cog):
             await self.bot.get_channel(748752955712208966).send(f"{member}さんが参加しました！")
 
             em = discord.Embed(title="参加", color=discord.Color.blue())
-            em.add_field(name="ユーザー名", value=f"{member}")
-            em.add_field(name="ユーザーID", value=f"{member.id}")
+            em.add_field(name="ユーザー名", value=f"{member}", inline=True)
+            em.add_field(name='\u200b', value='\u200b')
+            em.add_field(name="ユーザーID", value=f"{member.id}", inline=True)
             await self.bot.get_channel(748747685032493096).send(embed=em)
 
     @commands.Cog.listener()
@@ -30,8 +31,9 @@ class limited(commands.Cog):
                 return
 
             em = discord.Embed(title="脱退", color=discord.Color.purple())
-            em.add_field(name="ユーザー名", value=f"{member}")
-            em.add_field(name="ユーザーID", value=f"{member.id}")
+            em.add_field(name="ユーザー名", value=f"{member}", inline=True)
+            em.add_field(name='\u200b', value='\u200b')
+            em.add_field(name="ユーザーID", value=f"{member.id}", inline=True)
             await self.bot.get_channel(748747685032493096).send(embed=em)
 
 def setup(bot):
