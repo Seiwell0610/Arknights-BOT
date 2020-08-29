@@ -27,12 +27,13 @@ class MyBot(commands.Bot):
         self.remove_command('help')
 
     async def on_ready(self):
-        for extension in ["admin", "help", "log", "global_chat", "main_program", "disboard", "limited", "auxiliary", "music", "url", "twapi"]:
-            try:
-                self.load_extension(f"cogs.{extension}")
-            except commands.ExtensionAlreadyLoaded:
-                self.reload_extension(f"cogs.{extension}")
-
+        path="./cogs"
+        for cog in os.listdir(path):
+            if cog.endswith(".py"):
+                try:
+                    self.load_extension(f"cogs.{cog[:-3]}")
+                except commands.ExtensionAlreadyLoaded:
+                    self.reload_extension(f"cogs.{cog[:-3]}")
 
         await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
 
