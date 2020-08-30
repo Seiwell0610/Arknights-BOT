@@ -24,50 +24,9 @@ GLOBAL_WEBHOOK_NAME = "Arknights-webhook"  # グローバルチャットのウ�
 conn = sqlite3.connect('all_data_arknights_main.db')
 c = conn.cursor()
 
-class global_chat(commands.Cog):
+class on_global_chat(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.command(name="add_global")
-    @commands.has_permissions(manage_guild=True)
-    async def _add_global(self, ctx):
-        ch_id = int(ctx.channel.id)
-        guild_id = int(ctx.guild.id)
-
-        c.execute("insert into global_chat (guild_id, channel_id) values (?, ?)", (guild_id, ch_id, ))
-        conn.commit()
-        await ctx.send(f"{ctx.author.mention}-> グローバルチャットに登録しました。")
-
-        with open("all_data_arknights_main.db", "rb") as fc:
-            dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
-
-        embed = discord.Embed(title="グローバルチャット[登録]", description=None, color=discord.Color.blue())
-        embed.add_field(name=f"GUILD", value=f"{ctx.guild.name}", inline=False)
-        embed.add_field(name="GUILD ID", value=f"{ctx.guild.id}", inline=False)
-        embed.add_field(name="CHANNEL", value=f"{ctx.channel.name}", inline=False)
-        embed.add_field(name="CHANNEL ID", value=f"{ctx.channel.id}", inline=False)
-        channel = self.bot.get_channel(739387932061859911)
-        await channel.send(embed=embed)
-
-    @commands.command(name="del_global")
-    @commands.has_permissions(manage_guild=True)
-    async def _del_global(self, ctx):
-        ch_id = int(ctx.channel.id)
-        c.execute('DELETE FROM global_chat WHERE channel_id = ?', (ch_id, ))
-        conn.commit()
-
-        await ctx.send(f"{ctx.author.mention}-> グローバルチャットの登録を解除しました。")
-
-        with open("all_data_arknights_main.db", "rb") as fc:
-            dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
-
-        embed = discord.Embed(title="グローバルチャット[解除]", description=None, color=discord.Color.dark_red())
-        embed.add_field(name=f"GUILD", value=f"{ctx.guild.name}", inline=False)
-        embed.add_field(name="GUILD ID", value=f"{ctx.guild.id}", inline=False)
-        embed.add_field(name="CHANNEL", value=f"{ctx.channel.name}", inline=False)
-        embed.add_field(name="CHANNEL ID", value=f"{ctx.channel.id}", inline=False)
-        channel = self.bot.get_channel(739387932061859911)
-        await channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -181,6 +140,4 @@ class global_chat(commands.Cog):
             await message.remove_reaction('\U00002705',user)
 
 def setup(bot):
-    bot.add_cog(global_chat(bot))
-
-
+    bot.add_cog(on_global_chat(bot))
