@@ -17,6 +17,9 @@ class limited(commands.Cog):
 
             await self.bot.get_channel(748752955712208966).send(f"{member}さんが参加しました！")
 
+            ms=len(member.guild.members)
+            await member.guild.edit(name=f'ドクター達の集いの場+{ms}人')
+
             em = discord.Embed(title="参加", color=discord.Color.blue())
             em.add_field(name="ユーザー名", value=f"{member}", inline=True)
             em.add_field(name='\u200b', value='\u200b')
