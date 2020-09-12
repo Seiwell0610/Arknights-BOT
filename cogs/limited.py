@@ -12,6 +12,9 @@ class limited(commands.Cog):
     async def on_member_join(self, member):
         if member.guild.id == 689263691669176426:
 
+            ms=len(member.guild.members)
+            await member.guild.edit(name=f'ドクター達の集いの場+{ms}人')
+
             if member.bot:
                 return
 
@@ -27,10 +30,13 @@ class limited(commands.Cog):
     async def on_member_remove(self, member):
         if member.guild.id == 689263691669176426:
 
+            ms=len(member.guild.members)
+            await member.guild.edit(name=f'ドクター達の集いの場+{ms}人')
+
             if member.bot:
                 return
 
-            em = discord.Embed(title="脱退", color=discord.Color.purple())
+            em = discord.Embed(title="退出", color=discord.Color.purple())
             em.add_field(name="ユーザー名", value=f"{member}", inline=True)
             em.add_field(name='\u200b', value='\u200b')
             em.add_field(name="ユーザーID", value=f"{member.id}", inline=True)
