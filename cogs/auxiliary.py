@@ -29,6 +29,7 @@ class auxiliary(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.has_guild_permissions(manage_messages=True)
     async def url(self, ctx, status):
         guild = ctx.guild.id
         conn = sqlite3.connect("all_data_arknights_main.db")
