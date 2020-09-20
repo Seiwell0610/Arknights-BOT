@@ -31,25 +31,29 @@ class auxiliary(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(manage_messages=True)
     async def url(self, ctx, status):
-        guild = ctx.guild.id
-        conn = sqlite3.connect("all_data_arknights_main.db")
-        c = conn.cursor()
-        if status == "on":
-            c.execute("update settings set url_setting = 1 where guild_id = ?", (guild, ))
-            await ctx.send(f"{ctx.author.mention}-> メッセージ展開機能をONにしました。")
-        elif status == "off":
-            c.execute("update settings set url_setting = 0 where guild_id = ?", (guild, ))
-            await ctx.send(f"{ctx.author.mention}-> メッセージ展開機能をOFFにしました。")
+        try:
+            guild = ctx.guild.id
+            conn = sqlite3.connect("all_data_arknights_main.db")
+            c = conn.cursor()
+            if status == "on":
+                c.execute("update settings set url_setting = 1 where guild_id = ?", (guild, ))
+                await ctx.send(f"{ctx.author.mention}-> メッセージ展開機能をONにしました。")
+            elif status == "off":
+                c.execute("update settings set url_setting = 0 where guild_id = ?", (guild, ))
+                await ctx.send(f"{ctx.author.mention}-> メッセージ展開機能をOFFにしました。")
 
-        else:
-            await ctx.send(f"{ctx.author.mention}-> エラーが発生しました。")
+            else:
+                await ctx.send(f"{ctx.author.mention}-> エラーが発生しました。")
 
-        conn.commit() #変更を保存
-        conn.close() #クローズ
+            conn.commit() #変更を保存
+            conn.close() #クローズ
 
-        #DropBoxにデータベースをアップロード
-        with open("all_data_arknights_main.db", "rb") as fc:
-            dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
+            #DropBoxにデータベースをアップロード
+            with open("all_data_arknights_main.db", "rb") as fc:
+                dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
+        except:
+            await ctx.send(f"{ctx.mention}-> このコマンドは、メッセージ管理の権限がないと実行できません。")
+
 
     
     @commands.command()
