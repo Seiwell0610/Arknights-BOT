@@ -8,7 +8,7 @@ from cogs import admin
 import r
 import os
 
-print("global_chatの読み込み完了")
+print("serring_gcの読み込み完了")
 
 self_id=688553944661754054
 

@@ -6,7 +6,7 @@ import tw
 import tweepy
 import os
 
-print("Twitterの読み込み完了")
+print("twapiの読み込み完了")
 
 api = tw.api
 
