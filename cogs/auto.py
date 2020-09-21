@@ -17,7 +17,7 @@ class auto(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.Cog.listener()
     async def on_guild_join(self, guild):
         set_number = 1
         c.execute("insert into settings (guild_id, url_setting) values (?, ?)", (guild.id, set_number,)) # settingsのデータベースに新規追加
@@ -26,7 +26,7 @@ class auto(commands.Cog):
             dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
         print("データベースに追加")
 
-    @commands.command()
+    @commands.Cog.listener()
     async def on_guild_remove(self, guild):
         c.execute("DELETE FROM settings WHERE guild_id = ?", (guild.id, ))  # サーバー脱退時に、削除
         conn.commit()
