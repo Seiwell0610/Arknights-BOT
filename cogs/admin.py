@@ -114,18 +114,28 @@ class Admin(commands.Cog):
 
     #データベース更新コマンド
     @commands.command()
-    async def db_update(self, ctx):
+    async def db_update(self, ctx, mode=None):
         if ctx.author.id in admin_list:
-            try:
-                with open("all_data_arknights_main.db", "wb") as f:
-                    metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
-                    f.write(res.content)
-                await ctx.send(f"{ctx.author.mention}-> データベースの更新が完了しました。")
-            except:
-                await ctx.send(f"{ctx.author.mention}-> 何らかのエラーが発生しました。")
+            if mode == None:
+                try:
+                    with open("all_data_arknights_main.db", "wb") as f:
+                        metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
+                        f.write(res.content)
+                    await ctx.send(f"{ctx.author.mention}-> 通常のデータベースの更新が完了しました。")
+                except:
+                    await ctx.send(f"{ctx.author.mention}-> 何らかのエラーが発生しました。")
 
-        else:
-            await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
+            if mode == "mainte":
+                try:
+                    with open("all_data_arknights_main.db", "wb") as f:
+                        metadata, res = dbx.files_download(path="/[m]all_data_arknights_main.db")
+                        f.write(res.content)
+                    await ctx.send(f"{ctx.author.mention}-> メンテナンス用データベースの更新が完了しました。")
+                except:
+                    await ctx.send(f"{ctx.author.mention}-> 何らかのエラーが発生しました。")
+
+            else:
+                await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
 
     #メンテナンス切り替えコマンド
     @commands.command(name="mainte")
