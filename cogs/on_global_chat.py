@@ -10,8 +10,6 @@ import os
 
 print("global_chatの読み込み完了")
 
-self_id=688553944661754054
-
 admin_list = admin.admin_list
 
 dbxtoken = os.environ.get("dbxtoken")
@@ -134,7 +132,7 @@ class on_global_chat(commands.Cog):
                     await webhook.send(content=message.content, username=message.author.name,
                                        avatar_url=message.author.avatar_url_as(format=kakutyo))
             
-            user = await self.bot.fetch_user(self_id)
+            user = await self.bot.fetch_user(self.bot.user.id)
             await message.add_reaction('\U00002705')
             await asyncio.sleep(1)
             await message.remove_reaction('\U00002705',user)
