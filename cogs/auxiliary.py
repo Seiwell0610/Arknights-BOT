@@ -35,20 +35,20 @@ class auxiliary(commands.Cog):
             guild = ctx.guild.id
             conn = sqlite3.connect("all_data_arknights_main.db")
             c = conn.cursor()
-            if status == "on":
+            if status in "on":
                 c.execute("update settings set url_setting = 1 where guild_id = ?", (guild, ))
                 await ctx.send(f"{ctx.author.mention}-> メッセージ展開機能をONにしました。")
-            elif status == "off":
+            elif status in "off":
                 c.execute("update settings set url_setting = 0 where guild_id = ?", (guild, ))
                 await ctx.send(f"{ctx.author.mention}-> メッセージ展開機能をOFFにしました。")
 
             else:
                 await ctx.send(f"{ctx.author.mention}-> エラーが発生しました。")
 
-            conn.commit() #変更を保存
-            conn.close() #クローズ
+            conn.commit()# 変更を保存
+            conn.close()# クローズ
 
-            #DropBoxにデータベースをアップロード
+            # DropBoxにデータベースをアップロード
             with open("all_data_arknights_main.db", "rb") as fc:
                 dbx.files_upload(fc.read(), "/all_data_arknights_main.db", mode=dropbox.files.WriteMode.overwrite)
         except:

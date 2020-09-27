@@ -122,8 +122,10 @@ class Admin(commands.Cog):
                         metadata, res = dbx.files_download(path="/all_data_arknights_main.db")
                         f.write(res.content)
                     await ctx.send(f"{ctx.author.mention}-> 通常のデータベースの更新が完了しました。")
+                    return
                 except:
                     await ctx.send(f"{ctx.author.mention}-> 何らかのエラーが発生しました。")
+                    return
 
             if mode == "mainte":
                 try:
@@ -131,11 +133,14 @@ class Admin(commands.Cog):
                         metadata, res = dbx.files_download(path="/[m]all_data_arknights_main.db")
                         f.write(res.content)
                     await ctx.send(f"{ctx.author.mention}-> メンテナンス用データベースの更新が完了しました。")
+                    return
                 except:
                     await ctx.send(f"{ctx.author.mention}-> 何らかのエラーが発生しました。")
+                    return
 
             else:
                 await ctx.send(f"{ctx.author.mention}-> 運営専用コマンドです。指定のユーザー以外は実行できません。")
+                return
 
     #メンテナンス切り替えコマンド
     @commands.command(name="mainte")
