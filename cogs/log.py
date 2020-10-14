@@ -8,6 +8,11 @@ main_guild_id = 689263691669176426
 class log(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        
+    @commands.Cog.listener()
+    async def on_ready(self, ctx):
+        await seif.bot.get_channel(740685708062359594).send("BOTがオンラインになりました。")
+        
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
