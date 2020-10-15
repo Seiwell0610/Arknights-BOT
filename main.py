@@ -36,7 +36,7 @@ class MyBot(commands.Bot):
                     self.reload_extension(f"cogs.{cog[:-3]}")
 
         await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
-        await self.bot.get_channel(740685708062359594).send("BOTがオンラインになりました。")
+        await bot.get_channel(740685708062359594).send("BOTがオンラインになりました。")
 
     async def on_guild_join(self, _):
         await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
