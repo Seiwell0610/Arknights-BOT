@@ -46,6 +46,7 @@ class MyBot(commands.Bot):
     async def on_command_error(self, ctx, error1):
         if isinstance(error1, (commands.CommandNotFound, commands.CommandInvokeError)):
             return
+    await seif.bot.get_channel(740685708062359594).send("BOTがオンラインになりました。")
 
 if __name__ == '__main__':
     try:
