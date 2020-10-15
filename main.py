@@ -36,6 +36,7 @@ class MyBot(commands.Bot):
                     self.reload_extension(f"cogs.{cog[:-3]}")
 
         await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
+        await seif.bot.get_channel(740685708062359594).send("BOTがオンラインになりました。")
 
     async def on_guild_join(self, _):
         await self.change_presence(activity=discord.Game(name=f"{prefix}help | {len(self.guilds)}guilds"))
@@ -46,8 +47,7 @@ class MyBot(commands.Bot):
     async def on_command_error(self, ctx, error1):
         if isinstance(error1, (commands.CommandNotFound, commands.CommandInvokeError)):
             return
-    await seif.bot.get_channel(740685708062359594).send("BOTがオンラインになりました。")
-
+    
 if __name__ == '__main__':
     try:
         print("Logged in as")
