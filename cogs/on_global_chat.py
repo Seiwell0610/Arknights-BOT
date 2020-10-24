@@ -18,7 +18,6 @@ dbxtoken = os.environ.get("dbxtoken")
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
 
-ng_content = ["@everyone", "@here"]
 GLOBAL_WEBHOOK_NAME = "Arknights-webhook"  # グローバルチャットのウェブフック名
 
 conn = sqlite3.connect('all_data_arknights_main.db')
@@ -56,7 +55,10 @@ class on_global_chat(commands.Cog):
                 if pp not in q:
                     return await message.channel.send("現在、メンテナンス中です")
 
-            if message.content in ng_content:
+            if "@here" in message.content:
+                return await message.delete()
+
+            if "@everyone" in message.content:
                 return await message.delete()
 
             channels = self.bot.get_all_channels()
