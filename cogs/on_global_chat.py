@@ -14,6 +14,8 @@ self_id=688553944661754054
 
 admin_list = admin.admin_list
 
+ng_word = ["@everyone","@here"]
+
 dbxtoken = os.environ.get("dbxtoken")
 dbx = dropbox.Dropbox(dbxtoken)
 dbx.users_get_current_account()
@@ -55,10 +57,7 @@ class on_global_chat(commands.Cog):
                 if pp not in q:
                     return await message.channel.send("現在、メンテナンス中です")
 
-            if "@here" in message.content:
-                return await message.delete()
-
-            if "@everyone" in message.content:
+            if ng_word in message.content:
                 return await message.delete()
 
             channels = self.bot.get_all_channels()
