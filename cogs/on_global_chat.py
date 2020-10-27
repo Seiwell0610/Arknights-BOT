@@ -57,8 +57,7 @@ class on_global_chat(commands.Cog):
                 if pp not in q:
                     return await message.channel.send("現在、メンテナンス中です")
 
-            if ng_word in message.content:
-                return await message.delete()
+            msg = message.clean_content
 
             channels = self.bot.get_all_channels()
             # ボットの参加する全てのチャンネル取得
@@ -108,7 +107,7 @@ class on_global_chat(commands.Cog):
                     # 送信チャンネルが発言チャンネルと同じなら次のループに
 
                     if message.content:
-                        await webhook.send(content=message.content, username=message.author.name,
+                        await webhook.send(content=msg, username=message.author.name,
                                             avatar_url=message.author.avatar_url_as(format=kakutyo))
 
                     dcount = 0  # dcountには数字
@@ -132,7 +131,7 @@ class on_global_chat(commands.Cog):
                     if channel.id == message.channel.id:
                         continue
 
-                    await webhook.send(content=message.content, username=message.author.name,
+                    await webhook.send(content=msg, username=message.author.name,
                                        avatar_url=message.author.avatar_url_as(format=kakutyo))
             
             user = await self.bot.fetch_user(self_id)
